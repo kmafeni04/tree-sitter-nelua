@@ -36,6 +36,14 @@
           "named": true
         },
         {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "enum",
+          "named": true
+        },
+        {
           "type": "false",
           "named": true
         },
@@ -69,6 +77,10 @@
         },
         {
           "type": "true",
+          "named": true
+        },
+        {
+          "type": "union",
           "named": true
         }
       ]
@@ -396,6 +408,25 @@
     }
   },
   {
+    "type": "dot_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "else",
     "named": true,
     "fields": {},
@@ -523,6 +554,14 @@
           "named": true
         },
         {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "enum",
+          "named": true
+        },
+        {
           "type": "fallthrough_statement",
           "named": true
         },
@@ -607,11 +646,97 @@
           "named": true
         },
         {
+          "type": "union",
+          "named": true
+        },
+        {
           "type": "variable_list",
           "named": true
         },
         {
           "type": "while_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enum",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "enum_field",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enum_field",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comparison_expression",
+          "named": true
+        },
+        {
+          "type": "do_expression",
+          "named": true
+        },
+        {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "enum",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "record",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "table_constructor",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "union",
           "named": true
         }
       ]
@@ -634,6 +759,14 @@
           "named": true
         },
         {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "enum",
+          "named": true
+        },
+        {
           "type": "false",
           "named": true
         },
@@ -667,6 +800,10 @@
         },
         {
           "type": "true",
+          "named": true
+        },
+        {
+          "type": "union",
           "named": true
         }
       ]
@@ -689,6 +826,14 @@
           "named": true
         },
         {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "enum",
+          "named": true
+        },
+        {
           "type": "false",
           "named": true
         },
@@ -722,6 +867,10 @@
         },
         {
           "type": "true",
+          "named": true
+        },
+        {
+          "type": "union",
           "named": true
         }
       ]
@@ -1133,11 +1282,19 @@
           "named": true
         },
         {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
           "type": "else",
           "named": true
         },
         {
           "type": "elseif",
+          "named": true
+        },
+        {
+          "type": "enum",
           "named": true
         },
         {
@@ -1222,6 +1379,10 @@
         },
         {
           "type": "true",
+          "named": true
+        },
+        {
+          "type": "union",
           "named": true
         },
         {
@@ -1416,6 +1577,14 @@
           "named": true
         },
         {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "enum",
+          "named": true
+        },
+        {
           "type": "fallthrough_statement",
           "named": true
         },
@@ -1497,6 +1666,10 @@
         },
         {
           "type": "true",
+          "named": true
+        },
+        {
+          "type": "union",
           "named": true
         },
         {
@@ -1938,11 +2111,45 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "union",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "union_field",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "union_field",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type",
           "named": true
         }
       ]
@@ -2005,6 +2212,14 @@
         },
         {
           "type": "do_expression",
+          "named": true
+        },
+        {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "enum",
           "named": true
         },
         {
@@ -2092,6 +2307,10 @@
           "named": true
         },
         {
+          "type": "union",
+          "named": true
+        },
+        {
           "type": "variable_list",
           "named": true
         },
@@ -2101,6 +2320,14 @@
         }
       ]
     }
+  },
+  {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "'",
+    "named": false
   },
   {
     "type": "(",
@@ -2120,6 +2347,10 @@
   },
   {
     "type": "--[[",
+    "named": false
+  },
+  {
+    "type": ".",
     "named": false
   },
   {
@@ -2151,7 +2382,15 @@
     "named": false
   },
   {
+    "type": "@enum",
+    "named": false
+  },
+  {
     "type": "@record",
+    "named": false
+  },
+  {
+    "type": "@union",
     "named": false
   },
   {

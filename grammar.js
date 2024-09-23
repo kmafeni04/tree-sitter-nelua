@@ -12,9 +12,12 @@ module.exports = grammar({
 
   conflicts: ($) => [
     [$._statement, $._expression],
-    [$.variable_list, $._expression],
+    // [$.variable_list, $._expression],
     [$.expression_list, $.expression_list],
     [$.comparison_expression, $.comparison_expression],
+    [$.type, $.dot_expression],
+    [$._expression, $.dot_expression],
+    [$.variable_list, $._expression, $.dot_expression],
   ],
 
   rules: {
@@ -142,7 +145,7 @@ module.exports = grammar({
 
     type: ($) =>
       seq(
-        optional(seq("[", optional($.number), "]")),
+        repeat(seq("[", optional($.number), "]")),
         alias($.identifier, "type"),
       ),
 
@@ -160,11 +163,21 @@ module.exports = grammar({
     function_call: ($) =>
       prec.left(
         PREC.func,
-        seq(
-          choice($.identifier, $.function_call),
-          choice(
-            seq("(", optional($.arguments), ")"),
-            alias($.string, $.argument),
+        choice(
+          seq(
+            choice($.identifier, $.function_call),
+            choice(
+              seq("(", optional($.arguments), ")"),
+              alias($.string, $.argument),
+            ),
+          ),
+          seq(
+            $.identifier,
+            repeat(seq(choice(".", ":"), $.identifier)),
+            choice(
+              seq("(", optional($.arguments), ")"),
+              alias($.string, $.argument),
+            ),
           ),
         ),
       ),
@@ -184,6 +197,9 @@ module.exports = grammar({
         $.record,
         $.table_constructor,
         $.comparison_expression,
+        $.enum,
+        $.dot_expression,
+        $.union,
         $.do_expression,
         seq("(", $._expression, ")"),
       ),
@@ -204,8 +220,25 @@ module.exports = grammar({
 
     record: ($) => seq("@record", "{", optional($._record_field_list), "}"),
     _record_field_list: ($) =>
-      seq($.record_field, repeat(seq(",", $.record_field))),
+      seq($.record_field, repeat(seq(",", $.record_field)), optional(",")),
     record_field: ($) => seq($.identifier, ":", $.type),
+
+    enum: ($) =>
+      seq(
+        "@enum",
+        "{",
+        $.enum_field,
+        repeat(seq(",", $.enum_field)),
+        optional(","),
+        "}",
+      ),
+    enum_field: ($) =>
+      prec.left(seq($.identifier, optional(seq("=", $._expression)))),
+
+    union: ($) => seq("@union", "{", $._union_field_list, "}"),
+    _union_field_list: ($) =>
+      seq($.union_field, repeat(seq(",", $.union_field)), optional(",")),
+    union_field: ($) => seq($.identifier, ":", $.type),
 
     table_constructor: ($) =>
       seq(
@@ -222,6 +255,12 @@ module.exports = grammar({
         "}",
       ),
 
+    dot_expression: ($) =>
+      seq(
+        $.identifier,
+        repeat(seq(choice(".", ":"), choice($.identifier, $.function_call))),
+      ),
+
     _identifier_list: ($) => seq($.identifier, repeat(seq(",", $.identifier))),
     _typed_identifier: ($) => seq($.identifier, ":", $.type),
     identifier: (_) => /[a-zA-Z_][a-zA-Z0-9_]*/,
@@ -229,7 +268,12 @@ module.exports = grammar({
     false: (_) => "false",
     true: (_) => "true",
     nil: (_) => "nile",
-    string: (_) => choice(/\".*\"/, /\'.*\'/, seq("[[", repeat(/./), "]]")),
+    string: (_) =>
+      choice(
+        seq('"', repeat(/./), '"'),
+        seq("'", repeat(/./), "'"),
+        seq("[[", repeat(/./), "]]"),
+      ),
     number: (_) =>
       /(?:\d+(\.\d+)?([eE][-+]?\d+)?(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:0b[01]+(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:0x[\da-fA-F]+(?:\.[\da-fA-F]+)?(?:[pP][-+]?\d+)?(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:'[A-Za-z0-9](_[uU][0-9]+)?)/,
 
