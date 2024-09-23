@@ -12,6 +12,7 @@ module.exports = grammar({
 
   conflicts: ($) => [
     [$._statement, $._expression],
+    [$.identifier, $._expression],
     [$.expression_list, $.unary_expression],
     [$.expression_list, $.math_expression],
     [$.math_expression, $.math_expression],
@@ -21,14 +22,19 @@ module.exports = grammar({
     [$.expression_list, $.expression_list],
     [$.comparison_expression, $.comparison_expression],
     [$.type, $.dot_expression],
+    [$.table_constructor, $.table_constructor],
     [$._expression, $.dot_expression],
     [$.variable_list, $._expression, $.dot_expression],
+    [$.identifier, $.identifier],
+    [$._expression, $.assignment_statement],
+    [$._unary_operator, $._comparison_operator],
+    [$.for_num, $.expression_list],
   ],
 
   rules: {
     source_file: ($) => seq(optional($.hash_bang_line), repeat($._statement)),
 
-    hash_bang_line: (_) => /#.*/,
+    hash_bang_line: (_) => /#[^#].*/,
 
     _statement: ($) =>
       choice(
@@ -49,9 +55,18 @@ module.exports = grammar({
         $.repeat_statement,
         $.fallthrough_statement,
         $.break_statement,
+        $.lua_statement,
         $.global_declaration,
         $.local_declaration,
         $.injection_statement,
+      ),
+
+    lua_statement: ($) =>
+      choice(
+        /##.*/,
+        seq("##[[", alias(repeat(/./), $.lua_content), "]]"),
+        seq("##[=[", alias(repeat(/./), $.lua_content), "]=]"),
+        seq("##[==[", alias(repeat(/./), $.lua_content), "]==]"),
       ),
 
     local_declaration: ($) =>
@@ -110,7 +125,7 @@ module.exports = grammar({
       seq("while", $._expression, "do", repeat($._statement), "end"),
 
     repeat_statement: ($) =>
-      seq("repeat", optional($._statement), "until", $._expression),
+      seq("repeat", repeat($._statement), "until", $._expression),
 
     for_statement: ($) =>
       seq(
@@ -124,20 +139,19 @@ module.exports = grammar({
       seq(
         $.identifier,
         "=",
-        $.number,
-        optional(
-          seq(
-            ",",
-            optional($.comparison_operator),
-            $.number,
-            optional(seq(",", $.number)),
-          ),
-        ),
+        $._expression,
+        repeat1(seq(",", optional($._comparison_operator), $._expression)),
       ),
     for_in: ($) =>
       seq($.identifier, optional(seq(",", $.identifier)), "in", $._expression),
 
-    assignment_statement: ($) => seq($.variable_list, "=", $.expression_list),
+    assignment_statement: ($) =>
+      seq(
+        $.variable_list,
+        "=",
+        optional(seq("(", $.at_type, ")")),
+        choice($.expression_list, $.at_type),
+      ),
 
     variable_list: ($) =>
       prec.right(
@@ -149,18 +163,48 @@ module.exports = grammar({
       ),
 
     type: ($) =>
-      seq(
-        repeat(seq("[", optional($.number), "]")),
-        alias($.identifier, "type"),
+      choice(
+        seq(
+          optional("*"),
+          repeat(seq("[", optional($._expression), "]")),
+          alias($.identifier, "type"),
+        ),
+        seq(
+          "function",
+          seq("(", optional(alias($._identifier_list, $.parameters)), ")"),
+          optional(seq(":", alias($.type, $.return_type))),
+        ),
+        seq("span", "(", $.identifier, ")"),
+        seq("type", "=", choice($.at_type, $.identifier)),
       ),
+    at_type: ($) => seq("@", $.type),
 
-    annotation: ($) => seq("<", $.identifier, ">"),
+    annotation: ($) =>
+      seq(
+        "<",
+        repeat1(
+          seq(
+            choice($.identifier, $.function_call),
+            optional(seq(",", choice($.identifier, $.function_call))),
+          ),
+        ),
+        ">",
+      ),
 
     function_declaration: ($) =>
       seq(
         "function",
-        $.identifier,
-        seq("(", optional(alias($._identifier_list, $.parameters)), ")"),
+        optional(
+          seq($.identifier, repeat(seq(choice(":", "."), $.identifier))),
+        ),
+        seq(
+          "(",
+          optional(alias($._identifier_list, $.parameters)),
+          optional($.annotation),
+          ")",
+        ),
+        optional(seq(":", alias($.type, $.return_type))),
+        optional($.annotation),
         repeat($._statement),
         "end",
       ),
@@ -170,7 +214,7 @@ module.exports = grammar({
         PREC.func,
         choice(
           seq(
-            choice($.identifier, $.function_call),
+            choice($.identifier, $.builtin_function, $.function_call),
             choice(
               seq("(", optional($.arguments), ")"),
               alias($.string, $.argument),
@@ -187,32 +231,69 @@ module.exports = grammar({
         ),
       ),
     arguments: ($) => alias($.expression_list, "arguments"),
+    builtin_function: (_) =>
+      choice(
+        "require",
+        "print",
+        "panic",
+        "error",
+        "assert",
+        "check",
+        "likely",
+        "unlikely",
+        "ipairs",
+        "mipairs",
+        "next",
+        "mnext",
+        "pairs",
+        "mpairs",
+        "select",
+        "tostring",
+        "tostringview",
+        "tonumber",
+        "tointeger",
+        "type",
+        "new",
+        "delete",
+        "collectgarbage",
+      ),
 
     expression_list: ($) =>
       prec.left(seq($._expression, repeat(seq(",", $._expression)))),
     _expression: ($) =>
-      choice(
-        $.false,
-        $.true,
-        $.nil,
-        $.string,
-        $.number,
-        $.identifier,
-        $.function_call,
-        $.record,
-        $.table_constructor,
-        $.comparison_expression,
-        $.enum,
-        $.dot_expression,
-        $.union,
-        $.unary_expression,
-        $.math_expression,
-        $.do_expression,
-        $.concatenation_expression,
-        seq("(", $._expression, ")"),
+      prec.right(
+        choice(
+          $.false,
+          $.true,
+          $.nil,
+          $.string,
+          $.number,
+          $.identifier,
+          $.function_call,
+          $.function_declaration,
+          $.record,
+          $.table_constructor,
+          $.comparison_expression,
+          $.enum,
+          $.dot_expression,
+          $.union,
+          $.unary_expression,
+          $.math_expression,
+          $.do_expression,
+          $.concatenation_expression,
+          $.lua_expression,
+          $.at_type,
+          seq("(", $._expression, ")"),
+        ),
       ),
 
     do_expression: ($) => seq("(", "do", repeat($._statement), "end", ")"),
+
+    lua_expression: ($) =>
+      choice(
+        seq("#[", alias(repeat(/./), $.lua_content), "]#"),
+        seq("#|", alias(repeat(/./), $.lua_content), "|#"),
+      ),
 
     concatenation_expression: ($) =>
       prec.left(
@@ -231,13 +312,13 @@ module.exports = grammar({
       prec.left(
         seq(
           $.expression_list,
-          $.comparison_operator,
+          $._comparison_operator,
           $.expression_list,
-          repeat(seq($.comparison_operator, $.expression_list)),
+          repeat(seq($._comparison_operator, $.expression_list)),
         ),
       ),
-    comparison_operator: (_) =>
-      choice("~=", "<=", ">=", "<", ">", "|", "&", "~", "and", "or"),
+    _comparison_operator: (_) =>
+      choice("~=", "==", "<=", ">=", "<", ">", "|", "&", "~", "and", "or"),
 
     math_expression: ($) =>
       prec.left(
@@ -251,14 +332,20 @@ module.exports = grammar({
     _math_operator: ($) =>
       choice("+", "-", "*", "/", "//", "///", "^", ">>", ">>>"),
 
-    record: ($) => seq("@record", "{", optional($._record_field_list), "}"),
+    record: ($) => seq("@", "record", "{", optional($._record_field_list), "}"),
     _record_field_list: ($) =>
       seq($.record_field, repeat(seq(",", $.record_field)), optional(",")),
-    record_field: ($) => seq($.identifier, ":", $.type),
+    record_field: ($) =>
+      seq(
+        $.identifier,
+        ":",
+        choice($.type, seq("record", "{", optional($._record_field_list), "}")),
+      ),
 
     enum: ($) =>
       seq(
-        "@enum",
+        "@",
+        "enum",
         "{",
         $.enum_field,
         repeat(seq(",", $.enum_field)),
@@ -268,13 +355,14 @@ module.exports = grammar({
     enum_field: ($) =>
       prec.left(seq($.identifier, optional(seq("=", $._expression)))),
 
-    union: ($) => seq("@union", "{", $._union_field_list, "}"),
+    union: ($) => seq("@", "union", "{", $._union_field_list, "}"),
     _union_field_list: ($) =>
       seq($.union_field, repeat(seq(",", $.union_field)), optional(",")),
     union_field: ($) => seq($.identifier, ":", $.type),
 
     table_constructor: ($) =>
       seq(
+        optional(seq("(", $.at_type, ")")),
         "{",
         optional(
           choice(
@@ -299,9 +387,27 @@ module.exports = grammar({
         ),
       ),
 
-    _identifier_list: ($) => seq($.identifier, repeat(seq(",", $.identifier))),
+    _identifier_list: ($) =>
+      seq(
+        choice($.identifier, $._typed_identifier),
+        repeat(seq(",", choice($.identifier, $._typed_identifier))),
+      ),
     _typed_identifier: ($) => seq($.identifier, ":", $.type),
-    identifier: (_) => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    identifier: ($) =>
+      choice(
+        /[a-zA-Z_][a-zA-Z0-9_]*/,
+        $.lua_expression,
+        seq(
+          /[a-zA-Z_][a-zA-Z0-9_]*/,
+          repeat(
+            choice(
+              seq(".", /[a-zA-Z_][a-zA-Z0-9_]*/),
+              seq("[", $._expression, "]"),
+            ),
+          ),
+        ),
+        alias("...", $.varargs),
+      ),
 
     false: (_) => "false",
     true: (_) => "true",
@@ -313,9 +419,14 @@ module.exports = grammar({
         seq("[[", repeat(/./), "]]"),
       ),
     number: (_) =>
-      /(?:\d+(\.\d+)?([eE][-+]?\d+)?(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:0b[01]+(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:0x[\da-fA-F]+(?:\.[\da-fA-F]+)?(?:[pP][-+]?\d+)?(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:'[A-Za-z0-9](_[uU][0-9]+)?)/,
+      /(?:\d+(\.\d+)?([eE][-+]?\d+)?(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:0b[01]+(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:0x[\da-fA-F]+(?:\.[\da-fA-F]+)?(?:[pP][-+]?\d+)?(_[a-zA-Z][a-zA-Z0-9]*)?)/,
 
     comment: (_) =>
-      choice(seq("--", /[^\r\n]+/), seq("--[[", repeat(/./), "]]")),
+      choice(
+        /\-\-.*/,
+        seq("--[[", repeat(/./), "]]"),
+        seq("--[=[", repeat(/./), "]=]"),
+        seq("--[==[", repeat(/./), "]==]"),
+      ),
   },
 });

@@ -45,7 +45,8 @@
       ],
       "injection-regex": "nelua",
       "highlights": [
-        "queries/highlights.scm"
+        "queries/highlights.scm",
+        "queries/injections.scm"
       ]
     }
   ]

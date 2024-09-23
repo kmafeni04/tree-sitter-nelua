@@ -9,13 +9,21 @@
 ] @operator
 
 [
+  "and"
+  "or"
+  "not"
+] @keyword.control
+
+[
+  ".."
   "-"
   "~"
   "#"
-  "not"
+  "*"
   "&"
   "$"
   "~="
+  "=="
   "<="
   ">="
   "<"
@@ -41,8 +49,12 @@
 ] @punctuation.delimiter
 
 [
+  "("
+  ")"
   "{"
   "}"
+  "["
+  "]"
 ] @punctuation.bracket
 
 [
@@ -57,6 +69,23 @@
 
 (number) @constant
 
+(type) @type
+
+(annotation
+  (identifier) @attribute
+)
+
+["@"] @operator
+
+(record
+  "record" @type)
+
+(enum
+  "enum" @type)
+
+(union
+  "union" @type)
+
 ["local" "global" "return"] @keyword
 
 (function_declaration
@@ -68,3 +97,4 @@
 ["if" "then" "while" "repeat" "until" "for"] @keyword.control
 
 (function_call) @function
+(builtin_function) @function.builtin
