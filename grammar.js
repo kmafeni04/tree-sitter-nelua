@@ -12,7 +12,12 @@ module.exports = grammar({
 
   conflicts: ($) => [
     [$._statement, $._expression],
-    // [$.variable_list, $._expression],
+    [$.expression_list, $.unary_expression],
+    [$.expression_list, $.math_expression],
+    [$.math_expression, $.math_expression],
+    [$.expression_list, $.concatenation_expression],
+    [$.concatenation_expression, $.concatenation_expression],
+    [$.concatenation_expression, $.math_expression],
     [$.expression_list, $.expression_list],
     [$.comparison_expression, $.comparison_expression],
     [$.type, $.dot_expression],
@@ -200,11 +205,27 @@ module.exports = grammar({
         $.enum,
         $.dot_expression,
         $.union,
+        $.unary_expression,
+        $.math_expression,
         $.do_expression,
+        $.concatenation_expression,
         seq("(", $._expression, ")"),
       ),
 
     do_expression: ($) => seq("(", "do", repeat($._statement), "end", ")"),
+
+    concatenation_expression: ($) =>
+      prec.left(
+        seq(
+          $._expression,
+          "..",
+          $._expression,
+          repeat(seq("..", $._expression)),
+        ),
+      ),
+
+    unary_expression: ($) => prec.right(seq($._unary_operator, $._expression)),
+    _unary_operator: (_) => choice("-", "~", "#", "not", "&", "$"),
 
     comparison_expression: ($) =>
       prec.left(
@@ -215,8 +236,20 @@ module.exports = grammar({
           repeat(seq($.comparison_operator, $.expression_list)),
         ),
       ),
+    comparison_operator: (_) =>
+      choice("~=", "<=", ">=", "<", ">", "|", "&", "~", "and", "or"),
 
-    comparison_operator: (_) => choice("~=", "<=", ">=", "<", ">"),
+    math_expression: ($) =>
+      prec.left(
+        seq(
+          $._expression,
+          $._math_operator,
+          $._expression,
+          repeat(seq($._math_operator, $._expression)),
+        ),
+      ),
+    _math_operator: ($) =>
+      choice("+", "-", "*", "/", "//", "///", "^", ">>", ">>>"),
 
     record: ($) => seq("@record", "{", optional($._record_field_list), "}"),
     _record_field_list: ($) =>
@@ -258,7 +291,12 @@ module.exports = grammar({
     dot_expression: ($) =>
       seq(
         $.identifier,
-        repeat(seq(choice(".", ":"), choice($.identifier, $.function_call))),
+        repeat(
+          choice(
+            seq(choice(".", ":"), choice($.identifier, $.function_call)),
+            seq("[", $._expression, "]"),
+          ),
+        ),
       ),
 
     _identifier_list: ($) => seq($.identifier, repeat(seq(",", $.identifier))),
