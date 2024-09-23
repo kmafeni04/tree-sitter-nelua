@@ -1,1 +1,2 @@
-local x = "hello"
+local multiline1 = "my\z
+                    text1"

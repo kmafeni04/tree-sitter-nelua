@@ -1,37 +1,239 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
+const PREC = {
+  func: 5,
+};
+
 module.exports = grammar({
   name: "nelua",
 
   extras: ($) => [$.comment, /\s/],
+
+  conflicts: ($) => [
+    [$._statement, $._expression],
+    [$.variable_list, $._expression],
+    [$.expression_list, $.expression_list],
+    [$.comparison_expression, $.comparison_expression],
+  ],
 
   rules: {
     source_file: ($) => seq(optional($.hash_bang_line), repeat($._statement)),
 
     hash_bang_line: (_) => /#.*/,
 
-    _statement: ($) => choice($.assignment_statement),
-
-    assignment_statement: ($) =>
-      seq(
-        choice("local", "global"),
-        $._identifier_list,
-        "=",
-        $._expression_list,
+    _statement: ($) =>
+      choice(
+        $.assignment_statement,
+        $.variable_list,
+        $.function_declaration,
+        $.function_call,
+        $.do_block,
+        $.if_statement,
+        $.switch_statement,
+        $.defer_statement,
+        $.goto_statement,
+        $.goto_location,
+        $.return_statement,
+        $.for_statement,
+        $.while_statement,
+        $.continue_statement,
+        $.repeat_statement,
+        $.fallthrough_statement,
+        $.break_statement,
+        $.global_declaration,
+        $.local_declaration,
+        $.injection_statement,
       ),
 
-    _expression_list: ($) =>
-      seq($._expression, repeat(seq(",", $._expression))),
-    _expression: ($) => choice($.string, $.number),
+    local_declaration: ($) =>
+      seq("local", choice($._statement, $.expression_list)),
+
+    global_declaration: ($) =>
+      seq("global", choice($._statement, $.expression_list)),
+
+    return_statement: ($) =>
+      seq("return", choice($._statement, $.expression_list)),
+
+    defer_statement: ($) => seq("defer", repeat($._statement), "end"),
+
+    goto_statement: ($) => seq("goto", $.identifier),
+    goto_location: ($) => seq("::", $.identifier, "::"),
+
+    continue_statement: (_) => "continue",
+    fallthrough_statement: (_) => "fallthrough",
+    break_statement: (_) => "break",
+
+    injection_statement: ($) => seq("in", $.identifier),
+
+    do_block: ($) => seq("do", optional(repeat($._statement)), "end"),
+
+    if_statement: ($) =>
+      prec.left(
+        seq(
+          "if",
+          $._expression,
+          "then",
+          optional($._statement),
+          repeat($.elseif),
+          optional($.else),
+          "end",
+        ),
+      ),
+    elseif: ($) => seq("elseif", $._expression, "then", repeat($._statement)),
+    else: ($) => seq("else", repeat($._statement)),
+
+    switch_statement: ($) =>
+      prec.left(
+        seq(
+          "switch",
+          $.expression_list,
+          "do",
+          repeat($.switch_case),
+          optional($.switch_else),
+          "end",
+        ),
+      ),
+    switch_case: ($) =>
+      prec.left(seq("case", $.expression_list, "then", repeat($._statement))),
+    switch_else: ($) => prec.left(seq("else", repeat($._statement))),
+
+    while_statement: ($) =>
+      seq("while", $._expression, "do", repeat($._statement), "end"),
+
+    repeat_statement: ($) =>
+      seq("repeat", optional($._statement), "until", $._expression),
+
+    for_statement: ($) =>
+      seq(
+        "for",
+        choice($.for_num, $.for_in),
+        "do",
+        repeat($._statement),
+        "end",
+      ),
+    for_num: ($) =>
+      seq(
+        $.identifier,
+        "=",
+        $.number,
+        optional(
+          seq(
+            ",",
+            optional($.comparison_operator),
+            $.number,
+            optional(seq(",", $.number)),
+          ),
+        ),
+      ),
+    for_in: ($) =>
+      seq($.identifier, optional(seq(",", $.identifier)), "in", $._expression),
+
+    assignment_statement: ($) => seq($.variable_list, "=", $.expression_list),
+
+    variable_list: ($) =>
+      prec.right(
+        seq(
+          choice($.identifier, $._typed_identifier),
+          repeat(seq(",", choice($.identifier, $._typed_identifier))),
+          optional($.annotation),
+        ),
+      ),
+
+    type: ($) =>
+      seq(
+        optional(seq("[", optional($.number), "]")),
+        alias($.identifier, "type"),
+      ),
+
+    annotation: ($) => seq("<", $.identifier, ">"),
+
+    function_declaration: ($) =>
+      seq(
+        "function",
+        $.identifier,
+        seq("(", optional($._identifier_list), ")"),
+        repeat($._statement),
+        "end",
+      ),
+
+    function_call: ($) =>
+      prec.left(
+        PREC.func,
+        seq(
+          choice($.identifier, $.function_call),
+          choice(
+            seq("(", optional($.arguments), ")"),
+            alias($.string, $.argument),
+          ),
+        ),
+      ),
+    arguments: ($) => alias($.expression_list, "arguments"),
+
+    expression_list: ($) =>
+      prec.left(seq($._expression, repeat(seq(",", $._expression)))),
+    _expression: ($) =>
+      choice(
+        $.false,
+        $.true,
+        $.nil,
+        $.string,
+        $.number,
+        $.identifier,
+        $.function_call,
+        $.record,
+        $.table_constructor,
+        $.comparison_expression,
+        $.do_expression,
+        seq("(", $._expression, ")"),
+      ),
+
+    do_expression: ($) => seq("(", "do", repeat($._statement), "end", ")"),
+
+    comparison_expression: ($) =>
+      prec.left(
+        seq(
+          $.expression_list,
+          $.comparison_operator,
+          $.expression_list,
+          repeat(seq($.comparison_operator, $.expression_list)),
+        ),
+      ),
+
+    comparison_operator: (_) => choice("~=", "<=", ">=", "<", ">"),
+
+    record: ($) => seq("@record", "{", optional($._record_field_list), "}"),
+    _record_field_list: ($) =>
+      seq($.record_field, repeat(seq(",", $.record_field))),
+    record_field: ($) => seq($.identifier, ":", $.type),
+
+    table_constructor: ($) =>
+      seq(
+        "{",
+        optional(
+          choice(
+            $.expression_list,
+            seq(
+              $.assignment_statement,
+              repeat(seq(",", $.assignment_statement)),
+            ),
+          ),
+        ),
+        "}",
+      ),
 
     _identifier_list: ($) => seq($.identifier, repeat(seq(",", $.identifier))),
-    identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    _typed_identifier: ($) => seq($.identifier, ":", $.type),
+    identifier: (_) => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
-    string: (_) => /\".*\"/,
-    number: (_) => /\d+(\.\d+)?/,
+    false: (_) => "false",
+    true: (_) => "true",
+    nil: (_) => "nile",
+    string: (_) => choice(/\".*\"/, /\'.*\'/, seq("[[", repeat(/./), "]]")),
+    number: (_) =>
+      /(?:\d+(\.\d+)?([eE][-+]?\d+)?(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:0b[01]+(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:0x[\da-fA-F]+(?:\.[\da-fA-F]+)?(?:[pP][-+]?\d+)?(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:'[A-Za-z0-9](_[uU][0-9]+)?)/,
 
-    comment: ($) =>
-      choice(seq("--", /[^\r\n]*/), seq("--[[", repeat(/./), "]]")),
+    comment: (_) =>
+      choice(seq("--", /[^\r\n]+/), seq("--[[", repeat(/./), "]]")),
   },
 });
