@@ -39,8 +39,14 @@
   ],
   "tree-sitter": [
     {
-      "scope": "source.YOUR_LANGUAGE_NAME",
-      "injection-regex": "^YOUR_LANGUAGE_NAME$"
+      "scope": "source.nelua",
+      "file-types": [
+        "nelua"
+      ],
+      "injection-regex": "nelua",
+      "highlights": [
+        "queries/highlights.scm"
+      ]
     }
   ]
 }

@@ -246,7 +246,7 @@ static const char * const ts_symbol_names[] = {
   [sym_union_field] = "union_field",
   [sym_table_constructor] = "table_constructor",
   [sym_dot_expression] = "dot_expression",
-  [sym__identifier_list] = "_identifier_list",
+  [sym__identifier_list] = "parameters",
   [sym__typed_identifier] = "_typed_identifier",
   [sym_string] = "string",
   [sym_comment] = "comment",
@@ -792,7 +792,7 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .named = true,
   },
   [sym__identifier_list] = {
-    .visible = false,
+    .visible = true,
     .named = true,
   },
   [sym__typed_identifier] = {

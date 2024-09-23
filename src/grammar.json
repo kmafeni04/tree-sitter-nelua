@@ -831,8 +831,13 @@
               "type": "CHOICE",
               "members": [
                 {
-                  "type": "SYMBOL",
-                  "name": "_identifier_list"
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_identifier_list"
+                  },
+                  "named": true,
+                  "value": "parameters"
                 },
                 {
                   "type": "BLANK"

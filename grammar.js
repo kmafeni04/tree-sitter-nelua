@@ -155,7 +155,7 @@ module.exports = grammar({
       seq(
         "function",
         $.identifier,
-        seq("(", optional($._identifier_list), ")"),
+        seq("(", optional(alias($._identifier_list, $.parameters)), ")"),
         repeat($._statement),
         "end",
       ),

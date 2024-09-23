@@ -1098,6 +1098,10 @@
           "named": true
         },
         {
+          "type": "parameters",
+          "named": true
+        },
+        {
           "type": "repeat_statement",
           "named": true
         },
@@ -1501,6 +1505,21 @@
         },
         {
           "type": "while_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parameters",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]
