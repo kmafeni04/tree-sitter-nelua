@@ -182,6 +182,7 @@ module.exports = grammar({
         seq("facultative", "(", optional("*"), $.identifier, ")"),
         seq("overload", "(", $._identifier_list, ")"),
         seq("sequence", "(", $._identifier_list, ")"),
+        seq("hashmap", "(", $._identifier_list, ")"),
       ),
     at_type: ($) => seq("@", $.type),
 
