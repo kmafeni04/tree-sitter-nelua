@@ -280,15 +280,11 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "variable_list"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "function_declaration"
-            },
-            {
-              "type": "SYMBOL",
               "name": "assignment_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "expression_list"
             }
           ]
         }
@@ -2429,7 +2425,7 @@
     },
     "nil": {
       "type": "STRING",
-      "value": "nile"
+      "value": "nil"
     },
     "string": {
       "type": "CHOICE",

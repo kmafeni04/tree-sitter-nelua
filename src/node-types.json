@@ -2269,11 +2269,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "variable_list",
+          "type": "expression_list",
           "named": true
         }
       ]

@@ -78,10 +78,7 @@ module.exports = grammar({
       ),
 
     return_statement: ($) =>
-      seq(
-        "return",
-        choice($.variable_list, $.function_declaration, $.assignment_statement),
-      ),
+      seq("return", choice($.assignment_statement, $.expression_list)),
 
     defer_statement: ($) => seq("defer", repeat($._statement), "end"),
 
@@ -397,7 +394,8 @@ module.exports = grammar({
 
     false: (_) => "false",
     true: (_) => "true",
-    nil: (_) => "nile",
+    nil: (_) => "nil",
+
     string: ($) =>
       choice(
         seq('"', repeat(choice(/[^\\]/, $.escape_sequence)), '"'),
