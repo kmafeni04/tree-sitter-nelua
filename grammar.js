@@ -174,10 +174,14 @@ module.exports = grammar({
         seq(
           "function",
           seq("(", optional(alias($._identifier_list, $.parameters)), ")"),
-          optional(seq(":", alias($.type, $.return_type))),
+          optional(
+            seq(":", choice($.return_types, alias($.type, $.return_type))),
+          ),
         ),
         seq("span", "(", $.identifier, ")"),
-        seq("type", "=", choice($.at_type, $.identifier)),
+        seq("facultative", "(", optional("*"), $.identifier, ")"),
+        seq("overload", "(", $._identifier_list, ")"),
+        seq("sequence", "(", $._identifier_list, ")"),
       ),
     at_type: ($) => seq("@", $.type),
 
@@ -203,11 +207,14 @@ module.exports = grammar({
           optional($.annotation),
           ")",
         ),
-        optional(seq(":", alias($.type, $.return_type))),
+        optional(
+          seq(":", choice($.return_types, alias($.type, $.return_type))),
+        ),
         optional($.annotation),
         optional($.function_body),
         "end",
       ),
+    return_types: ($) => seq("(", $.type, repeat(seq(",", $.type)), ")"),
 
     function_body: ($) => repeat1($._statement),
 

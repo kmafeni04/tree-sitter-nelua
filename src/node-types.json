@@ -1612,6 +1612,10 @@
         {
           "type": "return_type",
           "named": true
+        },
+        {
+          "type": "return_types",
+          "named": true
         }
       ]
     }
@@ -2352,6 +2356,10 @@
           "named": true
         },
         {
+          "type": "return_types",
+          "named": true
+        },
+        {
           "type": "string",
           "named": true
         },
@@ -2364,11 +2372,30 @@
           "named": true
         },
         {
+          "type": "type",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         },
         {
           "type": "union",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "return_types",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type",
           "named": true
         }
       ]
@@ -2809,6 +2836,10 @@
           "named": true
         },
         {
+          "type": "return_types",
+          "named": true
+        },
+        {
           "type": "string",
           "named": true
         },
@@ -2818,6 +2849,10 @@
         },
         {
           "type": "true",
+          "named": true
+        },
+        {
+          "type": "type",
           "named": true
         },
         {
@@ -3395,6 +3430,10 @@
     "named": true
   },
   {
+    "type": "facultative",
+    "named": false
+  },
+  {
     "type": "fallthrough",
     "named": true
   },
@@ -3479,6 +3518,10 @@
     "named": false
   },
   {
+    "type": "overload",
+    "named": false
+  },
+  {
     "type": "pairs",
     "named": false
   },
@@ -3508,6 +3551,10 @@
   },
   {
     "type": "select",
+    "named": false
+  },
+  {
+    "type": "sequence",
     "named": false
   },
   {
