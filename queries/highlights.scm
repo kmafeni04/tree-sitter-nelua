@@ -6,6 +6,7 @@
 
 (nil) @constant.builtin
 
+
 [
   "="
 ] @operator
@@ -64,6 +65,15 @@
   "defer"
   "in"
   "do"
+  "return" 
+  "break"
+  "in"
+  "defer"
+  "goto"
+  "continue"
+  "fallthrough"
+  "switch"
+  "case"
   "end"
 ] @keyword
 
@@ -101,7 +111,16 @@
 
 ["local" "global" "return"] @keyword
 
-["if" "then" "while" "repeat" "until" "for"] @keyword.control
+[
+  "if"
+  "else"
+  "elseif"
+  "then"
+  "while"
+  "repeat"
+  "until"
+  "for"
+] @keyword.control
 
 (escape_sequence) @constant.character.escape
 
