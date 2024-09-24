@@ -1,1 +1,4 @@
-break
+local x = @record{
+	name: string
+}
+

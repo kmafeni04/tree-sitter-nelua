@@ -59,7 +59,7 @@ module.exports = grammar({
 
     lua_statement: ($) =>
       choice(
-        seq("##", /.*/),
+        seq("##", alias(/.*/, $.lua_content)),
         seq("##[[", alias(repeat(/./), $.lua_content), "]]"),
         seq("##[=[", alias(repeat(/./), $.lua_content), "]=]"),
         seq("##[==[", alias(repeat(/./), $.lua_content), "]==]"),
