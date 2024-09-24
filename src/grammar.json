@@ -1139,6 +1139,19 @@
           ]
         },
         {
+          "type": "SYMBOL",
+          "name": "function_body"
+        },
+        {
+          "type": "STRING",
+          "value": "end"
+        }
+      ]
+    },
+    "function_body": {
+      "type": "SEQ",
+      "members": [
+        {
           "type": "SEQ",
           "members": [
             {
@@ -1224,10 +1237,6 @@
             "type": "SYMBOL",
             "name": "_statement"
           }
-        },
-        {
-          "type": "STRING",
-          "value": "end"
         }
       ]
     },
@@ -2503,8 +2512,16 @@
           },
           "named": true,
           "value": "varargs"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "self"
         }
       ]
+    },
+    "self": {
+      "type": "STRING",
+      "value": "self"
     },
     "false": {
       "type": "STRING",
@@ -2591,8 +2608,22 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "\\-\\-.*"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "--"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": ".*"
+              },
+              "named": true,
+              "value": "comment_body"
+            }
+          ]
         },
         {
           "type": "SEQ",
@@ -2602,11 +2633,16 @@
               "value": "--[["
             },
             {
-              "type": "REPEAT",
+              "type": "ALIAS",
               "content": {
-                "type": "PATTERN",
-                "value": "."
-              }
+                "type": "REPEAT",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "."
+                }
+              },
+              "named": true,
+              "value": "comment_body"
             },
             {
               "type": "STRING",
@@ -2622,11 +2658,16 @@
               "value": "--[=["
             },
             {
-              "type": "REPEAT",
+              "type": "ALIAS",
               "content": {
-                "type": "PATTERN",
-                "value": "."
-              }
+                "type": "REPEAT",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "."
+                }
+              },
+              "named": true,
+              "value": "comment_body"
             },
             {
               "type": "STRING",
@@ -2642,11 +2683,16 @@
               "value": "--[==["
             },
             {
-              "type": "REPEAT",
+              "type": "ALIAS",
               "content": {
-                "type": "PATTERN",
-                "value": "."
-              }
+                "type": "REPEAT",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "."
+                }
+              },
+              "named": true,
+              "value": "comment_body"
             },
             {
               "type": "STRING",

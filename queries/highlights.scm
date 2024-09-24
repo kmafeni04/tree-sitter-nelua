@@ -2,7 +2,7 @@
 
 (comment) @comment
 
-(identifier) @variable
+; (identifier) @variable
 
 [
   "="
@@ -67,9 +67,11 @@
 
 (string) @string
 
+(self) @variable.builtin
+
 (number) @constant
 
-(type) @type
+[(type) (return_type)] @type
 
 (annotation
   (identifier) @attribute
@@ -89,10 +91,9 @@
 ["local" "global" "return"] @keyword
 
 (function_declaration
-  [(identifier) "(" ")"] @function
-  (parameters) @variable.parameter
-  [(identifier) "(" ")"] @function
-)
+  [(identifier) "(" ")"] @function)
+
+(parameters (identifier) @variable.parameter)
 
 ["if" "then" "while" "repeat" "until" "for"] @keyword.control
 

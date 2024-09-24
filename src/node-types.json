@@ -160,6 +160,21 @@
   {
     "type": "comment",
     "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "comment_body",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "comment_body",
+    "named": true,
     "fields": {}
   },
   {
@@ -1389,38 +1404,7 @@
     }
   },
   {
-    "type": "function_call",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "argument",
-          "named": true
-        },
-        {
-          "type": "arguments",
-          "named": true
-        },
-        {
-          "type": "builtin_function",
-          "named": true
-        },
-        {
-          "type": "function_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "function_declaration",
+    "type": "function_body",
     "named": true,
     "fields": {},
     "children": {
@@ -1480,10 +1464,6 @@
           "named": true
         },
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "if_statement",
           "named": true
         },
@@ -1525,6 +1505,56 @@
         },
         {
           "type": "while_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_call",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "argument",
+          "named": true
+        },
+        {
+          "type": "arguments",
+          "named": true
+        },
+        {
+          "type": "builtin_function",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "function_body",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -1725,6 +1755,10 @@
         },
         {
           "type": "record",
+          "named": true
+        },
+        {
+          "type": "self",
           "named": true
         },
         {
@@ -3012,6 +3046,10 @@
           "named": true
         },
         {
+          "type": "self",
+          "named": true
+        },
+        {
           "type": "string",
           "named": true
         },
@@ -3418,6 +3456,10 @@
     "named": false
   },
   {
+    "type": "--",
+    "named": false
+  },
+  {
     "type": "--[==[",
     "named": false
   },
@@ -3700,6 +3742,10 @@
   {
     "type": "select",
     "named": false
+  },
+  {
+    "type": "self",
+    "named": true
   },
   {
     "type": "span",

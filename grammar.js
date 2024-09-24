@@ -197,6 +197,12 @@ module.exports = grammar({
         optional(
           seq($.identifier, repeat(seq(choice(":", "."), $.identifier))),
         ),
+        $.function_body,
+        "end",
+      ),
+
+    function_body: ($) =>
+      seq(
         seq(
           "(",
           optional(alias($._identifier_list, $.parameters)),
@@ -206,7 +212,6 @@ module.exports = grammar({
         optional(seq(":", alias($.type, $.return_type))),
         optional($.annotation),
         repeat($._statement),
-        "end",
       ),
 
     function_call: ($) =>
@@ -407,7 +412,10 @@ module.exports = grammar({
           ),
         ),
         alias("...", $.varargs),
+        $.self,
       ),
+
+    self: (_) => "self",
 
     false: (_) => "false",
     true: (_) => "true",
@@ -421,12 +429,12 @@ module.exports = grammar({
     number: (_) =>
       /(?:\d+(\.\d+)?([eE][-+]?\d+)?(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:0b[01]+(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:0x[\da-fA-F]+(?:\.[\da-fA-F]+)?(?:[pP][-+]?\d+)?(_[a-zA-Z][a-zA-Z0-9]*)?)/,
 
-    comment: (_) =>
+    comment: ($) =>
       choice(
-        /\-\-.*/,
-        seq("--[[", repeat(/./), "]]"),
-        seq("--[=[", repeat(/./), "]=]"),
-        seq("--[==[", repeat(/./), "]==]"),
+        seq("--", alias(/.*/, $.comment_body)),
+        seq("--[[", alias(repeat(/./), $.comment_body), "]]"),
+        seq("--[=[", alias(repeat(/./), $.comment_body), "]=]"),
+        seq("--[==[", alias(repeat(/./), $.comment_body), "]==]"),
       ),
   },
 });
