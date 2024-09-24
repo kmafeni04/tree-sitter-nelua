@@ -135,7 +135,7 @@
                 "value": ".*"
               },
               "named": true,
-              "value": "lua_content"
+              "value": "lua_statement_content"
             }
           ]
         },
@@ -156,7 +156,7 @@
                 }
               },
               "named": true,
-              "value": "lua_content"
+              "value": "lua_statement_content"
             },
             {
               "type": "STRING",
@@ -181,7 +181,7 @@
                 }
               },
               "named": true,
-              "value": "lua_content"
+              "value": "lua_statement_content"
             },
             {
               "type": "STRING",
@@ -206,7 +206,7 @@
                 }
               },
               "named": true,
-              "value": "lua_content"
+              "value": "lua_statement_content"
             },
             {
               "type": "STRING",
@@ -1679,7 +1679,7 @@
                 }
               },
               "named": true,
-              "value": "lua_content"
+              "value": "lua_expression_content"
             },
             {
               "type": "STRING",
@@ -1704,7 +1704,7 @@
                 }
               },
               "named": true,
-              "value": "lua_content"
+              "value": "lua_expression_content"
             },
             {
               "type": "STRING",

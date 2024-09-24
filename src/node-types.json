@@ -1902,11 +1902,6 @@
     }
   },
   {
-    "type": "lua_content",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "lua_expression",
     "named": true,
     "fields": {},
@@ -1915,11 +1910,16 @@
       "required": false,
       "types": [
         {
-          "type": "lua_content",
+          "type": "lua_expression_content",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "lua_expression_content",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "lua_statement",
@@ -1930,11 +1930,16 @@
       "required": false,
       "types": [
         {
-          "type": "lua_content",
+          "type": "lua_statement_content",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "lua_statement_content",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "math_expression",
