@@ -67,8 +67,6 @@
 
 (string) @string
 
-(self) @variable.builtin
-
 (number) @constant
 
 [(type) (return_type)] @type
@@ -84,6 +82,12 @@
 
 ["@"] @operator
 
+((identifier) @variable.builtin
+ (#eq? @variable.builtin "self"))
+
+((identifier) @constant
+ (#match? @constant "^[A-Z][A-Z_0-9]*$"))
+
 (record
   "record" @type)
 
@@ -97,6 +101,7 @@
 
 ["if" "then" "while" "repeat" "until" "for"] @keyword.control
 
+(escape_sequence) @constant.character.escape
 
 (function_declaration
   [(identifier) "(" ")"] @function)
@@ -118,7 +123,7 @@
     (identifier) @variable.other.member)
 
 (dot_method
-    (identifier) @function)
+    (identifier) @function.method)
 
 (builtin_function) @function.builtin
 

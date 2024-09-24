@@ -393,22 +393,33 @@ module.exports = grammar({
         /[a-zA-Z_][a-zA-Z0-9_]*/,
         $.lua_expression,
         alias("...", $.varargs),
-        $.self,
       ),
-
-    self: (_) => "self",
 
     false: (_) => "false",
     true: (_) => "true",
     nil: (_) => "nile",
-    string: (_) =>
+    string: ($) =>
       choice(
-        seq('"', repeat(/./), '"'),
-        seq("'", repeat(/./), "'"),
-        seq("[[", repeat(/./), "]]"),
+        seq('"', repeat(choice(/[^\\]/, $.escape_sequence)), '"'),
+        seq("'", repeat(choice(/[^\\]/, $.escape_sequence)), "'"),
+        seq("[[", repeat(choice(/[^\\]/, $.escape_sequence)), "]]"),
       ),
     number: (_) =>
       /(?:\d+(\.\d+)?([eE][-+]?\d+)?(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:0b[01]+(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:0x[\da-fA-F]+(?:\.[\da-fA-F]+)?(?:[pP][-+]?\d+)?(_[a-zA-Z][a-zA-Z0-9]*)?)/,
+
+    escape_sequence: () =>
+      token.immediate(
+        seq(
+          "\\",
+          choice(
+            /[\nabfnrtv\\'"]/,
+            /z\s*/,
+            /[0-9]{1,3}/,
+            /x[0-9a-fA-F]{2}/,
+            /u\{[0-9a-fA-F]+\}/,
+          ),
+        ),
+      ),
 
     comment: ($) =>
       choice(

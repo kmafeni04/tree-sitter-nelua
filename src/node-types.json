@@ -21,7 +21,17 @@
   {
     "type": "argument",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "arguments",
@@ -1672,10 +1682,6 @@
           "named": true
         },
         {
-          "type": "self",
-          "named": true
-        },
-        {
           "type": "varargs",
           "named": true
         }
@@ -2469,7 +2475,17 @@
   {
     "type": "string",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "switch_case",
@@ -2789,10 +2805,6 @@
         },
         {
           "type": "return_type",
-          "named": true
-        },
-        {
-          "type": "self",
           "named": true
         },
         {
@@ -3378,6 +3390,10 @@
     "named": false
   },
   {
+    "type": "escape_sequence",
+    "named": true
+  },
+  {
     "type": "fallthrough_statement",
     "named": true
   },
@@ -3492,10 +3508,6 @@
   {
     "type": "select",
     "named": false
-  },
-  {
-    "type": "self",
-    "named": true
   },
   {
     "type": "span",

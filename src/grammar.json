@@ -2411,16 +2411,8 @@
           },
           "named": true,
           "value": "varargs"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "self"
         }
       ]
-    },
-    "self": {
-      "type": "STRING",
-      "value": "self"
     },
     "false": {
       "type": "STRING",
@@ -2447,8 +2439,17 @@
             {
               "type": "REPEAT",
               "content": {
-                "type": "PATTERN",
-                "value": "."
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "PATTERN",
+                    "value": "[^\\\\]"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "escape_sequence"
+                  }
+                ]
               }
             },
             {
@@ -2467,8 +2468,17 @@
             {
               "type": "REPEAT",
               "content": {
-                "type": "PATTERN",
-                "value": "."
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "PATTERN",
+                    "value": "[^\\\\]"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "escape_sequence"
+                  }
+                ]
               }
             },
             {
@@ -2487,8 +2497,17 @@
             {
               "type": "REPEAT",
               "content": {
-                "type": "PATTERN",
-                "value": "."
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "PATTERN",
+                    "value": "[^\\\\]"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "escape_sequence"
+                  }
+                ]
               }
             },
             {
@@ -2502,6 +2521,43 @@
     "number": {
       "type": "PATTERN",
       "value": "(?:\\d+(\\.\\d+)?([eE][-+]?\\d+)?(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:0b[01]+(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:0x[\\da-fA-F]+(?:\\.[\\da-fA-F]+)?(?:[pP][-+]?\\d+)?(_[a-zA-Z][a-zA-Z0-9]*)?)"
+    },
+    "escape_sequence": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "\\"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "[\\nabfnrtv\\\\'\"]"
+              },
+              {
+                "type": "PATTERN",
+                "value": "z\\s*"
+              },
+              {
+                "type": "PATTERN",
+                "value": "[0-9]{1,3}"
+              },
+              {
+                "type": "PATTERN",
+                "value": "x[0-9a-fA-F]{2}"
+              },
+              {
+                "type": "PATTERN",
+                "value": "u\\{[0-9a-fA-F]+\\}"
+              }
+            ]
+          }
+        ]
+      }
     },
     "comment": {
       "type": "CHOICE",
