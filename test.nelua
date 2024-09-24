@@ -1,1 +1,2 @@
-x = "123 \z"
+local function(self,x)
+end

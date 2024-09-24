@@ -2,7 +2,9 @@
 
 (comment) @comment
 
-; (identifier) @variable
+[(true) (false)] @constant.builtin.boolean
+
+(nil) @constant.builtin
 
 [
   "="
