@@ -101,10 +101,18 @@
 (function_declaration
   [(identifier) "(" ")"] @function)
 
+(function_declaration
+  (dot_expression 
+    [(dot_field (identifier)) "(" ")"] @function))
+
 (parameters (identifier) @variable.parameter)
 
 (function_call 
-  [(identifier) "(" ")"]@function)
+  [(identifier) "(" ")"] @function)
+
+(function_call
+  (dot_expression
+    [(dot_field (identifier)) "(" ")"] @function))
 
 (dot_field
     (identifier) @variable.other.member)
