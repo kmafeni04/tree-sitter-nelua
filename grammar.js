@@ -59,10 +59,10 @@ module.exports = grammar({
 
     lua_statement: ($) =>
       choice(
-        seq("##", alias(/.*/, $.lua_content)),
-        seq("##[[", alias(repeat(/./), $.lua_content), "]]"),
-        seq("##[=[", alias(repeat(/./), $.lua_content), "]=]"),
-        seq("##[==[", alias(repeat(/./), $.lua_content), "]==]"),
+        seq("##", alias(/.*/, $.lua_statement_content)),
+        seq("##[[", alias(repeat(/./), $.lua_statement_content), "]]"),
+        seq("##[=[", alias(repeat(/./), $.lua_statement_content), "]=]"),
+        seq("##[==[", alias(repeat(/./), $.lua_statement_content), "]==]"),
       ),
 
     local_declaration: ($) =>
@@ -297,8 +297,8 @@ module.exports = grammar({
 
     lua_expression: ($) =>
       choice(
-        seq("#[", alias(repeat(/./), $.lua_content), "]#"),
-        seq("#|", alias(repeat(/./), $.lua_content), "|#"),
+        seq("#[", alias(repeat(/./), $.lua_expression_content), "]#"),
+        seq("#|", alias(repeat(/./), $.lua_expression_content), "|#"),
       ),
 
     concatenation_expression: ($) =>
