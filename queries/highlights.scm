@@ -83,9 +83,6 @@
 
 (annotation
   ["<"">"] @punctuation.brakcet)
-(annotation
-  (function_call
-    (argument) @string))
 
 (annotation
   (identifier) @attribute)
@@ -135,6 +132,9 @@
 
 (function_call 
   [(identifier) "(" ")"] @function)
+
+(function_call
+  (argument) @string)
 
 (function_call
   (dot_expression

@@ -1,4 +1,1 @@
-local x = @record{
-	name: string
-}
 
