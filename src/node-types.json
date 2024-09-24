@@ -1409,12 +1409,8 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
-        {
-          "type": "annotation",
-          "named": true
-        },
         {
           "type": "assignment_statement",
           "named": true
@@ -1480,19 +1476,11 @@
           "named": true
         },
         {
-          "type": "parameters",
-          "named": true
-        },
-        {
           "type": "repeat_statement",
           "named": true
         },
         {
           "type": "return_statement",
-          "named": true
-        },
-        {
-          "type": "return_type",
           "named": true
         },
         {
@@ -1550,11 +1538,23 @@
       "required": true,
       "types": [
         {
+          "type": "annotation",
+          "named": true
+        },
+        {
           "type": "function_body",
           "named": true
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "parameters",
+          "named": true
+        },
+        {
+          "type": "return_type",
           "named": true
         }
       ]

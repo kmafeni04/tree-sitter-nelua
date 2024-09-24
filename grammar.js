@@ -197,12 +197,6 @@ module.exports = grammar({
         optional(
           seq($.identifier, repeat(seq(choice(":", "."), $.identifier))),
         ),
-        $.function_body,
-        "end",
-      ),
-
-    function_body: ($) =>
-      seq(
         seq(
           "(",
           optional(alias($._identifier_list, $.parameters)),
@@ -211,8 +205,11 @@ module.exports = grammar({
         ),
         optional(seq(":", alias($.type, $.return_type))),
         optional($.annotation),
-        repeat($._statement),
+        $.function_body,
+        "end",
       ),
+
+    function_body: ($) => repeat1($._statement),
 
     function_call: ($) =>
       prec.left(

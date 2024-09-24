@@ -74,8 +74,14 @@
 [(type) (return_type)] @type
 
 (annotation
-  (identifier) @attribute
-)
+  ["<"">"] @punctuation.brakcet)
+
+(dot_expression
+  (identifier) @variable
+  )
+
+(annotation
+  (identifier) @attribute)
 
 ["@"] @operator
 
