@@ -11,7 +11,6 @@ module.exports = grammar({
   extras: ($) => [$.comment, /\s/],
 
   conflicts: ($) => [
-    [$._statement, $._expression],
     [$.identifier, $._expression],
     [$.expression_list, $.unary_expression],
     [$.expression_list, $.math_expression],
@@ -21,11 +20,8 @@ module.exports = grammar({
     [$.concatenation_expression, $.math_expression],
     [$.expression_list, $.expression_list],
     [$.comparison_expression, $.comparison_expression],
-    [$.type, $.dot_expression],
     [$.table_constructor, $.table_constructor],
-    [$._expression, $.dot_expression],
-    [$.variable_list, $._expression, $.dot_expression],
-    [$.identifier, $.identifier],
+    [$.type, $.dot_method],
     [$._expression, $.assignment_statement],
     [$._unary_operator, $._comparison_operator],
     [$.for_num, $.expression_list],
@@ -63,20 +59,29 @@ module.exports = grammar({
 
     lua_statement: ($) =>
       choice(
-        /##.*/,
+        seq("##", /.*/),
         seq("##[[", alias(repeat(/./), $.lua_content), "]]"),
         seq("##[=[", alias(repeat(/./), $.lua_content), "]=]"),
         seq("##[==[", alias(repeat(/./), $.lua_content), "]==]"),
       ),
 
     local_declaration: ($) =>
-      seq("local", choice($._statement, $.expression_list)),
+      seq(
+        "local",
+        choice($.variable_list, $.function_declaration, $.assignment_statement),
+      ),
 
     global_declaration: ($) =>
-      seq("global", choice($._statement, $.expression_list)),
+      seq(
+        "global",
+        choice($.variable_list, $.function_declaration, $.assignment_statement),
+      ),
 
     return_statement: ($) =>
-      seq("return", choice($._statement, $.expression_list)),
+      seq(
+        "return",
+        choice($.variable_list, $.function_declaration, $.assignment_statement),
+      ),
 
     defer_statement: ($) => seq("defer", repeat($._statement), "end"),
 
@@ -194,9 +199,7 @@ module.exports = grammar({
     function_declaration: ($) =>
       seq(
         "function",
-        optional(
-          seq($.identifier, repeat(seq(choice(":", "."), $.identifier))),
-        ),
+        optional(choice($.identifier, $.dot_expression)),
         seq(
           "(",
           optional(alias($._identifier_list, $.parameters)),
@@ -205,7 +208,7 @@ module.exports = grammar({
         ),
         optional(seq(":", alias($.type, $.return_type))),
         optional($.annotation),
-        $.function_body,
+        optional($.function_body),
         "end",
       ),
 
@@ -214,21 +217,16 @@ module.exports = grammar({
     function_call: ($) =>
       prec.left(
         PREC.func,
-        choice(
-          seq(
-            choice($.identifier, $.builtin_function, $.function_call),
-            choice(
-              seq("(", optional($.arguments), ")"),
-              alias($.string, $.argument),
-            ),
-          ),
-          seq(
+        seq(
+          choice(
             $.identifier,
-            repeat(seq(choice(".", ":"), $.identifier)),
-            choice(
-              seq("(", optional($.arguments), ")"),
-              alias($.string, $.argument),
-            ),
+            $.builtin_function,
+            $.dot_expression,
+            $.function_call,
+          ),
+          choice(
+            seq("(", optional($.arguments), ")"),
+            alias($.string, $.argument),
           ),
         ),
       ),
@@ -277,7 +275,6 @@ module.exports = grammar({
           $.table_constructor,
           $.comparison_expression,
           $.enum,
-          $.dot_expression,
           $.union,
           $.unary_expression,
           $.math_expression,
@@ -285,11 +282,18 @@ module.exports = grammar({
           $.concatenation_expression,
           $.lua_expression,
           $.at_type,
+          $.dot_expression,
           seq("(", $._expression, ")"),
         ),
       ),
 
     do_expression: ($) => seq("(", "do", repeat($._statement), "end", ")"),
+
+    dot_expression: ($) =>
+      seq($.identifier, repeat1(choice($.dot_field, $.dot_method))),
+    dot_field: ($) =>
+      choice(seq(".", $.identifier), seq("[", $._expression, "]")),
+    dot_method: ($) => seq(":", $.identifier),
 
     lua_expression: ($) =>
       choice(
@@ -364,7 +368,7 @@ module.exports = grammar({
 
     table_constructor: ($) =>
       seq(
-        optional(seq("(", $.at_type, ")")),
+        optional(choice(seq("(", $.at_type, ")"), $.type)),
         "{",
         optional(
           choice(
@@ -378,17 +382,6 @@ module.exports = grammar({
         "}",
       ),
 
-    dot_expression: ($) =>
-      seq(
-        $.identifier,
-        repeat(
-          choice(
-            seq(choice(".", ":"), choice($.identifier, $.function_call)),
-            seq("[", $._expression, "]"),
-          ),
-        ),
-      ),
-
     _identifier_list: ($) =>
       seq(
         choice($.identifier, $._typed_identifier),
@@ -399,15 +392,6 @@ module.exports = grammar({
       choice(
         /[a-zA-Z_][a-zA-Z0-9_]*/,
         $.lua_expression,
-        seq(
-          /[a-zA-Z_][a-zA-Z0-9_]*/,
-          repeat(
-            choice(
-              seq(".", /[a-zA-Z_][a-zA-Z0-9_]*/),
-              seq("[", $._expression, "]"),
-            ),
-          ),
-        ),
         alias("...", $.varargs),
         $.self,
       ),
@@ -428,7 +412,7 @@ module.exports = grammar({
 
     comment: ($) =>
       choice(
-        seq("--", alias(/.*/, $.comment_body)),
+        seq("--", alias(/.*[^\r\\n]/, $.comment_body)),
         seq("--[[", alias(repeat(/./), $.comment_body), "]]"),
         seq("--[=[", alias(repeat(/./), $.comment_body), "]=]"),
         seq("--[==[", alias(repeat(/./), $.comment_body), "]==]"),

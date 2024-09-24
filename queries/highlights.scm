@@ -75,10 +75,9 @@
 
 (annotation
   ["<"">"] @punctuation.brakcet)
-
-(dot_expression
-  (identifier) @variable
-  )
+(annotation
+  (function_call
+    (argument) @string))
 
 (annotation
   (identifier) @attribute)
@@ -96,12 +95,28 @@
 
 ["local" "global" "return"] @keyword
 
+["if" "then" "while" "repeat" "until" "for"] @keyword.control
+
+
 (function_declaration
   [(identifier) "(" ")"] @function)
 
 (parameters (identifier) @variable.parameter)
 
-["if" "then" "while" "repeat" "until" "for"] @keyword.control
+(function_call 
+  [(identifier) "(" ")"]@function)
 
-(function_call) @function
+(dot_field
+    (identifier) @variable.other.member)
+
+(dot_method
+    (identifier) @function)
+
 (builtin_function) @function.builtin
+
+(lua_statement
+  ["##[[" "]]" "##"] @keyword.directive)
+
+(lua_expression
+  ["#[" "]#" "#|" "|#"] @keyword.directive)
+
