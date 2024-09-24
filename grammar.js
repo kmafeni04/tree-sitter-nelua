@@ -47,10 +47,10 @@ module.exports = grammar({
         $.return_statement,
         $.for_statement,
         $.while_statement,
-        $.continue_statement,
+        $.continue,
         $.repeat_statement,
-        $.fallthrough_statement,
-        $.break_statement,
+        $.fallthrough,
+        $.break,
         $.lua_statement,
         $.global_declaration,
         $.local_declaration,
@@ -88,9 +88,9 @@ module.exports = grammar({
     goto_statement: ($) => seq("goto", $.identifier),
     goto_location: ($) => seq("::", $.identifier, "::"),
 
-    continue_statement: (_) => "continue",
-    fallthrough_statement: (_) => "fallthrough",
-    break_statement: (_) => "break",
+    continue: (_) => "continue",
+    fallthrough: (_) => "fallthrough",
+    break: (_) => "break",
 
     injection_statement: ($) => seq("in", $.identifier),
 

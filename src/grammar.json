@@ -86,7 +86,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "continue_statement"
+          "name": "continue"
         },
         {
           "type": "SYMBOL",
@@ -94,11 +94,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "fallthrough_statement"
+          "name": "fallthrough"
         },
         {
           "type": "SYMBOL",
-          "name": "break_statement"
+          "name": "break"
         },
         {
           "type": "SYMBOL",
@@ -339,15 +339,15 @@
         }
       ]
     },
-    "continue_statement": {
+    "continue": {
       "type": "STRING",
       "value": "continue"
     },
-    "fallthrough_statement": {
+    "fallthrough": {
       "type": "STRING",
       "value": "fallthrough"
     },
-    "break_statement": {
+    "break": {
       "type": "STRING",
       "value": "break"
     },

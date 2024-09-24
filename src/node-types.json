@@ -306,11 +306,11 @@
           "named": true
         },
         {
-          "type": "break_statement",
+          "type": "break",
           "named": true
         },
         {
-          "type": "continue_statement",
+          "type": "continue",
           "named": true
         },
         {
@@ -322,7 +322,7 @@
           "named": true
         },
         {
-          "type": "fallthrough_statement",
+          "type": "fallthrough",
           "named": true
         },
         {
@@ -401,11 +401,11 @@
           "named": true
         },
         {
-          "type": "break_statement",
+          "type": "break",
           "named": true
         },
         {
-          "type": "continue_statement",
+          "type": "continue",
           "named": true
         },
         {
@@ -417,7 +417,7 @@
           "named": true
         },
         {
-          "type": "fallthrough_statement",
+          "type": "fallthrough",
           "named": true
         },
         {
@@ -496,11 +496,11 @@
           "named": true
         },
         {
-          "type": "break_statement",
+          "type": "break",
           "named": true
         },
         {
-          "type": "continue_statement",
+          "type": "continue",
           "named": true
         },
         {
@@ -512,7 +512,7 @@
           "named": true
         },
         {
-          "type": "fallthrough_statement",
+          "type": "fallthrough",
           "named": true
         },
         {
@@ -720,11 +720,11 @@
           "named": true
         },
         {
-          "type": "break_statement",
+          "type": "break",
           "named": true
         },
         {
-          "type": "continue_statement",
+          "type": "continue",
           "named": true
         },
         {
@@ -736,7 +736,7 @@
           "named": true
         },
         {
-          "type": "fallthrough_statement",
+          "type": "fallthrough",
           "named": true
         },
         {
@@ -819,7 +819,7 @@
           "named": true
         },
         {
-          "type": "break_statement",
+          "type": "break",
           "named": true
         },
         {
@@ -831,7 +831,7 @@
           "named": true
         },
         {
-          "type": "continue_statement",
+          "type": "continue",
           "named": true
         },
         {
@@ -855,7 +855,7 @@
           "named": true
         },
         {
-          "type": "fallthrough_statement",
+          "type": "fallthrough",
           "named": true
         },
         {
@@ -1361,11 +1361,11 @@
           "named": true
         },
         {
-          "type": "break_statement",
+          "type": "break",
           "named": true
         },
         {
-          "type": "continue_statement",
+          "type": "continue",
           "named": true
         },
         {
@@ -1377,7 +1377,7 @@
           "named": true
         },
         {
-          "type": "fallthrough_statement",
+          "type": "fallthrough",
           "named": true
         },
         {
@@ -1464,11 +1464,11 @@
           "named": true
         },
         {
-          "type": "break_statement",
+          "type": "break",
           "named": true
         },
         {
-          "type": "continue_statement",
+          "type": "continue",
           "named": true
         },
         {
@@ -1480,7 +1480,7 @@
           "named": true
         },
         {
-          "type": "fallthrough_statement",
+          "type": "fallthrough",
           "named": true
         },
         {
@@ -1705,7 +1705,7 @@
           "named": true
         },
         {
-          "type": "break_statement",
+          "type": "break",
           "named": true
         },
         {
@@ -1717,7 +1717,7 @@
           "named": true
         },
         {
-          "type": "continue_statement",
+          "type": "continue",
           "named": true
         },
         {
@@ -1749,7 +1749,7 @@
           "named": true
         },
         {
-          "type": "fallthrough_statement",
+          "type": "fallthrough",
           "named": true
         },
         {
@@ -2101,7 +2101,7 @@
           "named": true
         },
         {
-          "type": "break_statement",
+          "type": "break",
           "named": true
         },
         {
@@ -2113,7 +2113,7 @@
           "named": true
         },
         {
-          "type": "continue_statement",
+          "type": "continue",
           "named": true
         },
         {
@@ -2137,7 +2137,7 @@
           "named": true
         },
         {
-          "type": "fallthrough_statement",
+          "type": "fallthrough",
           "named": true
         },
         {
@@ -2386,11 +2386,11 @@
           "named": true
         },
         {
-          "type": "break_statement",
+          "type": "break",
           "named": true
         },
         {
-          "type": "continue_statement",
+          "type": "continue",
           "named": true
         },
         {
@@ -2402,7 +2402,7 @@
           "named": true
         },
         {
-          "type": "fallthrough_statement",
+          "type": "fallthrough",
           "named": true
         },
         {
@@ -2500,11 +2500,11 @@
           "named": true
         },
         {
-          "type": "break_statement",
+          "type": "break",
           "named": true
         },
         {
-          "type": "continue_statement",
+          "type": "continue",
           "named": true
         },
         {
@@ -2520,7 +2520,7 @@
           "named": true
         },
         {
-          "type": "fallthrough_statement",
+          "type": "fallthrough",
           "named": true
         },
         {
@@ -2599,11 +2599,11 @@
           "named": true
         },
         {
-          "type": "break_statement",
+          "type": "break",
           "named": true
         },
         {
-          "type": "continue_statement",
+          "type": "continue",
           "named": true
         },
         {
@@ -2615,7 +2615,7 @@
           "named": true
         },
         {
-          "type": "fallthrough_statement",
+          "type": "fallthrough",
           "named": true
         },
         {
@@ -2999,7 +2999,7 @@
           "named": true
         },
         {
-          "type": "break_statement",
+          "type": "break",
           "named": true
         },
         {
@@ -3011,7 +3011,7 @@
           "named": true
         },
         {
-          "type": "continue_statement",
+          "type": "continue",
           "named": true
         },
         {
@@ -3035,7 +3035,7 @@
           "named": true
         },
         {
-          "type": "fallthrough_statement",
+          "type": "fallthrough",
           "named": true
         },
         {
@@ -3338,7 +3338,7 @@
     "named": false
   },
   {
-    "type": "break_statement",
+    "type": "break",
     "named": true
   },
   {
@@ -3354,7 +3354,7 @@
     "named": false
   },
   {
-    "type": "continue_statement",
+    "type": "continue",
     "named": true
   },
   {
@@ -3394,7 +3394,7 @@
     "named": true
   },
   {
-    "type": "fallthrough_statement",
+    "type": "fallthrough",
     "named": true
   },
   {

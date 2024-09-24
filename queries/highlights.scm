@@ -66,14 +66,12 @@
   "in"
   "do"
   "return" 
-  "break"
+  (break)
   "in"
   "defer"
   "goto"
-  "continue"
-  "fallthrough"
-  "switch"
-  "case"
+  (continue)
+  (fallthrough)
   "end"
 ] @keyword
 
@@ -120,6 +118,8 @@
   "repeat"
   "until"
   "for"
+  "switch"
+  "case"
 ] @keyword.control
 
 (escape_sequence) @constant.character.escape
