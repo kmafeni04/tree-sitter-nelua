@@ -62,10 +62,6 @@
           "named": true
         },
         {
-          "type": "enum",
-          "named": true
-        },
-        {
           "type": "false",
           "named": true
         },
@@ -98,10 +94,6 @@
           "named": true
         },
         {
-          "type": "record",
-          "named": true
-        },
-        {
           "type": "string",
           "named": true
         },
@@ -115,10 +107,6 @@
         },
         {
           "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "union",
           "named": true
         }
       ]
@@ -231,10 +219,6 @@
           "named": true
         },
         {
-          "type": "enum",
-          "named": true
-        },
-        {
           "type": "false",
           "named": true
         },
@@ -267,10 +251,6 @@
           "named": true
         },
         {
-          "type": "record",
-          "named": true
-        },
-        {
           "type": "string",
           "named": true
         },
@@ -284,10 +264,6 @@
         },
         {
           "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "union",
           "named": true
         }
       ]
@@ -630,10 +606,6 @@
           "named": true
         },
         {
-          "type": "enum",
-          "named": true
-        },
-        {
           "type": "false",
           "named": true
         },
@@ -666,10 +638,6 @@
           "named": true
         },
         {
-          "type": "record",
-          "named": true
-        },
-        {
           "type": "string",
           "named": true
         },
@@ -683,10 +651,6 @@
         },
         {
           "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "union",
           "named": true
         }
       ]
@@ -851,10 +815,6 @@
           "named": true
         },
         {
-          "type": "enum",
-          "named": true
-        },
-        {
           "type": "fallthrough",
           "named": true
         },
@@ -923,10 +883,6 @@
           "named": true
         },
         {
-          "type": "record",
-          "named": true
-        },
-        {
           "type": "repeat_statement",
           "named": true
         },
@@ -952,10 +908,6 @@
         },
         {
           "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "union",
           "named": true
         },
         {
@@ -1013,10 +965,6 @@
           "named": true
         },
         {
-          "type": "enum",
-          "named": true
-        },
-        {
           "type": "false",
           "named": true
         },
@@ -1049,10 +997,6 @@
           "named": true
         },
         {
-          "type": "record",
-          "named": true
-        },
-        {
           "type": "string",
           "named": true
         },
@@ -1066,10 +1010,6 @@
         },
         {
           "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "union",
           "named": true
         }
       ]
@@ -1104,10 +1044,6 @@
           "named": true
         },
         {
-          "type": "enum",
-          "named": true
-        },
-        {
           "type": "false",
           "named": true
         },
@@ -1140,10 +1076,6 @@
           "named": true
         },
         {
-          "type": "record",
-          "named": true
-        },
-        {
           "type": "string",
           "named": true
         },
@@ -1157,10 +1089,6 @@
         },
         {
           "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "union",
           "named": true
         }
       ]
@@ -1195,10 +1123,6 @@
           "named": true
         },
         {
-          "type": "enum",
-          "named": true
-        },
-        {
           "type": "false",
           "named": true
         },
@@ -1231,10 +1155,6 @@
           "named": true
         },
         {
-          "type": "record",
-          "named": true
-        },
-        {
           "type": "string",
           "named": true
         },
@@ -1248,10 +1168,6 @@
         },
         {
           "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "union",
           "named": true
         }
       ]
@@ -1286,10 +1202,6 @@
           "named": true
         },
         {
-          "type": "enum",
-          "named": true
-        },
-        {
           "type": "false",
           "named": true
         },
@@ -1322,10 +1234,6 @@
           "named": true
         },
         {
-          "type": "record",
-          "named": true
-        },
-        {
           "type": "string",
           "named": true
         },
@@ -1339,10 +1247,6 @@
         },
         {
           "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "union",
           "named": true
         }
       ]
@@ -1749,10 +1653,6 @@
           "named": true
         },
         {
-          "type": "enum",
-          "named": true
-        },
-        {
           "type": "fallthrough",
           "named": true
         },
@@ -1821,10 +1721,6 @@
           "named": true
         },
         {
-          "type": "record",
-          "named": true
-        },
-        {
           "type": "repeat_statement",
           "named": true
         },
@@ -1850,10 +1746,6 @@
         },
         {
           "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "union",
           "named": true
         },
         {
@@ -1974,10 +1866,6 @@
           "named": true
         },
         {
-          "type": "enum",
-          "named": true
-        },
-        {
           "type": "false",
           "named": true
         },
@@ -2010,10 +1898,6 @@
           "named": true
         },
         {
-          "type": "record",
-          "named": true
-        },
-        {
           "type": "string",
           "named": true
         },
@@ -2027,10 +1911,6 @@
         },
         {
           "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "union",
           "named": true
         }
       ]
@@ -2080,10 +1960,6 @@
       "types": [
         {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "record_field",
           "named": true
         },
         {
@@ -2139,10 +2015,6 @@
         },
         {
           "type": "dot_expression",
-          "named": true
-        },
-        {
-          "type": "enum",
           "named": true
         },
         {
@@ -2214,10 +2086,6 @@
           "named": true
         },
         {
-          "type": "record",
-          "named": true
-        },
-        {
           "type": "repeat_statement",
           "named": true
         },
@@ -2243,10 +2111,6 @@
         },
         {
           "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "union",
           "named": true
         },
         {
@@ -2899,10 +2763,6 @@
           "named": true
         },
         {
-          "type": "enum",
-          "named": true
-        },
-        {
           "type": "false",
           "named": true
         },
@@ -2935,10 +2795,6 @@
           "named": true
         },
         {
-          "type": "record",
-          "named": true
-        },
-        {
           "type": "string",
           "named": true
         },
@@ -2952,10 +2808,6 @@
         },
         {
           "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "union",
           "named": true
         }
       ]
@@ -3067,10 +2919,6 @@
           "named": true
         },
         {
-          "type": "enum",
-          "named": true
-        },
-        {
           "type": "fallthrough",
           "named": true
         },
@@ -3139,10 +2987,6 @@
           "named": true
         },
         {
-          "type": "record",
-          "named": true
-        },
-        {
           "type": "repeat_statement",
           "named": true
         },
@@ -3168,10 +3012,6 @@
         },
         {
           "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "union",
           "named": true
         },
         {

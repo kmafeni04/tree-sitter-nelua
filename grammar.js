@@ -183,7 +183,33 @@ module.exports = grammar({
         seq("overload", "(", $._identifier_list, ")"),
         seq("sequence", "(", $._identifier_list, ")"),
         seq("hashmap", "(", $._identifier_list, ")"),
+        $.record,
+        $.union,
+        $.enum,
       ),
+
+    record: ($) => seq("record", "{", optional($._record_field_list), "}"),
+    _record_field_list: ($) =>
+      seq($.record_field, repeat(seq(",", $.record_field)), optional(",")),
+    record_field: ($) => seq($.identifier, ":", $.type),
+
+    enum: ($) =>
+      seq(
+        "enum",
+        "{",
+        $.enum_field,
+        repeat(seq(",", $.enum_field)),
+        optional(","),
+        "}",
+      ),
+    enum_field: ($) =>
+      prec.left(seq($.identifier, optional(seq("=", $._expression)))),
+
+    union: ($) => seq("union", "{", $._union_field_list, "}"),
+    _union_field_list: ($) =>
+      seq($.union_field, repeat(seq(",", $.union_field)), optional(",")),
+    union_field: ($) => seq($.identifier, ":", $.type),
+
     at_type: ($) => seq("@", $.type),
 
     annotation: ($) =>
@@ -276,11 +302,8 @@ module.exports = grammar({
           $.identifier,
           $.function_call,
           $.function_declaration,
-          $.record,
           $.table_constructor,
           $.comparison_expression,
-          $.enum,
-          $.union,
           $.unary_expression,
           $.math_expression,
           $.do_expression,
@@ -342,34 +365,6 @@ module.exports = grammar({
       ),
     _math_operator: ($) =>
       choice("+", "-", "*", "/", "//", "///", "^", ">>", ">>>"),
-
-    record: ($) => seq("@", "record", "{", optional($._record_field_list), "}"),
-    _record_field_list: ($) =>
-      seq($.record_field, repeat(seq(",", $.record_field)), optional(",")),
-    record_field: ($) =>
-      seq(
-        $.identifier,
-        ":",
-        choice($.type, seq("record", "{", optional($._record_field_list), "}")),
-      ),
-
-    enum: ($) =>
-      seq(
-        "@",
-        "enum",
-        "{",
-        $.enum_field,
-        repeat(seq(",", $.enum_field)),
-        optional(","),
-        "}",
-      ),
-    enum_field: ($) =>
-      prec.left(seq($.identifier, optional(seq("=", $._expression)))),
-
-    union: ($) => seq("@", "union", "{", $._union_field_list, "}"),
-    _union_field_list: ($) =>
-      seq($.union_field, repeat(seq(",", $.union_field)), optional(",")),
-    union_field: ($) => seq($.identifier, ":", $.type),
 
     table_constructor: ($) =>
       seq(

@@ -1,1 +1,13 @@
-local request, err = json.parse(content, @hashmap(string,string))
+local Json = @union{
+  x: string,
+  y: niltype
+}
+
+local Message = @record{
+  name: string,
+  jsonrpc: record{
+	
+	}
+}
+
+

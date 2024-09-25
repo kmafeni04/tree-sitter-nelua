@@ -95,15 +95,6 @@
 ((identifier) @constant
  (#match? @constant "^[A-Z][A-Z_0-9]*$"))
 
-(record
-  "record" @type)
-
-(enum
-  "enum" @type)
-
-(union
-  "union" @type)
-
 ["local" "global" "return"] @keyword
 
 [
