@@ -1,13 +1,4 @@
-local Json = @union{
-  x: string,
-  y: niltype
+local c = @enum{
+  name = 0,
+  help
 }
-
-local Message = @record{
-  name: string,
-  jsonrpc: record{
-	
-	}
-}
-
-
