@@ -99,7 +99,7 @@ module.exports = grammar({
           "if",
           $._expression,
           "then",
-          optional($._statement),
+          repeat($._statement),
           repeat($.elseif),
           optional($.else),
           "end",
