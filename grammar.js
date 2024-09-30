@@ -8,7 +8,7 @@ const PREC = {
 module.exports = grammar({
   name: "nelua",
 
-  extras: ($) => [$.comment, /\s/],
+  extras: ($) => [/\s/],
 
   conflicts: ($) => [
     [$.identifier, $._expression],
@@ -34,6 +34,7 @@ module.exports = grammar({
 
     _statement: ($) =>
       choice(
+        $.comment,
         $.assignment_statement,
         $.variable_list,
         $.function_declaration,
@@ -404,6 +405,9 @@ module.exports = grammar({
         seq('"', repeat(choice(/[^\\]/, $.escape_sequence)), '"'),
         seq("'", repeat(choice(/[^\\]/, $.escape_sequence)), "'"),
         seq("[[", repeat(choice(/[^\\]/, $.escape_sequence)), "]]"),
+        seq("[=[", repeat(choice(/[^\\]/, $.escape_sequence)), "]=]"),
+        seq("[==[", repeat(choice(/[^\\]/, $.escape_sequence)), "]==]"),
+        seq("[===[", repeat(choice(/[^\\]/, $.escape_sequence)), "]===]"),
       ),
     number: (_) =>
       /(?:\d+(\.\d+)?([eE][-+]?\d+)?(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:0b[01]+(_[a-zA-Z][a-zA-Z0-9]*)?)|(?:0x[\da-fA-F]+(?:\.[\da-fA-F]+)?(?:[pP][-+]?\d+)?(_[a-zA-Z][a-zA-Z0-9]*)?)/,

@@ -286,6 +286,10 @@
           "named": true
         },
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "continue",
           "named": true
         },
@@ -381,6 +385,10 @@
           "named": true
         },
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "continue",
           "named": true
         },
@@ -473,6 +481,10 @@
         },
         {
           "type": "break",
+          "named": true
+        },
+        {
+          "type": "comment",
           "named": true
         },
         {
@@ -688,6 +700,10 @@
           "named": true
         },
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "continue",
           "named": true
         },
@@ -784,6 +800,10 @@
         },
         {
           "type": "break",
+          "named": true
+        },
+        {
+          "type": "comment",
           "named": true
         },
         {
@@ -1269,6 +1289,10 @@
           "named": true
         },
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "continue",
           "named": true
         },
@@ -1369,6 +1393,10 @@
         },
         {
           "type": "break",
+          "named": true
+        },
+        {
+          "type": "comment",
           "named": true
         },
         {
@@ -1614,6 +1642,10 @@
         },
         {
           "type": "break",
+          "named": true
+        },
+        {
+          "type": "comment",
           "named": true
         },
         {
@@ -1990,6 +2022,10 @@
           "named": true
         },
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "comparison_expression",
           "named": true
         },
@@ -2282,6 +2318,10 @@
           "named": true
         },
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "continue",
           "named": true
         },
@@ -2396,6 +2436,10 @@
           "named": true
         },
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "continue",
           "named": true
         },
@@ -2492,6 +2536,10 @@
         },
         {
           "type": "break",
+          "named": true
+        },
+        {
+          "type": "comment",
           "named": true
         },
         {
@@ -2891,6 +2939,10 @@
           "named": true
         },
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "comparison_expression",
           "named": true
         },
@@ -3178,6 +3230,18 @@
     "named": false
   },
   {
+    "type": "[===[",
+    "named": false
+  },
+  {
+    "type": "[==[",
+    "named": false
+  },
+  {
+    "type": "[=[",
+    "named": false
+  },
+  {
     "type": "[[",
     "named": false
   },
@@ -3187,6 +3251,10 @@
   },
   {
     "type": "]#",
+    "named": false
+  },
+  {
+    "type": "]===]",
     "named": false
   },
   {

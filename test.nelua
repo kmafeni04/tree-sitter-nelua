@@ -1,7 +1,3 @@
-if err then
-	if request_method then
-	end
-	if request_method then
-	end
-end
-
+--test
+local test = "hello --test" --test
+--test
