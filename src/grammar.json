@@ -967,22 +967,8 @@
                       "value": ":"
                     },
                     {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "return_types"
-                        },
-                        {
-                          "type": "ALIAS",
-                          "content": {
-                            "type": "SYMBOL",
-                            "name": "type"
-                          },
-                          "named": true,
-                          "value": "return_type"
-                        }
-                      ]
+                      "type": "SYMBOL",
+                      "name": "_type_list"
                     }
                   ]
                 },
@@ -1006,7 +992,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "identifier"
+              "name": "type"
             },
             {
               "type": "STRING",
@@ -1026,20 +1012,8 @@
               "value": "("
             },
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "*"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            },
-            {
               "type": "SYMBOL",
-              "name": "identifier"
+              "name": "type"
             },
             {
               "type": "STRING",
@@ -1060,7 +1034,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "_identifier_list"
+              "name": "_type_list"
             },
             {
               "type": "STRING",
@@ -1081,7 +1055,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "_identifier_list"
+              "name": "type"
             },
             {
               "type": "STRING",
@@ -1102,7 +1076,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "_identifier_list"
+              "name": "_type_list"
             },
             {
               "type": "STRING",
@@ -1123,6 +1097,35 @@
           "name": "enum"
         }
       ]
+    },
+    "_type_list": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "type"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ","
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "type"
+                }
+              ]
+            }
+          }
+        ]
+      }
     },
     "record": {
       "type": "SEQ",

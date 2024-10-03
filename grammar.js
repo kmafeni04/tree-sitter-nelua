@@ -175,19 +175,19 @@ module.exports = grammar({
         seq(
           "function",
           seq("(", optional(alias($._identifier_list, $.parameters)), ")"),
-          optional(
-            seq(":", choice($.return_types, alias($.type, $.return_type))),
-          ),
+          optional(seq(":", $._type_list)),
         ),
-        seq("span", "(", $.identifier, ")"),
-        seq("facultative", "(", optional("*"), $.identifier, ")"),
-        seq("overload", "(", $._identifier_list, ")"),
-        seq("sequence", "(", $._identifier_list, ")"),
-        seq("hashmap", "(", $._identifier_list, ")"),
+        seq("span", "(", $.type, ")"),
+        seq("facultative", "(", $.type, ")"),
+        seq("overload", "(", $._type_list, ")"),
+        seq("sequence", "(", $.type, ")"),
+        seq("hashmap", "(", $._type_list, ")"),
         $.record,
         $.union,
         $.enum,
       ),
+
+    _type_list: ($) => prec.right(seq($.type, repeat(seq(",", $.type)))),
 
     record: ($) => seq("record", "{", optional($._record_field_list), "}"),
     _record_field_list: ($) =>

@@ -2252,14 +2252,6 @@
           "named": true
         },
         {
-          "type": "return_type",
-          "named": true
-        },
-        {
-          "type": "return_types",
-          "named": true
-        },
-        {
           "type": "string",
           "named": true
         },
@@ -2741,14 +2733,6 @@
         },
         {
           "type": "record",
-          "named": true
-        },
-        {
-          "type": "return_type",
-          "named": true
-        },
-        {
-          "type": "return_types",
           "named": true
         },
         {
