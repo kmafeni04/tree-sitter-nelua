@@ -12,6 +12,7 @@ module.exports = grammar({
 
   conflicts: ($) => [
     [$.identifier, $._expression],
+    [$._identifier_list, $._expression],
     [$.expression_list, $.unary_expression],
     [$.expression_list, $.math_expression],
     [$.math_expression, $.math_expression],
@@ -319,7 +320,10 @@ module.exports = grammar({
     do_expression: ($) => seq("(", "do", repeat($._statement), "end", ")"),
 
     dot_expression: ($) =>
-      seq($.identifier, repeat1(choice($.dot_field, $.dot_method))),
+      seq(
+        choice($.identifier, $.function_call),
+        repeat1(choice($.dot_field, $.dot_method)),
+      ),
     dot_field: ($) =>
       choice(seq(".", $.identifier), seq("[", $._expression, "]")),
     dot_method: ($) => seq(":", $.identifier),

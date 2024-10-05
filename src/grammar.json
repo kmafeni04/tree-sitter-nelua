@@ -1950,8 +1950,17 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "identifier"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "function_call"
+            }
+          ]
         },
         {
           "type": "REPEAT1",
@@ -2832,6 +2841,10 @@
   "conflicts": [
     [
       "identifier",
+      "_expression"
+    ],
+    [
+      "_identifier_list",
       "_expression"
     ],
     [

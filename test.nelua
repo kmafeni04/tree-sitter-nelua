@@ -1,1 +1,2 @@
-return x[i]
+for l in io.open(path):lines() do
+end
