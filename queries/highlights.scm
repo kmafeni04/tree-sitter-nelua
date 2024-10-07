@@ -127,10 +127,6 @@
 (function_declaration
   [(identifier) "(" ")"] @function)
 
-(function_declaration
-  (dot_expression 
-    [(dot_field (identifier)) "(" ")"] @variable.other.member))
-
 (parameters (identifier) @variable.parameter)
 
 (function_call 

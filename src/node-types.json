@@ -1562,7 +1562,11 @@
           "named": true
         },
         {
-          "type": "dot_expression",
+          "type": "dot_field",
+          "named": true
+        },
+        {
+          "type": "dot_method",
           "named": true
         },
         {

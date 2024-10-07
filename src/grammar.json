@@ -1463,8 +1463,26 @@
                   "name": "identifier"
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "dot_expression"
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "dot_field"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "dot_method"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -1631,7 +1649,7 @@
     },
     "function_call": {
       "type": "PREC_LEFT",
-      "value": 5,
+      "value": 0,
       "content": {
         "type": "SEQ",
         "members": [
@@ -2858,10 +2876,6 @@
   "conflicts": [
     [
       "identifier",
-      "_expression"
-    ],
-    [
-      "_identifier_list",
       "_expression"
     ],
     [

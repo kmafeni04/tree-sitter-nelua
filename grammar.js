@@ -1,10 +1,6 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
-const PREC = {
-  func: 5,
-};
-
 module.exports = grammar({
   name: "nelua",
 
@@ -12,7 +8,6 @@ module.exports = grammar({
 
   conflicts: ($) => [
     [$.identifier, $._expression],
-    [$._identifier_list, $._expression],
     [$.expression_list, $.unary_expression],
     [$.expression_list, $.math_expression],
     [$.math_expression, $.math_expression],
@@ -229,7 +224,12 @@ module.exports = grammar({
     function_declaration: ($) =>
       seq(
         "function",
-        optional(choice($.identifier, $.dot_expression)),
+        optional(
+          choice(
+            $.identifier,
+            seq($.identifier, choice($.dot_field, $.dot_method)),
+          ),
+        ),
         choice(
           seq(
             "(",
@@ -252,7 +252,6 @@ module.exports = grammar({
 
     function_call: ($) =>
       prec.left(
-        PREC.func,
         seq(
           choice(
             $.identifier,
