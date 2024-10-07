@@ -1,1 +1,1 @@
-global function cJSON_Version(): cstring <cimport,nodecl> end
+return x.l()
