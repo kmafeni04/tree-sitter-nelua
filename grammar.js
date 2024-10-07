@@ -230,11 +230,14 @@ module.exports = grammar({
       seq(
         "function",
         optional(choice($.identifier, $.dot_expression)),
-        seq(
-          "(",
-          optional(alias($._identifier_list, $.parameters)),
-          optional($.annotation),
-          ")",
+        choice(
+          seq(
+            "(",
+            optional(alias($._identifier_list, $.parameters)),
+            optional($.annotation),
+            ")",
+          ),
+          "()",
         ),
         optional(
           seq(":", choice($.return_types, alias($.type, $.return_type))),

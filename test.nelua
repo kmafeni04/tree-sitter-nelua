@@ -1,1 +1,1 @@
-return test[test]
+global function cJSON_Version(): cstring <cimport,nodecl> end
