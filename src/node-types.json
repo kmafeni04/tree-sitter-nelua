@@ -90,6 +90,10 @@
           "named": true
         },
         {
+          "type": "nilptr",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -244,6 +248,10 @@
         },
         {
           "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
           "named": true
         },
         {
@@ -650,6 +658,10 @@
           "named": true
         },
         {
+          "type": "nilptr",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -903,6 +915,10 @@
           "named": true
         },
         {
+          "type": "nilptr",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -1017,6 +1033,10 @@
           "named": true
         },
         {
+          "type": "nilptr",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -1093,6 +1113,10 @@
         },
         {
           "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
           "named": true
         },
         {
@@ -1175,6 +1199,10 @@
           "named": true
         },
         {
+          "type": "nilptr",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -1251,6 +1279,10 @@
         },
         {
           "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
           "named": true
         },
         {
@@ -1753,6 +1785,10 @@
           "named": true
         },
         {
+          "type": "nilptr",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -1927,6 +1963,10 @@
         },
         {
           "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
           "named": true
         },
         {
@@ -2122,6 +2162,10 @@
           "named": true
         },
         {
+          "type": "nilptr",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -2241,6 +2285,10 @@
         },
         {
           "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
           "named": true
         },
         {
@@ -2728,6 +2776,10 @@
           "named": true
         },
         {
+          "type": "nilptr",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -2824,6 +2876,10 @@
         },
         {
           "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
           "named": true
         },
         {
@@ -3020,6 +3076,10 @@
         },
         {
           "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
           "named": true
         },
         {
@@ -3403,6 +3463,10 @@
   },
   {
     "type": "nil",
+    "named": true
+  },
+  {
+    "type": "nilptr",
     "named": true
   },
   {

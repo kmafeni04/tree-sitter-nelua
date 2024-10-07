@@ -1844,6 +1844,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "nilptr"
+          },
+          {
+            "type": "SYMBOL",
             "name": "string"
           },
           {
@@ -2512,6 +2516,10 @@
     "nil": {
       "type": "STRING",
       "value": "nil"
+    },
+    "nilptr": {
+      "type": "STRING",
+      "value": "nilptr"
     },
     "string": {
       "type": "CHOICE",

@@ -4,7 +4,7 @@
 
 [(true) (false)] @constant.builtin.boolean
 
-(nil) @constant.builtin
+[(nil) (nilptr)] @constant.builtin
 
 
 [
@@ -145,7 +145,7 @@
 
 ((dot_field
     (identifier) @variable.other.member
-    (#match? @variable.other.member "[^\\[]\\w+[^\\]]")))
+    (#match? @variable.other.member "[^\\[][\\w_]+[^\\]]")))
 
 (dot_method
     (identifier) @function.method)

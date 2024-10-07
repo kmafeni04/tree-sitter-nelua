@@ -299,6 +299,7 @@ module.exports = grammar({
           $.false,
           $.true,
           $.nil,
+          $.nilptr,
           $.string,
           $.number,
           $.identifier,
@@ -403,6 +404,7 @@ module.exports = grammar({
     false: (_) => "false",
     true: (_) => "true",
     nil: (_) => "nil",
+    nilptr: (_) => "nilptr",
 
     string: ($) =>
       choice(
