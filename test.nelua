@@ -1,2 +1,1 @@
-local function make_closure(multiplier: integer): function(input: integer) end
-
+::test::

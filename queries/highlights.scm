@@ -125,19 +125,22 @@
 (escape_sequence) @constant.character.escape
 
 (function_declaration
-  [(identifier) "(" ")"] @function)
+  [(identifier) "(" ")" "()"] @function)
+
+(function_declaration
+  (dot_function_declaration (dot_field (identifier) @variable.other.member)))
 
 (parameters (identifier) @variable.parameter)
 
 (function_call 
-  [(identifier) "(" ")"] @function)
+  [(identifier) "(" ")" "()"] @function)
 
 (function_call
   (argument) @string)
 
 (function_call
   (dot_expression
-    [(dot_field (identifier)) "(" ")"] @variable.other.member))
+    (dot_field (identifier)) @variable.other.member))
 
 ((dot_field
     (identifier) @variable.other.member
@@ -147,6 +150,8 @@
     (identifier) @function.method)
 
 (builtin_function) @function.builtin
+
+(goto_location "::" @keyword.directive)
 
 (lua_statement
   ["##[[" "]]" "##"] @keyword.directive)

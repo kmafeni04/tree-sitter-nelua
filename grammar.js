@@ -4,7 +4,7 @@
 module.exports = grammar({
   name: "nelua",
 
-  extras: ($) => [/\s/],
+  extras: (_) => [/\s/],
 
   conflicts: ($) => [
     [$.identifier, $._expression],
@@ -75,7 +75,7 @@ module.exports = grammar({
       ),
 
     return_statement: ($) =>
-      seq("return", choice($.assignment_statement, $.expression_list)),
+      prec.right(seq("return", optional($.expression_list))),
 
     defer_statement: ($) => seq("defer", repeat($._statement), "end"),
 
@@ -224,12 +224,7 @@ module.exports = grammar({
     function_declaration: ($) =>
       seq(
         "function",
-        optional(
-          choice(
-            $.identifier,
-            seq($.identifier, choice($.dot_field, $.dot_method)),
-          ),
-        ),
+        optional(choice($.identifier, $.dot_function_declaration)),
         choice(
           seq(
             "(",
@@ -247,22 +242,22 @@ module.exports = grammar({
         "end",
       ),
     return_types: ($) => seq("(", $.type, repeat(seq(",", $.type)), ")"),
+    dot_function_declaration: ($) =>
+      seq($.identifier, choice($.dot_field, $.dot_method)),
 
     function_body: ($) => repeat1($._statement),
 
     function_call: ($) =>
-      prec.left(
-        seq(
-          choice(
-            $.identifier,
-            $.builtin_function,
-            $.dot_expression,
-            $.function_call,
-          ),
-          choice(
-            seq("(", optional($.arguments), ")"),
-            alias($.string, $.argument),
-          ),
+      seq(
+        choice(
+          $.identifier,
+          $.builtin_function,
+          $.dot_expression,
+          $.function_call,
+        ),
+        choice(
+          seq("(", optional($.arguments), ")"),
+          alias($.string, $.argument),
         ),
       ),
     arguments: ($) => alias($.expression_list, "arguments"),
@@ -293,8 +288,7 @@ module.exports = grammar({
         "collectgarbage",
       ),
 
-    expression_list: ($) =>
-      prec.left(seq($._expression, repeat(seq(",", $._expression)))),
+    expression_list: ($) => seq($._expression, repeat(seq(",", $._expression))),
     _expression: ($) =>
       prec.right(
         choice(
