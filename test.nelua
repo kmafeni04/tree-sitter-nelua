@@ -1,1 +1,3 @@
-::test::
+for x: string in ipairs(hello) do
+
+end

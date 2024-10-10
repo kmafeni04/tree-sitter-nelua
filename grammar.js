@@ -136,13 +136,18 @@ module.exports = grammar({
       ),
     for_num: ($) =>
       seq(
-        $.identifier,
+        choice($.identifier, $._typed_identifier),
         "=",
         $._expression,
         repeat1(seq(",", optional($._comparison_operator), $._expression)),
       ),
     for_in: ($) =>
-      seq($.identifier, optional(seq(",", $.identifier)), "in", $._expression),
+      seq(
+        choice($.identifier, $._typed_identifier),
+        optional(seq(",", choice($.identifier, $._typed_identifier))),
+        "in",
+        $._expression,
+      ),
 
     assignment_statement: ($) =>
       seq(

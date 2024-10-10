@@ -1242,6 +1242,10 @@
           "named": true
         },
         {
+          "type": "type",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         }
@@ -1322,6 +1326,10 @@
         },
         {
           "type": "true",
+          "named": true
+        },
+        {
+          "type": "type",
           "named": true
         },
         {
