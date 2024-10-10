@@ -1,3 +1,2 @@
-for x: string in ipairs(hello) do
-
+function x.y()
 end

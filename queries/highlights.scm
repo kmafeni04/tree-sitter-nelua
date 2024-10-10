@@ -54,6 +54,7 @@
 [
   "("
   ")"
+  "()"
   "{"
   "}"
   "["
@@ -125,7 +126,7 @@
 (escape_sequence) @constant.character.escape
 
 (function_declaration
-  [(identifier) "(" ")" "()"] @function)
+  (identifier) @function)
 
 (function_declaration
   (dot_function_declaration (dot_field (identifier) @variable.other.member)))
@@ -133,7 +134,7 @@
 (parameters (identifier) @variable.parameter)
 
 (function_call 
-  [(identifier) "(" ")" "()"] @function)
+  (identifier) @function)
 
 (function_call
   (argument) @string)
