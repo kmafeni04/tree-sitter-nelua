@@ -1,2 +1,4 @@
-function x.y()
-end
+## local function just_selection(selection)
+	in "%f[%w_]" .. #[selection]# .. "%f[^%w_]"
+## end
+

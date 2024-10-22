@@ -1871,7 +1871,7 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "expression_list",
           "named": true
         }
       ]

@@ -368,7 +368,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "identifier"
+          "name": "expression_list"
         }
       ]
     },

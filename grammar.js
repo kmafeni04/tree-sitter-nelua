@@ -86,7 +86,7 @@ module.exports = grammar({
     fallthrough: (_) => "fallthrough",
     break: (_) => "break",
 
-    injection_statement: ($) => seq("in", $.identifier),
+    injection_statement: ($) => seq("in", $.expression_list),
 
     do_block: ($) => seq("do", optional(repeat($._statement)), "end"),
 
