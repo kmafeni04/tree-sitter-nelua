@@ -143,9 +143,8 @@
   (dot_expression
     (dot_field (identifier)) @variable.other.member))
 
-((dot_field
-    (identifier) @variable.other.member
-    (#match? @variable.other.member "[^\\[][\\w_]+[^\\]]")))
+(dot_field
+    (identifier) @@variable.other.member)
 
 (dot_method
     (identifier) @function.method)

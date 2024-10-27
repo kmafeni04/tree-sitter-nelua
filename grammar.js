@@ -324,11 +324,11 @@ module.exports = grammar({
     dot_expression: ($) =>
       seq(
         choice($.identifier, $.function_call),
-        repeat1(choice($.dot_field, $.dot_method)),
+        repeat1(choice($.dot_field, $.dot_method, $.array_index)),
       ),
-    dot_field: ($) =>
-      choice(seq(".", $.identifier), seq("[", $._expression, "]")),
+    dot_field: ($) => seq(".", $.identifier),
     dot_method: ($) => seq(":", $.identifier),
+    array_index: ($) => seq("[", $._expression, "]"),
 
     lua_expression: ($) =>
       choice(
