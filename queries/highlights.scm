@@ -144,7 +144,7 @@
     (dot_field (identifier)) @variable.other.member))
 
 (dot_field
-    (identifier) @@variable.other.member)
+    (identifier) @variable.other.member)
 
 (dot_method
     (identifier) @function.method)
