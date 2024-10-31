@@ -899,16 +899,11 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "*"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
+              "type": "REPEAT",
+              "content": {
+                "type": "STRING",
+                "value": "*"
+              }
             },
             {
               "type": "REPEAT",
@@ -1099,6 +1094,27 @@
             {
               "type": "STRING",
               "value": "hashmap"
+            },
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_type_list"
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "pointer"
             },
             {
               "type": "STRING",
@@ -1693,10 +1709,6 @@
             },
             {
               "type": "SYMBOL",
-              "name": "builtin_function"
-            },
-            {
-              "type": "SYMBOL",
               "name": "dot_expression"
             },
             {
@@ -1754,103 +1766,6 @@
       },
       "named": false,
       "value": "arguments"
-    },
-    "builtin_function": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "require"
-        },
-        {
-          "type": "STRING",
-          "value": "print"
-        },
-        {
-          "type": "STRING",
-          "value": "panic"
-        },
-        {
-          "type": "STRING",
-          "value": "error"
-        },
-        {
-          "type": "STRING",
-          "value": "assert"
-        },
-        {
-          "type": "STRING",
-          "value": "check"
-        },
-        {
-          "type": "STRING",
-          "value": "likely"
-        },
-        {
-          "type": "STRING",
-          "value": "unlikely"
-        },
-        {
-          "type": "STRING",
-          "value": "ipairs"
-        },
-        {
-          "type": "STRING",
-          "value": "mipairs"
-        },
-        {
-          "type": "STRING",
-          "value": "next"
-        },
-        {
-          "type": "STRING",
-          "value": "mnext"
-        },
-        {
-          "type": "STRING",
-          "value": "pairs"
-        },
-        {
-          "type": "STRING",
-          "value": "mpairs"
-        },
-        {
-          "type": "STRING",
-          "value": "select"
-        },
-        {
-          "type": "STRING",
-          "value": "tostring"
-        },
-        {
-          "type": "STRING",
-          "value": "tostringview"
-        },
-        {
-          "type": "STRING",
-          "value": "tonumber"
-        },
-        {
-          "type": "STRING",
-          "value": "tointeger"
-        },
-        {
-          "type": "STRING",
-          "value": "type"
-        },
-        {
-          "type": "STRING",
-          "value": "new"
-        },
-        {
-          "type": "STRING",
-          "value": "delete"
-        },
-        {
-          "type": "STRING",
-          "value": "collectgarbage"
-        }
-      ]
     },
     "expression_list": {
       "type": "SEQ",

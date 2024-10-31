@@ -169,7 +169,7 @@ module.exports = grammar({
     type: ($) =>
       choice(
         seq(
-          optional("*"),
+          repeat("*"),
           repeat(seq("[", optional($._expression), "]")),
           alias($.identifier, "type"),
         ),
@@ -183,6 +183,7 @@ module.exports = grammar({
         seq("overload", "(", $._type_list, ")"),
         seq("sequence", "(", $.type, ")"),
         seq("hashmap", "(", $._type_list, ")"),
+        seq("pointer", "(", $._type_list, ")"),
         $.record,
         $.union,
         $.enum,
@@ -254,44 +255,13 @@ module.exports = grammar({
 
     function_call: ($) =>
       seq(
-        choice(
-          $.identifier,
-          $.builtin_function,
-          $.dot_expression,
-          $.function_call,
-        ),
+        choice($.identifier, $.dot_expression, $.function_call),
         choice(
           seq("(", optional($.arguments), ")"),
           alias($.string, $.argument),
         ),
       ),
     arguments: ($) => alias($.expression_list, "arguments"),
-    builtin_function: (_) =>
-      choice(
-        "require",
-        "print",
-        "panic",
-        "error",
-        "assert",
-        "check",
-        "likely",
-        "unlikely",
-        "ipairs",
-        "mipairs",
-        "next",
-        "mnext",
-        "pairs",
-        "mpairs",
-        "select",
-        "tostring",
-        "tostringview",
-        "tonumber",
-        "tointeger",
-        "type",
-        "new",
-        "delete",
-        "collectgarbage",
-      ),
 
     expression_list: ($) => seq($._expression, repeat(seq(",", $._expression))),
     _expression: ($) =>

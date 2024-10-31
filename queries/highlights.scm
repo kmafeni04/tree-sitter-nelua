@@ -133,8 +133,34 @@
 
 (parameters (identifier) @variable.parameter)
 
-(function_call 
-  (identifier) @function)
+(function_call
+  (identifier) @function.builtin
+  (#any-of? @function.builtin
+    ;; built-in functions in Lua 5.1
+    "require"
+    "print"
+    "panic"
+    "error"
+    "assert"
+    "check"
+    "likely"
+    "unlikely"
+    "ipairs"
+    "mipairs"
+    "next"
+    "mnext"
+    "pairs"
+    "mpairs"
+    "select"
+    "tostring"
+    "tostringview"
+    "tonumber"
+    "tointeger"
+    "type"
+    "new"
+    "delete"
+    "collectgarbage"
+))
 
 (function_call
   (argument) @string)
@@ -148,8 +174,6 @@
 
 (dot_method
     (identifier) @function.method)
-
-(builtin_function) @function.builtin
 
 (goto_location "::" @keyword.directive)
 

@@ -37,3 +37,6 @@ dist/
 *.wasm
 *.obj
 *.o
+
+lsp.log
+test.nelua
