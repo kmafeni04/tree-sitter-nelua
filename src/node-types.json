@@ -665,6 +665,26 @@
           "named": true
         },
         {
+          "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "comparison_expression",
+          "named": true
+        },
+        {
+          "type": "concatenation_expression",
+          "named": true
+        },
+        {
+          "type": "do_expression",
+          "named": true
+        },
+        {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
           "type": "dot_field",
           "named": true
         },
@@ -673,11 +693,55 @@
           "named": true
         },
         {
+          "type": "false",
+          "named": true
+        },
+        {
           "type": "function_call",
           "named": true
         },
         {
+          "type": "function_declaration",
+          "named": true
+        },
+        {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "lua_expression",
+          "named": true
+        },
+        {
+          "type": "math_expression",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "table_constructor",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
           "named": true
         }
       ]

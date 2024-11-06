@@ -6,7 +6,6 @@
 
 [(nil) (nilptr)] @constant.builtin
 
-
 [
   "="
 ] @operator
@@ -163,4 +162,3 @@
 
 (lua_expression
   ["#[" "]#" "#|" "|#"] @keyword.directive)
-

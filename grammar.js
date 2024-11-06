@@ -7,6 +7,8 @@ module.exports = grammar({
   extras: (_) => [/\s/],
 
   conflicts: ($) => [
+    [$._statement, $.function_call],
+    [$.annotation, $.function_call],
     [$.identifier, $._expression],
     [$.expression_list, $.unary_expression],
     [$.expression_list, $.math_expression],
@@ -293,7 +295,7 @@ module.exports = grammar({
 
     dot_expression: ($) =>
       seq(
-        choice($.identifier, $.function_call),
+        choice($.identifier, $.function_call, seq("(", $._expression, ")")),
         repeat1(choice($.dot_field, $.dot_method, $.array_index)),
       ),
     dot_field: ($) => seq(".", $.identifier),

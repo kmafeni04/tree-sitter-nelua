@@ -1931,6 +1931,23 @@
             {
               "type": "SYMBOL",
               "name": "function_call"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "("
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                },
+                {
+                  "type": "STRING",
+                  "value": ")"
+                }
+              ]
             }
           ]
         },
@@ -2814,6 +2831,14 @@
     }
   ],
   "conflicts": [
+    [
+      "_statement",
+      "function_call"
+    ],
+    [
+      "annotation",
+      "function_call"
+    ],
     [
       "identifier",
       "_expression"
