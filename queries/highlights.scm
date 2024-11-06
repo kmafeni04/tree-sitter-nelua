@@ -134,6 +134,9 @@
 (parameters (identifier) @variable.parameter)
 
 (function_call
+  (identifier) @function)
+
+(function_call
   (identifier) @function.builtin
   (#any-of? @function.builtin
     ;; built-in functions in Lua 5.1
