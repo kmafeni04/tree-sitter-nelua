@@ -134,36 +134,14 @@
 (parameters (identifier) @variable.parameter)
 
 (function_call
-  (identifier) @function)
+  (identifier) @function.builtin
+  (#any-of? @function.builtin 
+  "require" "print" "panic" "error" "assert" "check" "likely" "unlikely"
+  "ipairs" "mipairs" "next" "mnext" "pairs" "mpairs" "select" "tostring"
+  "tostringview" "tonumber" "tointeger" "type" "new" "delete" "collectgarbage"))
 
 (function_call
-  (identifier) @function.builtin
-  (#any-of? @function.builtin
-    ;; built-in functions in Lua 5.1
-    "require"
-    "print"
-    "panic"
-    "error"
-    "assert"
-    "check"
-    "likely"
-    "unlikely"
-    "ipairs"
-    "mipairs"
-    "next"
-    "mnext"
-    "pairs"
-    "mpairs"
-    "select"
-    "tostring"
-    "tostringview"
-    "tonumber"
-    "tointeger"
-    "type"
-    "new"
-    "delete"
-    "collectgarbage"
-))
+  (identifier) @function)
 
 (function_call
   (argument) @string)
