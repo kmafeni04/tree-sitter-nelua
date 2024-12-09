@@ -10,6 +10,7 @@ module.exports = grammar({
     [$._statement, $.function_call],
     [$.annotation, $.function_call],
     [$.identifier, $._expression],
+    [$.type, $._expression],
     [$.expression_list, $.unary_expression],
     [$.expression_list, $.math_expression],
     [$.math_expression, $.math_expression],
@@ -169,26 +170,25 @@ module.exports = grammar({
       ),
 
     type: ($) =>
-      choice(
+      prec.right(
         seq(
           repeat("*"),
-          repeat(seq("[", optional($._expression), "]")),
-          alias($.identifier, "type"),
+          choice(
+            seq("[", optional($._expression), "]", $.type),
+            seq(
+              "function",
+              seq("(", optional(alias($._identifier_list, $.parameters)), ")"),
+              optional(seq(":", $._type_list)),
+            ),
+            seq(
+              alias($.identifier, "type"),
+              optional(seq("(", $._type_list, ")")),
+            ),
+            $.record,
+            $.union,
+            $.enum,
+          ),
         ),
-        seq(
-          "function",
-          seq("(", optional(alias($._identifier_list, $.parameters)), ")"),
-          optional(seq(":", $._type_list)),
-        ),
-        seq("span", "(", $.type, ")"),
-        seq("facultative", "(", $.type, ")"),
-        seq("overload", "(", $._type_list, ")"),
-        seq("sequence", "(", $.type, ")"),
-        seq("hashmap", "(", $._type_list, ")"),
-        seq("pointer", "(", $._type_list, ")"),
-        $.record,
-        $.union,
-        $.enum,
       ),
 
     _type_list: ($) => prec.right(seq($.type, repeat(seq(",", $.type)))),
