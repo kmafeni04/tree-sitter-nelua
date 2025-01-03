@@ -444,10 +444,6 @@
           "named": true
         },
         {
-          "type": "variable_list",
-          "named": true
-        },
-        {
           "type": "while_statement",
           "named": true
         }
@@ -543,10 +539,6 @@
           "named": true
         },
         {
-          "type": "variable_list",
-          "named": true
-        },
-        {
           "type": "while_statement",
           "named": true
         }
@@ -639,10 +631,6 @@
         },
         {
           "type": "switch_statement",
-          "named": true
-        },
-        {
-          "type": "variable_list",
           "named": true
         },
         {
@@ -889,10 +877,6 @@
           "named": true
         },
         {
-          "type": "variable_list",
-          "named": true
-        },
-        {
           "type": "while_statement",
           "named": true
         }
@@ -1052,10 +1036,6 @@
           "named": true
         },
         {
-          "type": "variable_list",
-          "named": true
-        },
-        {
           "type": "while_statement",
           "named": true
         }
@@ -1072,6 +1052,10 @@
       "types": [
         {
           "type": "enum_field",
+          "named": true
+        },
+        {
+          "type": "type",
           "named": true
         }
       ]
@@ -1514,10 +1498,6 @@
           "named": true
         },
         {
-          "type": "variable_list",
-          "named": true
-        },
-        {
           "type": "while_statement",
           "named": true
         }
@@ -1610,10 +1590,6 @@
         },
         {
           "type": "switch_statement",
-          "named": true
-        },
-        {
-          "type": "variable_list",
           "named": true
         },
         {
@@ -1923,10 +1899,6 @@
         },
         {
           "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "variable_list",
           "named": true
         },
         {
@@ -2303,10 +2275,6 @@
           "named": true
         },
         {
-          "type": "variable_list",
-          "named": true
-        },
-        {
           "type": "while_statement",
           "named": true
         }
@@ -2539,10 +2507,6 @@
           "named": true
         },
         {
-          "type": "variable_list",
-          "named": true
-        },
-        {
           "type": "while_statement",
           "named": true
         }
@@ -2657,10 +2621,6 @@
           "named": true
         },
         {
-          "type": "variable_list",
-          "named": true
-        },
-        {
           "type": "while_statement",
           "named": true
         }
@@ -2753,10 +2713,6 @@
         },
         {
           "type": "switch_statement",
-          "named": true
-        },
-        {
-          "type": "variable_list",
           "named": true
         },
         {
@@ -3213,10 +3169,6 @@
         },
         {
           "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "variable_list",
           "named": true
         },
         {

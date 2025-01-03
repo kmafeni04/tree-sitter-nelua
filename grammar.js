@@ -35,7 +35,6 @@ module.exports = grammar({
       choice(
         $.comment,
         $.assignment_statement,
-        $.variable_list,
         $.function_declaration,
         $.function_call,
         $.do_block,
@@ -161,7 +160,7 @@ module.exports = grammar({
       ),
 
     variable_list: ($) =>
-      prec.right(
+      prec.left(
         seq(
           choice($.identifier, $._typed_identifier),
           repeat(seq(",", choice($.identifier, $._typed_identifier))),
@@ -201,6 +200,7 @@ module.exports = grammar({
     enum: ($) =>
       seq(
         "enum",
+        optional(seq("(", $.type, ")")),
         "{",
         $.enum_field,
         repeat(seq(",", $.enum_field)),
