@@ -50,18 +50,19 @@ module.exports = grammar({
         $.repeat_statement,
         $.fallthrough,
         $.break,
-        $.lua_statement,
+        $.preproc_statement,
         $.global_declaration,
         $.local_declaration,
         $.injection_statement,
       ),
 
-    lua_statement: ($) =>
+    preproc_statement: ($) =>
       choice(
-        seq("##", alias(/.*/, $.lua_statement_content)),
-        seq("##[[", alias(repeat(/./), $.lua_statement_content), "]]"),
-        seq("##[=[", alias(repeat(/./), $.lua_statement_content), "]=]"),
-        seq("##[==[", alias(repeat(/./), $.lua_statement_content), "]==]"),
+        seq("##", alias(/.*/, $.preproc_statement_content)),
+        seq("##[[", alias(repeat(/./), $.preproc_statement_content), "]]"),
+        seq("##[=[", alias(repeat(/./), $.preproc_statement_content), "]=]"),
+        seq("##[==[", alias(repeat(/./), $.preproc_statement_content), "]==]"),
+        seq("##[===[", alias(repeat(/./), $.preproc_statement_content), "]===]"),
       ),
 
     local_declaration: ($) =>
@@ -284,7 +285,7 @@ module.exports = grammar({
           $.math_expression,
           $.do_expression,
           $.concatenation_expression,
-          $.lua_expression,
+          $.preproc_expression,
           $.at_type,
           $.dot_expression,
           seq("(", $._expression, ")"),
@@ -302,10 +303,11 @@ module.exports = grammar({
     dot_method: ($) => seq(":", $.identifier),
     array_index: ($) => seq("[", $._expression, "]"),
 
-    lua_expression: ($) =>
+    preproc_expression: ($) =>
       choice(
-        seq("#[", alias(repeat(/./), $.lua_expression_content), "]#"),
-        seq("#|", alias(repeat(/./), $.lua_expression_content), "|#"),
+        seq("#[", alias(repeat(/./), $.preprocexpression_content), "]#"),
+        seq("#[", alias(repeat(/./), $.preprocexpression_content), "]#"),
+        seq("#|", alias(repeat(/./), $.preproc_expression_content), "|#"),
       ),
 
     concatenation_expression: ($) =>
@@ -370,7 +372,7 @@ module.exports = grammar({
     identifier: ($) =>
       choice(
         /[a-zA-Z_][a-zA-Z0-9_]*/,
-        $.lua_expression,
+        $.preproc_expression,
         alias("...", $.varargs),
       ),
 
@@ -411,6 +413,7 @@ module.exports = grammar({
         seq("--[[", alias(repeat(/./), $.comment_body), "]]"),
         seq("--[=[", alias(repeat(/./), $.comment_body), "]=]"),
         seq("--[==[", alias(repeat(/./), $.comment_body), "]==]"),
+        seq("--[===[", alias(repeat(/./), $.comment_body), "]===]"),
       ),
   },
 });

@@ -78,10 +78,6 @@
           "named": true
         },
         {
-          "type": "lua_expression",
-          "named": true
-        },
-        {
           "type": "math_expression",
           "named": true
         },
@@ -95,6 +91,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -161,10 +161,6 @@
           "named": true
         },
         {
-          "type": "lua_expression",
-          "named": true
-        },
-        {
           "type": "math_expression",
           "named": true
         },
@@ -178,6 +174,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -317,10 +317,6 @@
           "named": true
         },
         {
-          "type": "lua_expression",
-          "named": true
-        },
-        {
           "type": "math_expression",
           "named": true
         },
@@ -334,6 +330,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -428,7 +428,7 @@
           "named": true
         },
         {
-          "type": "lua_statement",
+          "type": "preproc_statement",
           "named": true
         },
         {
@@ -523,7 +523,7 @@
           "named": true
         },
         {
-          "type": "lua_statement",
+          "type": "preproc_statement",
           "named": true
         },
         {
@@ -618,7 +618,7 @@
           "named": true
         },
         {
-          "type": "lua_statement",
+          "type": "preproc_statement",
           "named": true
         },
         {
@@ -697,10 +697,6 @@
           "named": true
         },
         {
-          "type": "lua_expression",
-          "named": true
-        },
-        {
           "type": "math_expression",
           "named": true
         },
@@ -714,6 +710,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -861,7 +861,7 @@
           "named": true
         },
         {
-          "type": "lua_statement",
+          "type": "preproc_statement",
           "named": true
         },
         {
@@ -984,14 +984,6 @@
           "named": true
         },
         {
-          "type": "lua_expression",
-          "named": true
-        },
-        {
-          "type": "lua_statement",
-          "named": true
-        },
-        {
           "type": "math_expression",
           "named": true
         },
@@ -1005,6 +997,14 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_statement",
           "named": true
         },
         {
@@ -1106,10 +1106,6 @@
           "named": true
         },
         {
-          "type": "lua_expression",
-          "named": true
-        },
-        {
           "type": "math_expression",
           "named": true
         },
@@ -1123,6 +1119,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -1189,10 +1189,6 @@
           "named": true
         },
         {
-          "type": "lua_expression",
-          "named": true
-        },
-        {
           "type": "math_expression",
           "named": true
         },
@@ -1206,6 +1202,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -1272,10 +1272,6 @@
           "named": true
         },
         {
-          "type": "lua_expression",
-          "named": true
-        },
-        {
           "type": "math_expression",
           "named": true
         },
@@ -1289,6 +1285,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -1359,10 +1359,6 @@
           "named": true
         },
         {
-          "type": "lua_expression",
-          "named": true
-        },
-        {
           "type": "math_expression",
           "named": true
         },
@@ -1376,6 +1372,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -1482,7 +1482,7 @@
           "named": true
         },
         {
-          "type": "lua_statement",
+          "type": "preproc_statement",
           "named": true
         },
         {
@@ -1577,7 +1577,7 @@
           "named": true
         },
         {
-          "type": "lua_statement",
+          "type": "preproc_statement",
           "named": true
         },
         {
@@ -1731,7 +1731,7 @@
       "required": false,
       "types": [
         {
-          "type": "lua_expression",
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -1850,14 +1850,6 @@
           "named": true
         },
         {
-          "type": "lua_expression",
-          "named": true
-        },
-        {
-          "type": "lua_statement",
-          "named": true
-        },
-        {
           "type": "math_expression",
           "named": true
         },
@@ -1871,6 +1863,14 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_statement",
           "named": true
         },
         {
@@ -1947,46 +1947,6 @@
     }
   },
   {
-    "type": "lua_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "lua_expression_content",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "lua_expression_content",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "lua_statement",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "lua_statement_content",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "lua_statement_content",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "math_expression",
     "named": true,
     "fields": {},
@@ -2031,10 +1991,6 @@
           "named": true
         },
         {
-          "type": "lua_expression",
-          "named": true
-        },
-        {
           "type": "math_expression",
           "named": true
         },
@@ -2048,6 +2004,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -2087,6 +2047,55 @@
         }
       ]
     }
+  },
+  {
+    "type": "preproc_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "preproc_expression_content",
+          "named": true
+        },
+        {
+          "type": "preprocexpression_content",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "preproc_expression_content",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "preproc_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "preproc_statement_content",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "preproc_statement_content",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "preprocexpression_content",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "record",
@@ -2223,14 +2232,6 @@
           "named": true
         },
         {
-          "type": "lua_expression",
-          "named": true
-        },
-        {
-          "type": "lua_statement",
-          "named": true
-        },
-        {
           "type": "math_expression",
           "named": true
         },
@@ -2244,6 +2245,14 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_statement",
           "named": true
         },
         {
@@ -2345,10 +2354,6 @@
           "named": true
         },
         {
-          "type": "lua_expression",
-          "named": true
-        },
-        {
           "type": "math_expression",
           "named": true
         },
@@ -2366,6 +2371,10 @@
         },
         {
           "type": "parameters",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -2491,7 +2500,7 @@
           "named": true
         },
         {
-          "type": "lua_statement",
+          "type": "preproc_statement",
           "named": true
         },
         {
@@ -2605,7 +2614,7 @@
           "named": true
         },
         {
-          "type": "lua_statement",
+          "type": "preproc_statement",
           "named": true
         },
         {
@@ -2700,7 +2709,7 @@
           "named": true
         },
         {
-          "type": "lua_statement",
+          "type": "preproc_statement",
           "named": true
         },
         {
@@ -2821,10 +2830,6 @@
           "named": true
         },
         {
-          "type": "lua_expression",
-          "named": true
-        },
-        {
           "type": "math_expression",
           "named": true
         },
@@ -2842,6 +2847,10 @@
         },
         {
           "type": "parameters",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -2924,10 +2933,6 @@
           "named": true
         },
         {
-          "type": "lua_expression",
-          "named": true
-        },
-        {
           "type": "math_expression",
           "named": true
         },
@@ -2941,6 +2946,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -3120,14 +3129,6 @@
           "named": true
         },
         {
-          "type": "lua_expression",
-          "named": true
-        },
-        {
-          "type": "lua_statement",
-          "named": true
-        },
-        {
           "type": "math_expression",
           "named": true
         },
@@ -3141,6 +3142,14 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_statement",
           "named": true
         },
         {
@@ -3188,6 +3197,10 @@
   },
   {
     "type": "##",
+    "named": false
+  },
+  {
+    "type": "##[===[",
     "named": false
   },
   {
@@ -3252,6 +3265,10 @@
   },
   {
     "type": "--",
+    "named": false
+  },
+  {
+    "type": "--[===[",
     "named": false
   },
   {
