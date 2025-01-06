@@ -1391,6 +1391,27 @@
         }
       ]
     },
+    "cast_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "at_type"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
+        }
+      ]
+    },
     "annotation": {
       "type": "SEQ",
       "members": [
@@ -1636,8 +1657,13 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "identifier"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          ]
         },
         {
           "type": "CHOICE",
@@ -1829,6 +1855,10 @@
           {
             "type": "SYMBOL",
             "name": "at_type"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "cast_type"
           },
           {
             "type": "SYMBOL",
@@ -2860,6 +2890,18 @@
     [
       "type",
       "_expression"
+    ],
+    [
+      "expression_list",
+      "cast_type"
+    ],
+    [
+      "math_expression",
+      "cast_type"
+    ],
+    [
+      "concatenation_expression",
+      "cast_type"
     ],
     [
       "expression_list",

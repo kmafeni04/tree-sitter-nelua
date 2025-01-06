@@ -11,6 +11,9 @@ module.exports = grammar({
     [$.annotation, $.function_call],
     [$.identifier, $._expression],
     [$.type, $._expression],
+    [$.expression_list, $.cast_type],
+    [$.math_expression, $.cast_type],
+    [$.concatenation_expression, $.cast_type],
     [$.expression_list, $.unary_expression],
     [$.expression_list, $.math_expression],
     [$.math_expression, $.math_expression],
@@ -221,6 +224,7 @@ module.exports = grammar({
     union_field: ($) => seq($.identifier, ":", $.type),
 
     at_type: ($) => seq("@", $.type),
+    cast_type: ($) => seq("(", $.at_type, ")", $._expression),
 
     annotation: ($) =>
       seq(
@@ -256,7 +260,7 @@ module.exports = grammar({
       ),
     return_types: ($) => seq("(", $.type, repeat(seq(",", $.type)), ")"),
     dot_function_declaration: ($) =>
-      seq($.identifier, choice($.dot_field, $.dot_method)),
+      seq(choice($.identifier), choice($.dot_field, $.dot_method)),
 
     function_body: ($) => repeat1($._statement),
 
@@ -291,6 +295,7 @@ module.exports = grammar({
           $.concatenation_expression,
           $.preproc_expression,
           $.at_type,
+          $.cast_type,
           $.dot_expression,
           seq("(", $._expression, ")"),
         ),
