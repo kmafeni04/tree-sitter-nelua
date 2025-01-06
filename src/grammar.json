@@ -807,8 +807,17 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "variable_list"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "variable_list"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "dot_expression"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -1991,7 +2000,7 @@
                 }
               },
               "named": true,
-              "value": "preprocexpression_content"
+              "value": "preproc_expression_content"
             },
             {
               "type": "STRING",
@@ -2016,7 +2025,7 @@
                 }
               },
               "named": true,
-              "value": "preprocexpression_content"
+              "value": "preproc_expression_content"
             },
             {
               "type": "STRING",
@@ -2089,7 +2098,7 @@
       }
     },
     "unary_expression": {
-      "type": "PREC_RIGHT",
+      "type": "PREC_LEFT",
       "value": 0,
       "content": {
         "type": "SEQ",

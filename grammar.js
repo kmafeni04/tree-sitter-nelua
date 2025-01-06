@@ -62,7 +62,11 @@ module.exports = grammar({
         seq("##[[", alias(repeat(/./), $.preproc_statement_content), "]]"),
         seq("##[=[", alias(repeat(/./), $.preproc_statement_content), "]=]"),
         seq("##[==[", alias(repeat(/./), $.preproc_statement_content), "]==]"),
-        seq("##[===[", alias(repeat(/./), $.preproc_statement_content), "]===]"),
+        seq(
+          "##[===[",
+          alias(repeat(/./), $.preproc_statement_content),
+          "]===]",
+        ),
       ),
 
     local_declaration: ($) =>
@@ -154,7 +158,7 @@ module.exports = grammar({
 
     assignment_statement: ($) =>
       seq(
-        $.variable_list,
+        choice($.variable_list, $.dot_expression),
         "=",
         optional(seq("(", $.at_type, ")")),
         choice($.expression_list, $.at_type),
@@ -305,8 +309,8 @@ module.exports = grammar({
 
     preproc_expression: ($) =>
       choice(
-        seq("#[", alias(repeat(/./), $.preprocexpression_content), "]#"),
-        seq("#[", alias(repeat(/./), $.preprocexpression_content), "]#"),
+        seq("#[", alias(repeat(/./), $.preproc_expression_content), "]#"),
+        seq("#[", alias(repeat(/./), $.preproc_expression_content), "]#"),
         seq("#|", alias(repeat(/./), $.preproc_expression_content), "|#"),
       ),
 
@@ -320,7 +324,7 @@ module.exports = grammar({
         ),
       ),
 
-    unary_expression: ($) => prec.right(seq($._unary_operator, $._expression)),
+    unary_expression: ($) => prec.left(seq($._unary_operator, $._expression)),
     _unary_operator: (_) => choice("-", "~", "#", "not", "&", "$"),
 
     comparison_expression: ($) =>

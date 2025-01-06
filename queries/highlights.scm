@@ -160,8 +160,8 @@
 
 (goto_location "::" @keyword.directive)
 
-(lua_statement
+(preproc_statement
   ["##[[" "]]" "##"] @keyword.directive)
 
-(lua_expression
+(preproc_expression
   ["#[" "]#" "#|" "|#"] @keyword.directive)

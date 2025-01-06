@@ -212,6 +212,10 @@
           "named": true
         },
         {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
           "type": "expression_list",
           "named": true
         },
@@ -2059,10 +2063,6 @@
         {
           "type": "preproc_expression_content",
           "named": true
-        },
-        {
-          "type": "preprocexpression_content",
-          "named": true
         }
       ]
     }
@@ -2089,11 +2089,6 @@
   },
   {
     "type": "preproc_statement_content",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "preprocexpression_content",
     "named": true,
     "fields": {}
   },
