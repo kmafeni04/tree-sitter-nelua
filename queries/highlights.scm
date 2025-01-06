@@ -1,10 +1,13 @@
 (hash_bang_line) @comment
 
+(ERROR) @error
+
 (comment) @comment
 
 [(true) (false)] @constant.builtin.boolean
 
 [(nil) (nilptr)] @constant.builtin
+
 
 [
   "="
@@ -67,6 +70,7 @@
   "do"
   "return" 
   (break)
+  "in"
   "defer"
   "goto"
   (continue)
