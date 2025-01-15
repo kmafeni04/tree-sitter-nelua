@@ -475,10 +475,6 @@
           "named": true
         },
         {
-          "type": "comment",
-          "named": true
-        },
-        {
           "type": "continue",
           "named": true
         },
@@ -570,10 +566,6 @@
           "named": true
         },
         {
-          "type": "comment",
-          "named": true
-        },
-        {
           "type": "continue",
           "named": true
         },
@@ -662,10 +654,6 @@
         },
         {
           "type": "break",
-          "named": true
-        },
-        {
-          "type": "comment",
           "named": true
         },
         {
@@ -912,10 +900,6 @@
           "named": true
         },
         {
-          "type": "comment",
-          "named": true
-        },
-        {
           "type": "continue",
           "named": true
         },
@@ -1012,10 +996,6 @@
         },
         {
           "type": "cast_type",
-          "named": true
-        },
-        {
-          "type": "comment",
           "named": true
         },
         {
@@ -1545,10 +1525,6 @@
           "named": true
         },
         {
-          "type": "comment",
-          "named": true
-        },
-        {
           "type": "continue",
           "named": true
         },
@@ -1645,10 +1621,6 @@
         },
         {
           "type": "break",
-          "named": true
-        },
-        {
-          "type": "comment",
           "named": true
         },
         {
@@ -1890,10 +1862,6 @@
         },
         {
           "type": "cast_type",
-          "named": true
-        },
-        {
-          "type": "comment",
           "named": true
         },
         {
@@ -2282,10 +2250,6 @@
           "named": true
         },
         {
-          "type": "comment",
-          "named": true
-        },
-        {
           "type": "comparison_expression",
           "named": true
         },
@@ -2574,10 +2538,6 @@
           "named": true
         },
         {
-          "type": "comment",
-          "named": true
-        },
-        {
           "type": "continue",
           "named": true
         },
@@ -2688,10 +2648,6 @@
           "named": true
         },
         {
-          "type": "comment",
-          "named": true
-        },
-        {
           "type": "continue",
           "named": true
         },
@@ -2784,10 +2740,6 @@
         },
         {
           "type": "break",
-          "named": true
-        },
-        {
-          "type": "comment",
           "named": true
         },
         {
@@ -3192,10 +3144,6 @@
         },
         {
           "type": "cast_type",
-          "named": true
-        },
-        {
-          "type": "comment",
           "named": true
         },
         {

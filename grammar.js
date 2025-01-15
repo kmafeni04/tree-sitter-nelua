@@ -4,7 +4,7 @@
 module.exports = grammar({
   name: "nelua",
 
-  extras: (_) => [/\s/],
+  extras: ($) => [/\s/, $.comment],
 
   conflicts: ($) => [
     [$._statement, $.function_call],
@@ -36,7 +36,6 @@ module.exports = grammar({
 
     _statement: ($) =>
       choice(
-        $.comment,
         $.assignment_statement,
         $.function_declaration,
         $.function_call,
