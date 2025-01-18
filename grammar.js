@@ -1,7 +1,7 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 //
-// TODO: Fields, methods, indexing
+// TODO: ndexing
 
 const PREC = {
   OR: 1, // or
@@ -20,11 +20,12 @@ const PREC = {
 
 /**
  * @param {RuleOrLiteral} rule
- * @param {string} char
+ * @param {string} separator
  */
-const repeat_w_char = (rule, char) => {
-  return seq(rule, repeat(seq(char, rule)));
-};
+const list_seq = (rule, separator, trailing_separator = false) =>
+  trailing_separator
+    ? seq(rule, repeat(seq(separator, rule)), optional(separator))
+    : seq(rule, repeat(seq(separator, rule)));
 
 module.exports = grammar({
   name: "nelua",
@@ -55,12 +56,12 @@ module.exports = grammar({
 
     assignment_statement: ($) => seq($.variable_list, "=", $.expression_list),
 
-    variable_list: ($) => repeat_w_char($._variable, ","),
+    variable_list: ($) => list_seq($._variable, ","),
 
     _variable: ($) =>
-      seq(
-        choice($.identifier, $.vararg_expression),
-        optional(seq(":", $.type)),
+      prec.left(
+        1,
+        seq(choice($.identifier, $.dot_variable), optional(seq(":", $.type))),
       ),
 
     return_statement: ($) => seq("return", $.expression_list),
@@ -68,15 +69,15 @@ module.exports = grammar({
     function_definition: ($) =>
       seq(
         "function",
-        $.identifier,
+        choice($.identifier, $.dot_field, $.method_field),
         "(",
-        optional(repeat_w_char(alias($._variable, $.parameter), ",")),
+        optional(list_seq(alias($._variable, $.parameter), ",")),
         ")",
         optional(
           seq(
             ":",
             alias(
-              choice($.type, seq("(", repeat_w_char($.type, ","), ")")),
+              choice($.type, seq("(", list_seq($.type, ","), ")")),
               $.return_type,
             ),
           ),
@@ -86,7 +87,7 @@ module.exports = grammar({
       ),
     function_body: ($) => repeat1($._statement),
 
-    expression_list: ($) => repeat_w_char($._expression, ","),
+    expression_list: ($) => list_seq($._expression, ","),
 
     _expression: ($) =>
       choice(
@@ -101,16 +102,30 @@ module.exports = grammar({
         $.vararg_expression,
         $.at_type,
         $.array,
+        $.parenthesized_expression,
         $.function_call,
-        seq("(", $._expression, ")"),
+        $.dot_field,
       ),
 
+    parenthesized_expression: ($) => seq("(", $._expression, ")"),
+
+    bracket_index_expression: ($) =>
+      seq($._prefix_expression, "[", $._expression, "]"),
+
     function_call: ($) =>
-      seq($.identifier, "(", repeat_w_char($._expression, ","), ")"),
+      prec(
+        1,
+        seq(
+          choice($.identifier, $.dot_field, $.method_field),
+          "(",
+          optional($.expression_list),
+          ")",
+        ),
+      ),
 
     vararg_expression: () => "...",
 
-    array: ($) => seq("{", repeat_w_char($._expression, ","), "}"),
+    array: ($) => seq("{", list_seq($._expression, ","), "}"),
 
     binary_expression: ($) =>
       choice(
@@ -151,6 +166,18 @@ module.exports = grammar({
         seq(choice("not", "#", "-", "~", "$", "&"), $._expression),
       ),
 
+    _prefix_expression: ($) =>
+      prec(
+        2,
+        choice($.identifier, $.function_call, $.parenthesized_expression),
+      ),
+    _prefix_no_call_expression: ($) =>
+      prec(1, choice($.identifier, $.parenthesized_expression)),
+
+    dot_field: ($) => seq($._prefix_expression, ".", $.identifier),
+    dot_variable: ($) => seq($._prefix_no_call_expression, ".", $.identifier),
+    method_field: ($) => seq($._prefix_expression, ":", $.identifier),
+
     identifier: () => /[a-zA-Z_]\w*/,
 
     at_type: ($) => seq("@", $.type),
@@ -158,7 +185,7 @@ module.exports = grammar({
       prec.left(
         choice(
           $.identifier,
-          seq($.identifier, "(", repeat_w_char($.type, ","), ")"),
+          seq($.identifier, "(", list_seq($.type, ","), ")"),
           $.array_type,
           $.record,
           $.union,
@@ -168,30 +195,36 @@ module.exports = grammar({
     array_type: ($) =>
       seq(repeat1(seq("[", optional($._expression), "]")), $.type),
     record: ($) =>
-      seq("record", "{", optional(repeat_w_char($.record_field, ",")), "}"),
-    record_field: ($) =>
-      prec.left(seq($.identifier, ":", $.type, optional(","))),
+      seq("record", "{", optional(list_seq($.record_field, ",", true)), "}"),
+    record_field: ($) => prec.left(seq($.identifier, ":", $.type)),
     union: ($) =>
-      seq("union", "{", optional(repeat_w_char($.union_field, ",")), "}"),
-    union_field: ($) =>
-      prec.left(seq($.identifier, ":", $.type, optional(","))),
+      seq("union", "{", optional(list_seq($.union_field, ",", true)), "}"),
+    union_field: ($) => prec.left(seq($.identifier, ":", $.type)),
     enum: ($) =>
       seq(
         "enum",
         optional(seq("(", $.type, ")")),
         "{",
-        repeat_w_char($.enum_field, ","),
+        list_seq($.enum_field, ",", true),
         "}",
       ),
     enum_field: ($) =>
-      prec.left(seq($.identifier, optional(seq("=", $.number, optional(","))))),
+      prec.left(seq($.identifier, optional(seq("=", $.number)))),
 
     string: ($) => choice($._singleline_string, $._multiline_string),
 
     _singleline_string: ($) =>
       choice(
-        seq('"', repeat(choice(/[^\\]/, $.escape_sequence)), '"'),
-        seq("'", repeat(choice(/[^\\]/, $.escape_sequence)), "'"),
+        seq(
+          '"',
+          repeat(choice(token.immediate(prec(1, /[^"\\]/)), $.escape_sequence)),
+          '"',
+        ),
+        seq(
+          "'",
+          repeat(choice(token.immediate(prec(1, /[^'\\]/)), $.escape_sequence)),
+          "'",
+        ),
       ),
 
     _multiline_string: ($) =>
