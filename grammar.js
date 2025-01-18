@@ -1,7 +1,6 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 //
-// TODO: ndexing
 
 const PREC = {
   OR: 1, // or
@@ -60,8 +59,11 @@ module.exports = grammar({
 
     _variable: ($) =>
       prec.left(
-        1,
-        seq(choice($.identifier, $.dot_variable), optional(seq(":", $.type))),
+        3,
+        seq(
+          choice($.identifier, $.dot_variable, $.bracket_index_expression),
+          optional(seq(":", $.type)),
+        ),
       ),
 
     return_statement: ($) => seq("return", $.expression_list),
@@ -101,31 +103,42 @@ module.exports = grammar({
         $.unary_expression,
         $.vararg_expression,
         $.at_type,
-        $.array,
+        $.cast_type,
+        $._table_constructor,
         $.parenthesized_expression,
         $.function_call,
         $.dot_field,
+        $.bracket_index_expression,
       ),
 
-    parenthesized_expression: ($) => seq("(", $._expression, ")"),
-
-    bracket_index_expression: ($) =>
-      seq($._prefix_expression, "[", $._expression, "]"),
+    parenthesized_expression: ($) => choice(seq("(", $._expression, ")")),
 
     function_call: ($) =>
       prec(
         1,
         seq(
           choice($.identifier, $.dot_field, $.method_field),
-          "(",
-          optional($.expression_list),
-          ")",
+          choice(
+            seq("(", optional($.expression_list), ")"),
+            $.string,
+            $._table_constructor,
+          ),
         ),
       ),
 
     vararg_expression: () => "...",
 
-    array: ($) => seq("{", list_seq($._expression, ","), "}"),
+    _table_constructor: ($) =>
+      seq(
+        "{",
+        choice(
+          alias(list_seq($._expression, ","), $.array),
+          list_seq($.initializer, ","),
+        ),
+        "}",
+      ),
+    initializer: ($) =>
+      prec.left(choice($._expression, seq($.identifier, "=", $._expression))),
 
     binary_expression: ($) =>
       choice(
@@ -172,14 +185,37 @@ module.exports = grammar({
         choice($.identifier, $.function_call, $.parenthesized_expression),
       ),
     _prefix_no_call_expression: ($) =>
-      prec(1, choice($.identifier, $.parenthesized_expression)),
+      prec(
+        1,
+        choice(
+          $.identifier,
+          $.bracket_index_expression,
+          $.parenthesized_expression,
+        ),
+      ),
 
+    bracket_index_expression: ($) =>
+      seq($._prefix_expression, "[", $._expression, "]"),
     dot_field: ($) => seq($._prefix_expression, ".", $.identifier),
     dot_variable: ($) => seq($._prefix_no_call_expression, ".", $.identifier),
     method_field: ($) => seq($._prefix_expression, ":", $.identifier),
 
     identifier: () => /[a-zA-Z_]\w*/,
 
+    cast_type: ($) =>
+      prec(
+        1,
+        seq(
+          "(",
+          $.at_type,
+          ")",
+          choice(
+            $._table_constructor,
+            $.string,
+            seq("(", optional($._expression), ")"),
+          ),
+        ),
+      ),
     at_type: ($) => seq("@", $.type),
     type: ($) =>
       prec.left(
