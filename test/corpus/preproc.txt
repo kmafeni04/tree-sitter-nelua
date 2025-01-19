@@ -1,0 +1,57 @@
+=========
+preproc statement
+=========
+
+##[[
+	local x = 1
+]]
+
+##[=[
+	local x = 1
+]=]
+
+## for x in y() do
+  print("hello")
+## end
+
+---
+
+(source_file
+  (preproc_statement
+    (preproc_statement_content))
+  (preproc_statement
+    (preproc_statement_content))
+  (preproc_statement
+    (preproc_statement_content))
+  (function_call
+    (identifier)
+    (expression_list
+      (string)))
+  (preproc_statement
+    (preproc_statement_content)))
+
+=========
+preproc expression
+=========
+
+local x = #[1]#
+
+#|name|# = 10
+
+---
+
+(source_file
+  (declaration
+    (assignment_statement
+      (variable_list
+        (identifier))
+      (expression_list
+        (preproc_expression
+          (preproc_expression_content)))))
+  (assignment_statement
+    (variable_list
+      (identifier
+        (preproc_replacement
+          (preproc_expression_content))))
+    (expression_list
+      (number))))

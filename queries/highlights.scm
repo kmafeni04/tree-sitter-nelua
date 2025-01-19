@@ -1,167 +1,167 @@
-(hash_bang_line) @comment
+; (hash_bang_line) @comment
 
-(ERROR) @error
+; (ERROR) @error
 
-(comment) @comment
+; (comment) @comment
 
-[(true) (false)] @constant.builtin.boolean
+; [(true) (false)] @constant.builtin.boolean
 
-[(nil) (nilptr)] @constant.builtin
+; [(nil) (nilptr)] @constant.builtin
 
 
-[
-  "="
-] @operator
+; [
+;   "="
+; ] @operator
 
-[
-  "and"
-  "or"
-  "not"
-] @keyword.control
+; [
+;   "and"
+;   "or"
+;   "not"
+; ] @keyword.control
 
-[
-  ".."
-  "-"
-  "~"
-  "#"
-  "*"
-  "&"
-  "$"
-  "~="
-  "=="
-  "<="
-  ">="
-  "<"
-  ">"
-  "|"
-  "&"
-  "~"
-  "+"
-  "-"
-  "*"
-  "/"
-  "//"
-  "///"
-  "^"
-  ">>"
-  ">>>"
-] @operator
+; [
+;   ".."
+;   "-"
+;   "~"
+;   "#"
+;   "*"
+;   "&"
+;   "$"
+;   "~="
+;   "=="
+;   "<="
+;   ">="
+;   "<"
+;   ">"
+;   "|"
+;   "&"
+;   "~"
+;   "+"
+;   "-"
+;   "*"
+;   "/"
+;   "//"
+;   "///"
+;   "^"
+;   ">>"
+;   ">>>"
+; ] @operator
 
-[
-  "."
-  ","
-  ":"
-] @punctuation.delimiter
+; [
+;   "."
+;   ","
+;   ":"
+; ] @punctuation.delimiter
 
-[
-  "("
-  ")"
-  "()"
-  "{"
-  "}"
-  "["
-  "]"
-] @punctuation.bracket
+; [
+;   "("
+;   ")"
+;   "()"
+;   "{"
+;   "}"
+;   "["
+;   "]"
+; ] @punctuation.bracket
 
-[
-  "function"
-  "defer"
-  "in"
-  "do"
-  "return" 
-  (break)
-  "in"
-  "defer"
-  "goto"
-  (continue)
-  (fallthrough)
-  "end"
-] @keyword
+; [
+;   "function"
+;   "defer"
+;   "in"
+;   "do"
+;   "return" 
+;   (break)
+;   "in"
+;   "defer"
+;   "goto"
+;   (continue)
+;   (fallthrough)
+;   "end"
+; ] @keyword
 
-(string) @string
+; (string) @string
 
-(number) @constant
+; (number) @constant
 
-[(type) (return_type)] @type
+; [(type) (return_type)] @type
 
-(annotation
-  ["<"">"] @punctuation.brakcet)
+; (annotation
+;   ["<"">"] @punctuation.brakcet)
 
-(annotation
-  (identifier) @attribute)
+; (annotation
+;   (identifier) @attribute)
 
-["@"] @operator
+; ["@"] @operator
 
-((identifier) @variable.builtin
- (#eq? @variable.builtin "self"))
+; ((identifier) @variable.builtin
+;  (#eq? @variable.builtin "self"))
 
-((identifier) @constant
- (#match? @constant "^[A-Z][A-Z_0-9]*$"))
+; ((identifier) @constant
+;  (#match? @constant "^[A-Z][A-Z_0-9]*$"))
 
-(record
-   (record_field
-     (identifier) @variable.other.member))
+; (record
+;    (record_field
+;      (identifier) @variable.other.member))
 
-(enum
-   (enum_field
-     (identifier) @variable))
+; (enum
+;    (enum_field
+;      (identifier) @variable))
 
-(union
-   (union_field
-     (identifier) @variable.other.member))
+; (union
+;    (union_field
+;      (identifier) @variable.other.member))
 
-["local" "global" "return"] @keyword
+; ["local" "global" "return"] @keyword
 
-[
-  "if"
-  "else"
-  "elseif"
-  "then"
-  "while"
-  "repeat"
-  "until"
-  "for"
-  "switch"
-  "case"
-] @keyword.control
+; [
+;   "if"
+;   "else"
+;   "elseif"
+;   "then"
+;   "while"
+;   "repeat"
+;   "until"
+;   "for"
+;   "switch"
+;   "case"
+; ] @keyword.control
 
-(escape_sequence) @constant.character.escape
+; (escape_sequence) @constant.character.escape
 
-(function_declaration
-  (identifier) @function)
+; (function_declaration
+;   (identifier) @function)
 
-(function_declaration
-  (dot_function_declaration (dot_field (identifier) @variable.other.member)))
+; (function_declaration
+;   (dot_function_declaration (dot_field (identifier) @variable.other.member)))
 
-(parameters (identifier) @variable.parameter)
+; (parameters (identifier) @variable.parameter)
 
-(function_call
-  (identifier) @function.builtin
-  (#any-of? @function.builtin 
-  "require" "print" "panic" "error" "assert" "check" "likely" "unlikely"
-  "ipairs" "mipairs" "next" "mnext" "pairs" "mpairs" "select" "tostring"
-  "tostringview" "tonumber" "tointeger" "type" "new" "delete" "collectgarbage"))
+; (function_call
+;   (identifier) @function.builtin
+;   (#any-of? @function.builtin 
+;   "require" "print" "panic" "error" "assert" "check" "likely" "unlikely"
+;   "ipairs" "mipairs" "next" "mnext" "pairs" "mpairs" "select" "tostring"
+;   "tostringview" "tonumber" "tointeger" "type" "new" "delete" "collectgarbage"))
 
-(function_call
-  (identifier) @function)
+; (function_call
+;   (identifier) @function)
 
-(function_call
-  (argument) @string)
+; (function_call
+;   (argument) @string)
 
-(function_call
-  (dot_expression
-    (dot_field (identifier)) @variable.other.member))
+; (function_call
+;   (dot_expression
+;     (dot_field (identifier)) @variable.other.member))
 
-(dot_field
-    (identifier) @variable.other.member)
+; (dot_field
+;     (identifier) @variable.other.member)
 
-(dot_method
-    (identifier) @function.method)
+; (dot_method
+;     (identifier) @function.method)
 
-(goto_location "::" @keyword.directive)
+; (goto_location "::" @keyword.directive)
 
-(preproc_statement
-  ["##[[" "]]" "##"] @keyword.directive)
+; (preproc_statement
+;   ["##[[" "]]" "##"] @keyword.directive)
 
-(preproc_expression
-  ["#[" "]#" "#|" "|#"] @keyword.directive)
+; (preproc_expression
+;   ["#[" "]#" "#|" "|#"] @keyword.directive)

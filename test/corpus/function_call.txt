@@ -1,0 +1,67 @@
+=========
+function call
+=========
+
+x()
+
+---
+
+(source_file
+  (function_call
+    (identifier)))
+
+=========
+function call without paren
+=========
+
+print "hello"
+print {1,2,3,4}
+
+---
+
+(source_file
+  (function_call
+    (identifier)
+    (string))
+  (function_call
+    (identifier)
+    (curly_brace_expression
+      (number)
+      (number)
+      (number)
+      (number))))
+
+=========
+function call with arguments
+========
+
+x(1, 2, "test", (@string)(name))
+
+---
+
+(source_file
+  (function_call
+    (identifier)
+    (expression_list
+      (number)
+      (number)
+      (string)
+      (cast_type
+        (at_type
+          (type
+            (identifier)))
+        (identifier)))))
+
+=========
+method call
+=========
+
+x:y()
+
+---
+
+(source_file
+  (function_call
+    (method_field
+      (identifier)
+      (field))))
