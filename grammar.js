@@ -40,12 +40,108 @@ module.exports = grammar({
 
     _statement: ($) =>
       choice(
+        $.preproc_statement,
         $.assignment_statement,
         $.return_statement,
         $.function_definition,
         $.function_call,
         $.declaration,
+        $.do_block,
+        $.if_statement,
+        $.switch_statement,
+        $.defer_statement,
+        $.goto_statement,
+        $.goto_location,
+        $.return_statement,
+        $.for_statement,
+        $.while_statement,
+        $.continue,
+        $.repeat_statement,
+        $.fallthrough,
+        $.break,
+        $.injection_statement,
       ),
+
+    preproc_statement: ($) =>
+      choice(
+        seq("##", alias(/.*/, $.preproc_statement_content)),
+        seq("##[[", alias(repeat(/./), $.preproc_statement_content), "]]"),
+        seq("##[=[", alias(repeat(/./), $.preproc_statement_content), "]=]"),
+        seq("##[==[", alias(repeat(/./), $.preproc_statement_content), "]==]"),
+        seq(
+          "##[===[",
+          alias(repeat(/./), $.preproc_statement_content),
+          "]===]",
+        ),
+      ),
+
+    defer_statement: ($) => seq("defer", repeat($._statement), "end"),
+
+    goto_statement: ($) => seq("goto", $.identifier),
+    goto_location: ($) => seq("::", $.identifier, "::"),
+
+    continue: (_) => "continue",
+    fallthrough: (_) => "fallthrough",
+    break: (_) => "break",
+
+    injection_statement: ($) => seq("in", $.expression_list),
+
+    if_statement: ($) =>
+      prec.left(
+        seq(
+          "if",
+          $._expression,
+          "then",
+          repeat($._statement),
+          repeat($.elseif),
+          optional($.else),
+          "end",
+        ),
+      ),
+    elseif: ($) => seq("elseif", $._expression, "then", repeat($._statement)),
+    else: ($) => seq("else", repeat($._statement)),
+
+    switch_statement: ($) =>
+      prec.left(
+        seq(
+          "switch",
+          $._expression,
+          "do",
+          repeat($.switch_case),
+          optional($.switch_else),
+          "end",
+        ),
+      ),
+    switch_case: ($) =>
+      prec.left(seq("case", $.expression_list, "then", repeat($._statement))),
+    switch_else: ($) => prec.left(seq("else", repeat($._statement))),
+
+    while_statement: ($) =>
+      seq("while", $._expression, "do", repeat($._statement), "end"),
+
+    repeat_statement: ($) =>
+      seq("repeat", repeat($._statement), "until", $._expression),
+
+    for_statement: ($) =>
+      seq(
+        "for",
+        choice($.for_num, $.for_in),
+        "do",
+        repeat($._statement),
+        "end",
+      ),
+    for_num: ($) =>
+      seq(
+        $._variable,
+        "=",
+        list_seq(
+          seq(optional(alias($._comparison_op, $.exclusive_op)), $._expression),
+          ",",
+        ),
+      ),
+    for_in: ($) => seq($.variable_list, "in", $._expression),
+
+    do_block: ($) => seq("do", repeat($._statement), "end"),
 
     declaration: ($) =>
       seq(
@@ -55,44 +151,51 @@ module.exports = grammar({
 
     assignment_statement: ($) => seq($.variable_list, "=", $.expression_list),
 
-    variable_list: ($) => list_seq($._variable, ","),
+    variable_list: ($) => list_seq(seq($._variable), ","),
 
     _variable: ($) =>
       prec.left(
-        3,
+        2,
         seq(
           choice($.identifier, $.dot_variable, $.bracket_index_expression),
           optional(seq(":", $.type)),
+          optional($.annotation),
         ),
       ),
 
     return_statement: ($) => seq("return", $.expression_list),
 
     function_definition: ($) =>
-      seq(
-        "function",
-        choice($.identifier, $.dot_field, $.method_field),
-        "(",
-        optional(list_seq(alias($._variable, $.parameter), ",")),
-        ")",
-        optional(
-          seq(
-            ":",
-            alias(
-              choice($.type, seq("(", list_seq($.type, ","), ")")),
-              $.return_type,
+      prec(
+        2,
+        seq(
+          "function",
+          choice($.identifier, $.dot_variable, $.method_field),
+          "(",
+          optional(
+            list_seq(
+              seq(
+                alias(choice($.identifier, $.vararg_expression), $.parameter),
+                optional(seq(":", $.type)),
+              ),
+              ",",
             ),
           ),
+          ")",
+          optional(seq(":", optional(seq(":", $.return_type)))),
+          optional($.annotation),
+          optional($.function_body),
+          "end",
         ),
-        optional($.function_body),
-        "end",
       ),
+    return_type: ($) => choice($.type, seq("(", list_seq($.type, ","), ")")),
     function_body: ($) => repeat1($._statement),
 
     expression_list: ($) => list_seq($._expression, ","),
 
     _expression: ($) =>
       choice(
+        $.preproc_expression,
         $.identifier,
         $.string,
         $.number,
@@ -111,11 +214,17 @@ module.exports = grammar({
         $.bracket_index_expression,
       ),
 
+    preproc_expression: ($) =>
+      choice(
+        seq("#[", alias(repeat(/./), $.preproc_expression_content), "]#"),
+        seq("#|", alias(repeat(/./), $.preproc_expression_content), "|#"),
+      ),
+
     parenthesized_expression: ($) => choice(seq("(", $._expression, ")")),
 
     function_call: ($) =>
       prec(
-        1,
+        3,
         seq(
           choice($.identifier, $.dot_field, $.method_field),
           choice(
@@ -145,16 +254,11 @@ module.exports = grammar({
         prec.left(seq($._expression, $._binary_op_left, $._expression)),
         prec.right(seq($._expression, $._binary_op_right, $._expression)),
       ),
-    _binary_op_left: () =>
+    _binary_op_left: ($) =>
       choice(
         prec(PREC.OR, "or"),
         prec(PREC.AND, "and"),
-        prec(PREC.COMPARE, "<"),
-        prec(PREC.COMPARE, "<="),
-        prec(PREC.COMPARE, "=="),
-        prec(PREC.COMPARE, "~="),
-        prec(PREC.COMPARE, ">="),
-        prec(PREC.COMPARE, ">"),
+        $._comparison_op,
         prec(PREC.BIT_OR, "|"),
         prec(PREC.BIT_NOT, "~"),
         prec(PREC.BIT_AND, "&"),
@@ -170,6 +274,15 @@ module.exports = grammar({
         prec(PREC.MULTI, "%"),
         prec(PREC.MULTI, "%%%"),
       ),
+    _comparison_op: (_) =>
+      choice(
+        prec(PREC.COMPARE, "<"),
+        prec(PREC.COMPARE, "<="),
+        prec(PREC.COMPARE, "=="),
+        prec(PREC.COMPARE, "~="),
+        prec(PREC.COMPARE, ">="),
+        prec(PREC.COMPARE, ">"),
+      ),
     _binary_op_right: () =>
       choice(prec(PREC.CONCAT, ".."), prec(PREC.POWER, "^")),
 
@@ -181,12 +294,17 @@ module.exports = grammar({
 
     _prefix_expression: ($) =>
       prec(
-        2,
-        choice($.identifier, $.function_call, $.parenthesized_expression),
+        1,
+        choice(
+          $.identifier,
+          $.bracket_index_expression,
+          $.parenthesized_expression,
+          $.function_call,
+        ),
       ),
     _prefix_no_call_expression: ($) =>
       prec(
-        1,
+        2,
         choice(
           $.identifier,
           $.bracket_index_expression,
@@ -197,10 +315,18 @@ module.exports = grammar({
     bracket_index_expression: ($) =>
       seq($._prefix_expression, "[", $._expression, "]"),
     dot_field: ($) => seq($._prefix_expression, ".", $.identifier),
-    dot_variable: ($) => seq($._prefix_no_call_expression, ".", $.identifier),
+    dot_variable: ($) =>
+      prec(1, seq($._prefix_no_call_expression, ".", $.identifier)),
     method_field: ($) => seq($._prefix_expression, ":", $.identifier),
 
-    identifier: () => /[a-zA-Z_]\w*/,
+    identifier: () => /[a-zA-Z_][\w_]*/,
+
+    annotation: ($) =>
+      seq(
+        "<",
+        repeat1(seq(list_seq(choice($.identifier, $.function_call), ","))),
+        ">",
+      ),
 
     cast_type: ($) =>
       prec(
@@ -221,11 +347,29 @@ module.exports = grammar({
       prec.left(
         choice(
           $.identifier,
-          seq($.identifier, "(", list_seq($.type, ","), ")"),
+          prec(1, seq($.identifier, "(", list_seq($.type, ","), ")")),
           $.array_type,
           $.record,
           $.union,
           $.enum,
+          seq("*", $.type),
+          $.function_type,
+        ),
+      ),
+    function_type: ($) =>
+      seq(
+        "function",
+        "(",
+        optional(list_seq(alias($._variable, $.parameter), ",")),
+        ")",
+        optional(
+          seq(
+            ":",
+            alias(
+              choice($.type, seq("(", list_seq($.type, ","), ")")),
+              $.return_type,
+            ),
+          ),
         ),
       ),
     array_type: ($) =>
