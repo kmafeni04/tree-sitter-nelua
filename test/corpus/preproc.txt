@@ -50,8 +50,7 @@ local x = #[1]#
           (preproc_expression_content)))))
   (assignment_statement
     (variable_list
-      (identifier
-        (preproc_replacement
-          (preproc_expression_content))))
+      (preproc_replacement
+        (preproc_expression_content)))
     (expression_list
       (number))))

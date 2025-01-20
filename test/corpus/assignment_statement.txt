@@ -25,7 +25,8 @@ x.y = 10
     (variable_list
       (dot_variable
         (identifier)
-        (field)))
+        (field
+          (identifier))))
     (expression_list
       (number))))
 
@@ -118,7 +119,8 @@ local x.y = 10
       (variable_list
         (dot_variable
           (identifier)
-          (field)))
+          (field
+            (identifier))))
       (expression_list
         (number)))))
 
@@ -136,7 +138,8 @@ local x.y: integer = 10
       (variable_list
         (dot_variable
           (identifier)
-          (field))
+          (field
+            (identifier)))
         (type
           (identifier)))
       (expression_list
@@ -156,11 +159,13 @@ local x.y: a.b = 10
       (variable_list
         (dot_variable
           (identifier)
-          (field))
+          (field
+            (identifier)))
         (type
           (dot_variable
             (identifier)
-            (field))))
+            (field
+              (identifier)))))
       (expression_list
         (number)))))
 

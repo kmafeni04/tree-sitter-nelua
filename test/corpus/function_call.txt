@@ -64,4 +64,133 @@ x:y()
   (function_call
     (method_field
       (identifier)
-      (field))))
+      (field
+        (identifier)))))
+
+=========
+method call with parameters
+=========
+
+x:y(a, b, "hello", 1)
+
+---
+
+(source_file
+  (function_call
+    (method_field
+      (identifier)
+      (field
+        (identifier)))
+    (expression_list
+      (identifier)
+      (identifier)
+      (string)
+      (number))))
+
+=========
+chained method calls
+=========
+
+a:b(1):c("hello"):d(test):e(#[name]#)
+
+---
+
+(source_file
+  (function_call
+    (method_field
+      (function_call
+        (method_field
+          (function_call
+            (method_field
+              (function_call
+                (method_field
+                  (identifier)
+                  (field
+                    (identifier)))
+                (expression_list
+                  (number)))
+              (field
+                (identifier)))
+            (expression_list
+              (string)))
+          (field
+            (identifier)))
+        (expression_list
+          (identifier)))
+      (field
+        (identifier)))
+    (expression_list
+      (preproc_expression
+        (preproc_expression_content)))))
+
+
+=========
+dot_field call
+=========
+
+x.y()
+
+---
+
+(source_file
+  (function_call
+    (dot_variable
+      (identifier)
+      (field
+        (identifier)))))
+
+=========
+dot_field call with parameters
+=========
+
+x.y(a, b, "hello", 1)
+
+---
+
+(source_file
+  (function_call
+    (dot_variable
+      (identifier)
+      (field
+        (identifier)))
+    (expression_list
+      (identifier)
+      (identifier)
+      (string)
+      (number))))
+
+=========
+chained dot_field calls
+=========
+
+a.b(1).c("hello").d(test).e(#[name]#)
+
+---
+
+(source_file
+  (function_call
+    (dot_field
+      (function_call
+        (dot_field
+          (function_call
+            (dot_field
+              (function_call
+                (dot_variable
+                  (identifier)
+                  (field
+                    (identifier)))
+                (expression_list
+                  (number)))
+              (field
+                (identifier)))
+            (expression_list
+              (string)))
+          (field
+            (identifier)))
+        (expression_list
+          (identifier)))
+      (field
+        (identifier)))
+    (expression_list
+      (preproc_expression
+        (preproc_expression_content)))))

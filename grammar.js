@@ -1,8 +1,6 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
-// ISSUE: Function call
-
 const PREC = {
   OR: 1, // or
   AND: 2, // and
@@ -16,6 +14,17 @@ const PREC = {
   MULTI: 10, // * / // /// % %%%
   UNARY: 11, // not # - ~ $ &
   POWER: 12, // ^
+};
+
+const EXPR_PREC = {
+  EXPR: 1,
+  FUNC_CALL: 2,
+  PREFIX: 2,
+  TYPE: 2,
+  CAST_TYPE: 2,
+  VARIABLE: 2,
+  FUNC_DEF: 3,
+  PREFIX_NO_CALL: 3,
 };
 
 /**
@@ -32,7 +41,10 @@ module.exports = grammar({
 
   extras: ($) => [/\s/, $.comment],
 
-  conflicts: ($) => [[$.array_type, $.array_type]],
+  conflicts: ($) => [
+    [$.array_type, $.array_type],
+    [$._variable, $._prefix_expression],
+  ],
 
   rules: {
     source_file: ($) => seq(optional($.hash_bang), repeat($._statement)),
@@ -78,8 +90,8 @@ module.exports = grammar({
 
     defer_statement: ($) => seq("defer", repeat($._statement), "end"),
 
-    goto_statement: ($) => seq("goto", $.identifier),
-    goto_location: ($) => seq("::", $.identifier, "::"),
+    goto_statement: ($) => seq("goto", $._identifier),
+    goto_location: ($) => seq("::", $._identifier, "::"),
 
     continue: (_) => "continue",
     fallthrough: (_) => "fallthrough",
@@ -156,9 +168,9 @@ module.exports = grammar({
 
     _variable: ($) =>
       prec.left(
-        3,
+        EXPR_PREC.VARIABLE,
         seq(
-          choice($.identifier, $.dot_variable, $.bracket_index_expression),
+          choice($._identifier, $.dot_variable, $.bracket_index_expression),
           optional(seq(":", $.type)),
           optional($.annotation),
         ),
@@ -168,15 +180,15 @@ module.exports = grammar({
 
     function_definition: ($) =>
       prec(
-        3,
+        EXPR_PREC.FUNC_DEF,
         seq(
           "function",
-          choice($.identifier, $.dot_variable, $.method_field),
+          choice($._identifier, $.dot_variable, $.method_field),
           "(",
           optional(
             list_seq(
               seq(
-                alias(choice($.identifier, $.vararg_expression), $.parameter),
+                alias(choice($._identifier, $.vararg_expression), $.parameter),
                 optional(seq(":", $.type)),
               ),
               ",",
@@ -196,11 +208,11 @@ module.exports = grammar({
 
     _expression: ($) =>
       prec(
-        1,
+        EXPR_PREC.EXPR,
         choice(
           $.preproc_expression,
           $.preproc_replacement,
-          $.identifier,
+          $._identifier,
           $.string,
           $.number,
           $.nil,
@@ -215,6 +227,7 @@ module.exports = grammar({
           $.parenthesized_expression,
           $.function_call,
           $.dot_field,
+          $.dot_variable,
           $.bracket_index_expression,
         ),
       ),
@@ -225,13 +238,14 @@ module.exports = grammar({
     preproc_replacement: ($) =>
       seq("#|", alias(repeat(/./), $.preproc_expression_content), "|#"),
 
-    parenthesized_expression: ($) => choice(seq("(", $._expression, ")")),
+    parenthesized_expression: ($) =>
+      choice(seq("(", choice($._expression, $.do_block), ")")),
 
     function_call: ($) =>
       prec(
-        2,
+        EXPR_PREC.FUNC_CALL,
         seq(
-          choice($._prefix_expression, $.dot_field, $.method_field),
+          choice($._prefix_expression, $.dot_variable, $.method_field),
           choice(
             seq("(", optional($.expression_list), ")"),
             $.string,
@@ -247,7 +261,7 @@ module.exports = grammar({
         "{",
         choice(
           list_seq($._expression, ","),
-          list_seq(seq($.identifier, "=", $._expression), ","),
+          list_seq(seq($._identifier, "=", $._expression), ","),
         ),
         "}",
       ),
@@ -297,49 +311,49 @@ module.exports = grammar({
 
     _prefix_expression: ($) =>
       prec(
-        2,
+        EXPR_PREC.PREFIX,
         choice(
-          $.identifier,
+          $._identifier,
           $.bracket_index_expression,
           $.parenthesized_expression,
+          $.dot_field,
           $.function_call,
         ),
       ),
     _prefix_no_call_expression: ($) =>
       prec(
-        3,
+        EXPR_PREC.PREFIX_NO_CALL,
         choice(
-          $.identifier,
+          $._identifier,
           $.bracket_index_expression,
           $.parenthesized_expression,
+          $.dot_variable,
         ),
       ),
 
     bracket_index_expression: ($) =>
       seq($._prefix_expression, "[", $._expression, "]"),
     dot_field: ($) =>
-      seq($._prefix_expression, ".", alias($.identifier, $.field)),
+      seq($._prefix_expression, ".", alias($._identifier, $.field)),
     dot_variable: ($) =>
-      prec(
-        1,
-        seq($._prefix_no_call_expression, ".", alias($.identifier, $.field)),
-      ),
+      seq($._prefix_no_call_expression, ".", alias($._identifier, $.field)),
     method_field: ($) =>
-      seq($._prefix_expression, ":", alias($.identifier, $.field)),
+      seq($._prefix_expression, ":", alias($._identifier, $.field)),
 
-    // Not sure where it should actually be so added it here
-    identifier: ($) => choice(/[a-zA-Z_][\w_]*/, $.preproc_replacement),
+    // Not sure where `preproc_replacement` should actually be so added it here
+    _identifier: ($) =>
+      choice(alias(/[a-zA-Z_][\w_]*/, $.identifier), $.preproc_replacement),
 
     annotation: ($) =>
       seq(
         "<",
-        repeat1(seq(list_seq(choice($.identifier, $.function_call), ","))),
+        repeat1(seq(list_seq(choice($._identifier, $.function_call), ","))),
         ">",
       ),
 
     cast_type: ($) =>
       prec(
-        2,
+        EXPR_PREC.CAST_TYPE,
         seq(
           "(",
           $.at_type,
@@ -354,11 +368,11 @@ module.exports = grammar({
     at_type: ($) => seq("@", $.type),
     type: ($) =>
       prec.left(
-        2,
+        EXPR_PREC.TYPE,
         choice(
-          $.identifier,
+          $._identifier,
           $.dot_variable,
-          prec(3, seq($.identifier, "(", list_seq($.type, ","), ")")),
+          prec(3, seq($._identifier, "(", list_seq($.type, ","), ")")),
           $.array_type,
           $.record,
           $.union,
@@ -374,7 +388,7 @@ module.exports = grammar({
         optional(
           list_seq(
             seq(
-              alias(choice($.identifier, $.vararg_expression), $.parameter),
+              alias(choice($._identifier, $.vararg_expression), $.parameter),
               optional(seq(":", $.type)),
             ),
             ",",
@@ -387,10 +401,10 @@ module.exports = grammar({
       seq(repeat1(seq("[", optional($._expression), "]")), $.type),
     record: ($) =>
       seq("record", "{", optional(list_seq($.record_field, ",", true)), "}"),
-    record_field: ($) => prec.left(seq($.identifier, ":", $.type)),
+    record_field: ($) => prec.left(seq($._identifier, ":", $.type)),
     union: ($) =>
       seq("union", "{", optional(list_seq($.union_field, ",", true)), "}"),
-    union_field: ($) => prec.left(seq($.identifier, ":", $.type)),
+    union_field: ($) => prec.left(seq($._identifier, ":", $.type)),
     enum: ($) =>
       seq(
         "enum",
@@ -400,7 +414,7 @@ module.exports = grammar({
         "}",
       ),
     enum_field: ($) =>
-      prec.left(seq($.identifier, optional(seq("=", $.number)))),
+      prec.left(seq($._identifier, optional(seq("=", $.number)))),
 
     string: ($) => choice($._singleline_string, $._multiline_string),
 

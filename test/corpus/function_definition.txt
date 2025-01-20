@@ -23,10 +23,12 @@ end
 (source_file
   (function_definition
     (identifier)
-    (parameter)
+    (parameter
+      (identifier))
     (type
       (identifier))
-    (parameter)
+    (parameter
+      (identifier))
     (type
       (identifier))))
 
@@ -78,7 +80,8 @@ end
   (function_definition
     (dot_variable
       (identifier)
-      (field))))
+      (field
+        (identifier)))))
 
 =========
 dot_variable function definition with return type
@@ -92,7 +95,8 @@ end
   (function_definition
     (dot_variable
       (identifier)
-      (field))
+      (field
+        (identifier)))
     (return_type
       (type
         (identifier)))))
@@ -110,7 +114,8 @@ end
   (function_definition
     (dot_variable
       (identifier)
-      (field))
+      (field
+        (identifier)))
     (return_type
       (type
         (identifier))
@@ -134,11 +139,14 @@ end
   (function_definition
     (dot_variable
       (identifier)
-      (field))
-    (parameter)
+      (field
+        (identifier)))
+    (parameter
+      (identifier))
     (type
       (identifier))
-    (parameter)
+    (parameter
+      (identifier))
     (type
       (identifier))))
 
@@ -155,8 +163,8 @@ end
   (function_definition
     (method_field
       (identifier)
-      (field))))
-
+      (field
+        (identifier)))))
 
 =========
 method_field function definition with return type
@@ -166,14 +174,16 @@ function x:y(): string
 end
 
 ---
+
 (source_file
-      (function_definition
-        (method_field
-          (identifier)
-          (field))
-        (return_type
-          (type
-            (identifier)))))
+  (function_definition
+    (method_field
+      (identifier)
+      (field
+        (identifier)))
+    (return_type
+      (type
+        (identifier)))))
 
 =========
 method_field function definition with return types
@@ -188,7 +198,8 @@ end
   (function_definition
     (method_field
       (identifier)
-      (field))
+      (field
+        (identifier)))
     (return_type
       (type
         (identifier))
@@ -196,7 +207,6 @@ end
         (identifier)
         (type
           (identifier))))))
-
 =========
 method_field function definition with parameters
 =========
@@ -210,11 +220,14 @@ end
   (function_definition
     (method_field
       (identifier)
-      (field))
-    (parameter)
+      (field
+        (identifier)))
+    (parameter
+      (identifier))
     (type
       (identifier))
-    (parameter)
+    (parameter
+      (identifier))
     (type
       (identifier))))
 
