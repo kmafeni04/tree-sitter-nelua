@@ -492,7 +492,7 @@ module.exports = grammar({
         ),
       ),
 
-    number: ($) =>
+    number: (_) =>
       seq(
         choice(
           /\d/,
