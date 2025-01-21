@@ -16,7 +16,34 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
+          "type": "preproc_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "anom_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "function_body",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "return_type",
+          "named": true
+        },
+        {
+          "type": "type",
           "named": true
         }
       ]
@@ -30,6 +57,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "anom_function",
+          "named": true
+        },
         {
           "type": "at_type",
           "named": true
@@ -88,10 +119,6 @@
         },
         {
           "type": "preproc_expression",
-          "named": true
-        },
-        {
-          "type": "preproc_replacement",
           "named": true
         },
         {
@@ -156,6 +183,10 @@
       "required": true,
       "types": [
         {
+          "type": "anom_function",
+          "named": true
+        },
+        {
           "type": "at_type",
           "named": true
         },
@@ -213,10 +244,6 @@
         },
         {
           "type": "preproc_expression",
-          "named": true
-        },
-        {
-          "type": "preproc_replacement",
           "named": true
         },
         {
@@ -248,6 +275,10 @@
       "required": true,
       "types": [
         {
+          "type": "anom_function",
+          "named": true
+        },
+        {
           "type": "at_type",
           "named": true
         },
@@ -305,10 +336,6 @@
         },
         {
           "type": "preproc_expression",
-          "named": true
-        },
-        {
-          "type": "preproc_replacement",
           "named": true
         },
         {
@@ -335,6 +362,10 @@
       "required": true,
       "types": [
         {
+          "type": "anom_function",
+          "named": true
+        },
+        {
           "type": "at_type",
           "named": true
         },
@@ -392,10 +423,6 @@
         },
         {
           "type": "preproc_expression",
-          "named": true
-        },
-        {
-          "type": "preproc_replacement",
           "named": true
         },
         {
@@ -437,6 +464,10 @@
       "required": true,
       "types": [
         {
+          "type": "anom_function",
+          "named": true
+        },
+        {
           "type": "at_type",
           "named": true
         },
@@ -494,10 +525,6 @@
         },
         {
           "type": "preproc_expression",
-          "named": true
-        },
-        {
-          "type": "preproc_replacement",
           "named": true
         },
         {
@@ -729,6 +756,10 @@
           "named": true
         },
         {
+          "type": "dot_variable",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
@@ -745,7 +776,7 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
+          "type": "preproc_expression",
           "named": true
         }
       ]
@@ -780,7 +811,7 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
+          "type": "preproc_expression",
           "named": true
         }
       ]
@@ -882,6 +913,10 @@
       "required": true,
       "types": [
         {
+          "type": "anom_function",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
           "named": true
         },
@@ -994,10 +1029,6 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
-          "named": true
-        },
-        {
           "type": "preproc_statement",
           "named": true
         },
@@ -1068,7 +1099,7 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
+          "type": "preproc_expression",
           "named": true
         }
       ]
@@ -1087,6 +1118,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "anom_function",
+          "named": true
+        },
         {
           "type": "at_type",
           "named": true
@@ -1145,10 +1180,6 @@
         },
         {
           "type": "preproc_expression",
-          "named": true
-        },
-        {
-          "type": "preproc_replacement",
           "named": true
         },
         {
@@ -1179,7 +1210,7 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
+          "type": "preproc_expression",
           "named": true
         }
       ]
@@ -1193,6 +1224,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "anom_function",
+          "named": true
+        },
         {
           "type": "at_type",
           "named": true
@@ -1251,10 +1286,6 @@
         },
         {
           "type": "preproc_expression",
-          "named": true
-        },
-        {
-          "type": "preproc_replacement",
           "named": true
         },
         {
@@ -1286,6 +1317,10 @@
       "types": [
         {
           "type": "annotation",
+          "named": true
+        },
+        {
+          "type": "anom_function",
           "named": true
         },
         {
@@ -1350,10 +1385,6 @@
         },
         {
           "type": "preproc_expression",
-          "named": true
-        },
-        {
-          "type": "preproc_replacement",
           "named": true
         },
         {
@@ -1602,7 +1633,7 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -1645,7 +1676,7 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -1695,7 +1726,7 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
+          "type": "preproc_expression",
           "named": true
         }
       ]
@@ -1714,7 +1745,7 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
+          "type": "preproc_expression",
           "named": true
         }
       ]
@@ -1728,6 +1759,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "anom_function",
+          "named": true
+        },
         {
           "type": "assignment_statement",
           "named": true
@@ -1849,10 +1884,6 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
-          "named": true
-        },
-        {
           "type": "preproc_statement",
           "named": true
         },
@@ -1919,6 +1950,10 @@
           "named": true
         },
         {
+          "type": "dot_variable",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
@@ -1935,7 +1970,7 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
+          "type": "preproc_expression",
           "named": true
         }
       ]
@@ -1959,7 +1994,7 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
+          "type": "preproc_expression",
           "named": true
         }
       ]
@@ -1973,6 +2008,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "anom_function",
+          "named": true
+        },
         {
           "type": "at_type",
           "named": true
@@ -2038,10 +2077,6 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
-          "named": true
-        },
-        {
           "type": "string",
           "named": true
         },
@@ -2075,21 +2110,6 @@
     "type": "preproc_expression_content",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "preproc_replacement",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "preproc_expression_content",
-          "named": true
-        }
-      ]
-    }
   },
   {
     "type": "preproc_statement",
@@ -2139,7 +2159,7 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -2157,6 +2177,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "anom_function",
+          "named": true
+        },
         {
           "type": "assignment_statement",
           "named": true
@@ -2267,10 +2291,6 @@
         },
         {
           "type": "preproc_expression",
-          "named": true
-        },
-        {
-          "type": "preproc_replacement",
           "named": true
         },
         {
@@ -2631,6 +2651,10 @@
       "required": true,
       "types": [
         {
+          "type": "anom_function",
+          "named": true
+        },
+        {
           "type": "at_type",
           "named": true
         },
@@ -2688,10 +2712,6 @@
         },
         {
           "type": "preproc_expression",
-          "named": true
-        },
-        {
-          "type": "preproc_replacement",
           "named": true
         },
         {
@@ -2726,7 +2746,39 @@
       "required": true,
       "types": [
         {
+          "type": "anom_function",
+          "named": true
+        },
+        {
           "type": "array_type",
+          "named": true
+        },
+        {
+          "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
+          "named": true
+        },
+        {
+          "type": "cast_type",
+          "named": true
+        },
+        {
+          "type": "curly_brace_expression",
+          "named": true
+        },
+        {
+          "type": "dot_field",
           "named": true
         },
         {
@@ -2738,6 +2790,10 @@
           "named": true
         },
         {
+          "type": "function_call",
+          "named": true
+        },
+        {
           "type": "function_type",
           "named": true
         },
@@ -2746,7 +2802,23 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -2754,11 +2826,23 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "type",
           "named": true
         },
         {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
           "type": "union",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
           "named": true
         }
       ]
@@ -2772,6 +2856,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "anom_function",
+          "named": true
+        },
         {
           "type": "at_type",
           "named": true
@@ -2830,10 +2918,6 @@
         },
         {
           "type": "preproc_expression",
-          "named": true
-        },
-        {
-          "type": "preproc_replacement",
           "named": true
         },
         {
@@ -2879,7 +2963,7 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -2914,7 +2998,7 @@
           "named": true
         },
         {
-          "type": "preproc_replacement",
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -2932,6 +3016,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "anom_function",
+          "named": true
+        },
         {
           "type": "assignment_statement",
           "named": true
@@ -3042,10 +3130,6 @@
         },
         {
           "type": "preproc_expression",
-          "named": true
-        },
-        {
-          "type": "preproc_replacement",
           "named": true
         },
         {

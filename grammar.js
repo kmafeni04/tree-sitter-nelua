@@ -44,12 +44,13 @@ module.exports = grammar({
   conflicts: ($) => [
     [$.array_type, $.array_type],
     [$._variable, $._prefix_expression],
+    [$.type, $._prefix_expression],
   ],
 
   rules: {
     source_file: ($) => seq(optional($.hash_bang), repeat($._statement)),
 
-    hash_bang: (_) => /#[^#].*/,
+    hash_bang: (_) => /#!.*/,
 
     _statement: ($) =>
       choice(
@@ -170,6 +171,7 @@ module.exports = grammar({
       prec.left(
         EXPR_PREC.VARIABLE,
         seq(
+          optional(choice("$", "&")),
           choice($._identifier, $.dot_variable, $.bracket_index_expression),
           optional(seq(":", $.type)),
           optional($.annotation),
@@ -211,9 +213,9 @@ module.exports = grammar({
         EXPR_PREC.EXPR,
         choice(
           $.preproc_expression,
-          $.preproc_replacement,
           $._identifier,
           $.string,
+          $.anom_function,
           $.number,
           $.nil,
           $.nilptr,
@@ -233,19 +235,38 @@ module.exports = grammar({
       ),
 
     preproc_expression: ($) =>
-      seq("#[", alias(repeat(/./), $.preproc_expression_content), "]#"),
-
-    preproc_replacement: ($) =>
-      seq("#|", alias(repeat(/./), $.preproc_expression_content), "|#"),
+      choice(
+        seq("#[", alias(repeat(/./), $.preproc_expression_content), "]#"),
+        seq("#|", alias(repeat(/./), $.preproc_expression_content), "|#"),
+      ),
 
     parenthesized_expression: ($) =>
       choice(seq("(", choice($._expression, $.do_block), ")")),
+
+    anom_function: ($) =>
+      seq(
+        "function",
+        "(",
+        optional(
+          list_seq(
+            seq(
+              alias(choice($._identifier, $.vararg_expression), $.parameter),
+              optional(seq(":", $.type)),
+            ),
+            ",",
+          ),
+        ),
+        ")",
+        optional(seq(":", $.return_type)),
+        optional($.function_body),
+        "end",
+      ),
 
     function_call: ($) =>
       prec(
         EXPR_PREC.FUNC_CALL,
         seq(
-          choice($._prefix_expression, $.dot_variable, $.method_field),
+          choice($._prefix_expression, $.method_field, $.preproc_expression),
           choice(
             seq("(", optional($.expression_list), ")"),
             $.string,
@@ -268,7 +289,7 @@ module.exports = grammar({
 
     binary_expression: ($) =>
       choice(
-        prec.left(seq($._expression, $._binary_op_left, $._expression)),
+        prec.left(1, seq($._expression, $._binary_op_left, $._expression)),
         prec.right(seq($._expression, $._binary_op_right, $._expression)),
       ),
     _binary_op_left: ($) =>
@@ -317,6 +338,7 @@ module.exports = grammar({
           $.bracket_index_expression,
           $.parenthesized_expression,
           $.dot_field,
+          $.dot_variable,
           $.function_call,
         ),
       ),
@@ -342,7 +364,7 @@ module.exports = grammar({
 
     // Not sure where `preproc_replacement` should actually be so added it here
     _identifier: ($) =>
-      choice(alias(/[a-zA-Z_][\w_]*/, $.identifier), $.preproc_replacement),
+      choice(alias(/[a-zA-Z_][\w_]*/, $.identifier), $.preproc_expression),
 
     annotation: ($) =>
       seq(
@@ -372,7 +394,7 @@ module.exports = grammar({
         choice(
           $._identifier,
           $.dot_variable,
-          prec(3, seq($._identifier, "(", list_seq($.type, ","), ")")),
+          prec(3, seq($._identifier, "(", list_seq($._expression, ","), ")")),
           $.array_type,
           $.record,
           $.union,
@@ -461,17 +483,20 @@ module.exports = grammar({
         ),
       ),
 
-    number: (_) =>
-      choice(
-        /\d/,
-        /\d+/,
-        /[+-]?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?/,
-        /\d\d*\.\d+/,
-        /0b[01]+/,
-        /0x[0-9A-Fa-f]+/,
-        /0x[0-9A-Fa-f]+\.[0-9A-Fa-f]+p[+-]?\d+/,
-        /\d+_\a+/,
-        /'[a-zA-z]'_\w+/,
+    number: ($) =>
+      seq(
+        choice(
+          /\d/,
+          /\d+/,
+          /[+-]?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?/,
+          /\d\d*\.\d+/,
+          /0b[01]+/,
+          /0x[0-9A-Fa-f]+/,
+          /0x[0-9A-Fa-f]+\.[0-9A-Fa-f]+p[+-]?\d+/,
+          /\d+_\a+/,
+          /'[a-zA-z]'_\w+/,
+        ),
+        optional(token.immediate(seq("_", /\w+/))),
       ),
 
     comment: ($) =>

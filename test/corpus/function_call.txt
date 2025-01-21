@@ -194,3 +194,42 @@ a.b(1).c("hello").d(test).e(#[name]#)
     (expression_list
       (preproc_expression
         (preproc_expression_content)))))
+
+=========
+chained dot_field and method_field
+=========
+
+x.y:z() 
+
+---
+
+(source_file
+  (function_call
+    (method_field
+      (dot_variable
+        (identifier)
+        (field
+          (identifier)))
+      (field
+        (identifier)))))
+
+
+=========
+chained method_field and dot_field
+=========
+
+x:y().z() 
+
+---
+
+(source_file
+  (function_call
+    (dot_field
+      (function_call
+        (method_field
+          (identifier)
+          (field
+            (identifier))))
+      (field
+        (identifier)))))
+

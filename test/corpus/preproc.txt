@@ -50,7 +50,54 @@ local x = #[1]#
           (preproc_expression_content)))))
   (assignment_statement
     (variable_list
-      (preproc_replacement
+      (preproc_expression
         (preproc_expression_content)))
     (expression_list
       (number))))
+
+=========
+preproc function call
+=========
+
+#[test]#(a,b,c)
+#|test|#(a,b,c)
+
+---
+
+(source_file
+  (function_call
+    (preproc_expression
+      (preproc_expression_content))
+    (expression_list
+      (identifier)
+      (identifier)
+      (identifier)))
+  (function_call
+    (preproc_expression
+      (preproc_expression_content))
+    (expression_list
+      (identifier)
+      (identifier)
+      (identifier))))
+
+=========
+preproc function call assignment
+=========
+
+local x = #[y]#(a,b,c)
+
+---
+
+(source_file
+  (declaration
+    (assignment_statement
+      (variable_list
+        (identifier))
+      (expression_list
+        (function_call
+          (preproc_expression
+            (preproc_expression_content))
+          (expression_list
+            (identifier)
+            (identifier)
+            (identifier)))))))

@@ -64,6 +64,34 @@ local x: integer = 1
         (number)))))
 
 =========
+local assignment with generic type
+=========
+
+local x: span(string)
+local y: hashmap(string, string)
+
+---
+
+(source_file
+  (declaration
+    (variable_list
+      (identifier)
+      (type
+        (identifier)
+        (type
+          (identifier)))))
+  (declaration
+    (variable_list
+      (identifier)
+      (type
+        (identifier)
+        (type
+          (identifier))
+        (type
+          (identifier))))))
+
+
+=========
 local assignments with type
 =========
 
@@ -317,3 +345,18 @@ local z: X = { "James", 20 }
         (curly_brace_expression
           (string)
           (number))))))
+
+=========
+unary_expression assignment
+=========
+
+$a = b
+
+---
+
+(source_file
+  (assignment_statement
+    (variable_list
+      (identifier))
+    (expression_list
+      (identifier))))
