@@ -511,10 +511,10 @@ module.exports = grammar({
     comment: ($) =>
       choice(
         seq("--", alias(/[^\r\n]*/, $.comment_body)),
-        seq("--[[", alias(/[^⊙]*/, $.comment_body), "]]"),
-        seq("--[=[", alias(/[^⊙]*/, $.comment_body), "]=]"),
-        seq("--[==[", alias(/[^⊙]*/, $.comment_body), "]==]"),
-        seq("--[===[", alias(/[^⊙]*/, $.comment_body), "]===]"),
+        seq("--[[", alias(repeat(/./), $.comment_body), "]]"),
+        seq("--[=[", alias(repeat(/./), $.comment_body), "]=]"),
+        seq("--[==[", alias(repeat(/./), $.comment_body), "]==]"),
+        seq("--[===[", alias(repeat(/./), $.comment_body), "]===]"),
       ),
   },
 });
