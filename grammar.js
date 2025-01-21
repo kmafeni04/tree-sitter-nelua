@@ -192,6 +192,7 @@ module.exports = grammar({
               seq(
                 alias(choice($._identifier, $.vararg_expression), $.parameter),
                 optional(seq(":", $.type)),
+                optional($.annotation),
               ),
               ",",
             ),
@@ -362,7 +363,7 @@ module.exports = grammar({
     method_field: ($) =>
       seq($._prefix_expression, ":", alias($._identifier, $.field)),
 
-    // Not sure where `preproc_replacement` should actually be so added it here
+    // Not sure where `preproc_expression` should actually be so added it here
     _identifier: ($) =>
       choice(alias(/[a-zA-Z_][\w_]*/, $.identifier), $.preproc_expression),
 
@@ -394,7 +395,15 @@ module.exports = grammar({
         choice(
           $._identifier,
           $.dot_variable,
-          prec(3, seq($._identifier, "(", list_seq($._expression, ","), ")")),
+          prec(
+            3,
+            seq(
+              $._identifier,
+              "(",
+              list_seq(choice($.type, $._expression), ","),
+              ")",
+            ),
+          ),
           $.array_type,
           $.record,
           $.union,
