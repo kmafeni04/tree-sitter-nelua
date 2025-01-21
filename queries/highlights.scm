@@ -92,7 +92,8 @@
 
 ["@"] @operator
 
-(identifier) @variable
+(variable_list
+  (identifier) @variable)
 
 ((identifier) @variable.builtin
  (#eq? @variable.builtin "self"))
