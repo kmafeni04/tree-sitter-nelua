@@ -1,0 +1,290 @@
+=========
+function definition
+=========
+
+function x()
+end
+
+---
+
+(source_file
+  (function_definition
+    (identifier)))
+
+=========
+function definition with parameters
+=========
+
+function x(y: z, a: b)
+end
+
+---
+
+(source_file
+  (function_definition
+    (identifier)
+    (parameter
+      (identifier))
+    (type
+      (identifier))
+    (parameter
+      (identifier))
+    (type
+      (identifier))))
+
+=========
+function definition with return type
+=========
+
+function x(): string
+end
+
+---
+
+(source_file
+  (function_definition
+    (identifier)
+    (return_type
+      (type
+        (identifier)))))
+
+
+=========
+function definition with return types
+=========
+
+function x(): (string, string)
+end
+
+---
+
+(source_file
+  (function_definition
+    (identifier)
+    (return_type
+      (type
+        (identifier))
+      (type
+        (identifier)))))
+
+=========
+dot_variable function definition
+=========
+
+function x.y()
+end
+
+---
+
+(source_file
+  (function_definition
+    (dot_variable
+      (identifier)
+      (field
+        (identifier)))))
+
+=========
+dot_variable function definition with return type
+=========
+
+function x.y(): string
+end
+
+---
+(source_file
+  (function_definition
+    (dot_variable
+      (identifier)
+      (field
+        (identifier)))
+    (return_type
+      (type
+        (identifier)))))
+
+=========
+dot_variable function definition with return types
+=========
+
+function x.y(): (string, hashmap(string, string))
+end
+
+---
+
+(source_file
+  (function_definition
+    (dot_variable
+      (identifier)
+      (field
+        (identifier)))
+    (return_type
+      (type
+        (identifier))
+      (type
+        (identifier)
+        (type
+          (identifier))
+        (type
+          (identifier))))))
+
+=========
+dot_variable functin definition and parameters
+=========
+
+function x.y(a: b, c: d)
+end
+
+---
+
+(source_file
+  (function_definition
+    (dot_variable
+      (identifier)
+      (field
+        (identifier)))
+    (parameter
+      (identifier))
+    (type
+      (identifier))
+    (parameter
+      (identifier))
+    (type
+      (identifier))))
+
+=========
+method_field function definition
+=========
+
+function x:y()
+end
+
+---
+
+(source_file
+  (function_definition
+    (method_field
+      (identifier)
+      (field
+        (identifier)))))
+
+=========
+method_field function definition with return type
+=========
+
+function x:y(): string
+end
+
+---
+
+(source_file
+  (function_definition
+    (method_field
+      (identifier)
+      (field
+        (identifier)))
+    (return_type
+      (type
+        (identifier)))))
+
+=========
+method_field function definition with return types
+=========
+
+function x:y(): (string, span(string))
+end
+
+---
+
+(source_file
+  (function_definition
+    (method_field
+      (identifier)
+      (field
+        (identifier)))
+    (return_type
+      (type
+        (identifier))
+      (type
+        (identifier)
+        (type
+          (identifier))))))
+=========
+method_field function definition with parameters
+=========
+
+function x:y(a: b, c: d)
+end
+
+---
+
+(source_file
+  (function_definition
+    (method_field
+      (identifier)
+      (field
+        (identifier)))
+    (parameter
+      (identifier))
+    (type
+      (identifier))
+    (parameter
+      (identifier))
+    (type
+      (identifier))))
+
+========
+local function declaration
+========
+
+local function x()
+end
+
+---
+
+(source_file
+  (declaration
+    (function_definition
+      (identifier))))
+
+========
+global function declaration
+========
+
+global function x()
+end
+
+---
+
+(source_file
+  (declaration
+    (function_definition
+      (identifier))))
+
+=========
+function definition with body
+=========
+
+function x()
+  local x = 1
+  print(x)
+  return x
+end
+
+---
+
+(source_file
+  (function_definition
+    (identifier)
+    (function_body
+      (declaration
+        (assignment_statement
+          (variable_list
+            (identifier))
+          (expression_list
+            (number))))
+      (function_call
+        (identifier)
+        (expression_list
+          (identifier)))
+      (return_statement
+        (expression_list
+          (identifier))))))

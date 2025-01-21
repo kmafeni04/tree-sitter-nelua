@@ -14,122 +14,67 @@
         {
           "type": "identifier",
           "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "argument",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "escape_sequence",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "arguments",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "at_type",
-          "named": true
-        },
-        {
-          "type": "cast_type",
-          "named": true
-        },
-        {
-          "type": "comparison_expression",
-          "named": true
-        },
-        {
-          "type": "concatenation_expression",
-          "named": true
-        },
-        {
-          "type": "do_expression",
-          "named": true
-        },
-        {
-          "type": "dot_expression",
-          "named": true
-        },
-        {
-          "type": "false",
-          "named": true
-        },
-        {
-          "type": "function_call",
-          "named": true
-        },
-        {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "math_expression",
-          "named": true
-        },
-        {
-          "type": "nil",
-          "named": true
-        },
-        {
-          "type": "nilptr",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
         },
         {
           "type": "preproc_expression",
           "named": true
-        },
+        }
+      ]
+    }
+  },
+  {
+    "type": "anom_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
         {
-          "type": "string",
+          "type": "function_body",
           "named": true
         },
         {
-          "type": "table_constructor",
+          "type": "parameter",
           "named": true
         },
         {
-          "type": "true",
+          "type": "return_type",
           "named": true
         },
         {
-          "type": "unary_expression",
+          "type": "type",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "array_index",
+    "type": "array_type",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
+          "type": "anom_function",
+          "named": true
+        },
+        {
           "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -137,23 +82,15 @@
           "named": true
         },
         {
-          "type": "comparison_expression",
+          "type": "curly_brace_expression",
           "named": true
         },
         {
-          "type": "concatenation_expression",
+          "type": "dot_field",
           "named": true
         },
         {
-          "type": "do_expression",
-          "named": true
-        },
-        {
-          "type": "dot_expression",
-          "named": true
-        },
-        {
-          "type": "false",
+          "type": "dot_variable",
           "named": true
         },
         {
@@ -161,15 +98,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "math_expression",
           "named": true
         },
         {
@@ -185,6 +114,10 @@
           "named": true
         },
         {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
           "type": "preproc_expression",
           "named": true
         },
@@ -193,15 +126,15 @@
           "named": true
         },
         {
-          "type": "table_constructor",
-          "named": true
-        },
-        {
-          "type": "true",
+          "type": "type",
           "named": true
         },
         {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
           "named": true
         }
       ]
@@ -215,14 +148,6 @@
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "at_type",
-          "named": true
-        },
-        {
-          "type": "dot_expression",
-          "named": true
-        },
         {
           "type": "expression_list",
           "named": true
@@ -250,7 +175,7 @@
     }
   },
   {
-    "type": "cast_type",
+    "type": "binary_expression",
     "named": true,
     "fields": {},
     "children": {
@@ -258,7 +183,23 @@
       "required": true,
       "types": [
         {
+          "type": "anom_function",
+          "named": true
+        },
+        {
           "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -266,23 +207,15 @@
           "named": true
         },
         {
-          "type": "comparison_expression",
+          "type": "curly_brace_expression",
           "named": true
         },
         {
-          "type": "concatenation_expression",
+          "type": "dot_field",
           "named": true
         },
         {
-          "type": "do_expression",
-          "named": true
-        },
-        {
-          "type": "dot_expression",
-          "named": true
-        },
-        {
-          "type": "false",
+          "type": "dot_variable",
           "named": true
         },
         {
@@ -290,15 +223,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "math_expression",
           "named": true
         },
         {
@@ -314,6 +239,10 @@
           "named": true
         },
         {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
           "type": "preproc_expression",
           "named": true
         },
@@ -322,15 +251,190 @@
           "named": true
         },
         {
-          "type": "table_constructor",
+          "type": "unary_expression",
           "named": true
         },
         {
-          "type": "true",
+          "type": "vararg_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "boolean",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "bracket_index_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "anom_function",
+          "named": true
+        },
+        {
+          "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
+          "named": true
+        },
+        {
+          "type": "cast_type",
+          "named": true
+        },
+        {
+          "type": "curly_brace_expression",
+          "named": true
+        },
+        {
+          "type": "dot_field",
+          "named": true
+        },
+        {
+          "type": "dot_variable",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         },
         {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cast_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "anom_function",
+          "named": true
+        },
+        {
+          "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
+          "named": true
+        },
+        {
+          "type": "cast_type",
+          "named": true
+        },
+        {
+          "type": "curly_brace_expression",
+          "named": true
+        },
+        {
+          "type": "dot_field",
+          "named": true
+        },
+        {
+          "type": "dot_variable",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
           "named": true
         }
       ]
@@ -342,7 +446,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "comment_body",
@@ -352,12 +456,7 @@
     }
   },
   {
-    "type": "comment_body",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "comparison_expression",
+    "type": "curly_brace_expression",
     "named": true,
     "fields": {},
     "children": {
@@ -365,22 +464,23 @@
       "required": true,
       "types": [
         {
-          "type": "expression_list",
+          "type": "anom_function",
           "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "concatenation_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
+        },
         {
           "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -388,23 +488,15 @@
           "named": true
         },
         {
-          "type": "comparison_expression",
+          "type": "curly_brace_expression",
           "named": true
         },
         {
-          "type": "concatenation_expression",
+          "type": "dot_field",
           "named": true
         },
         {
-          "type": "do_expression",
-          "named": true
-        },
-        {
-          "type": "dot_expression",
-          "named": true
-        },
-        {
-          "type": "false",
+          "type": "dot_variable",
           "named": true
         },
         {
@@ -412,15 +504,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "math_expression",
           "named": true
         },
         {
@@ -436,6 +520,10 @@
           "named": true
         },
         {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
           "type": "preproc_expression",
           "named": true
         },
@@ -444,15 +532,34 @@
           "named": true
         },
         {
-          "type": "table_constructor",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "function_definition",
+          "named": true
+        },
+        {
+          "type": "variable_list",
           "named": true
         }
       ]
@@ -479,6 +586,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "defer_statement",
           "named": true
         },
@@ -499,11 +610,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "global_declaration",
+          "type": "function_definition",
           "named": true
         },
         {
@@ -520,10 +627,6 @@
         },
         {
           "type": "injection_statement",
-          "named": true
-        },
-        {
-          "type": "local_declaration",
           "named": true
         },
         {
@@ -570,94 +673,7 @@
           "named": true
         },
         {
-          "type": "defer_statement",
-          "named": true
-        },
-        {
-          "type": "do_block",
-          "named": true
-        },
-        {
-          "type": "fallthrough",
-          "named": true
-        },
-        {
-          "type": "for_statement",
-          "named": true
-        },
-        {
-          "type": "function_call",
-          "named": true
-        },
-        {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "global_declaration",
-          "named": true
-        },
-        {
-          "type": "goto_location",
-          "named": true
-        },
-        {
-          "type": "goto_statement",
-          "named": true
-        },
-        {
-          "type": "if_statement",
-          "named": true
-        },
-        {
-          "type": "injection_statement",
-          "named": true
-        },
-        {
-          "type": "local_declaration",
-          "named": true
-        },
-        {
-          "type": "preproc_statement",
-          "named": true
-        },
-        {
-          "type": "repeat_statement",
-          "named": true
-        },
-        {
-          "type": "return_statement",
-          "named": true
-        },
-        {
-          "type": "switch_statement",
-          "named": true
-        },
-        {
-          "type": "while_statement",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "do_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "assignment_statement",
-          "named": true
-        },
-        {
-          "type": "break",
-          "named": true
-        },
-        {
-          "type": "continue",
+          "type": "declaration",
           "named": true
         },
         {
@@ -681,11 +697,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "global_declaration",
+          "type": "function_definition",
           "named": true
         },
         {
@@ -702,10 +714,6 @@
         },
         {
           "type": "injection_statement",
-          "named": true
-        },
-        {
-          "type": "local_declaration",
           "named": true
         },
         {
@@ -726,105 +734,6 @@
         },
         {
           "type": "while_statement",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "dot_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "array_index",
-          "named": true
-        },
-        {
-          "type": "at_type",
-          "named": true
-        },
-        {
-          "type": "cast_type",
-          "named": true
-        },
-        {
-          "type": "comparison_expression",
-          "named": true
-        },
-        {
-          "type": "concatenation_expression",
-          "named": true
-        },
-        {
-          "type": "do_expression",
-          "named": true
-        },
-        {
-          "type": "dot_expression",
-          "named": true
-        },
-        {
-          "type": "dot_field",
-          "named": true
-        },
-        {
-          "type": "dot_method",
-          "named": true
-        },
-        {
-          "type": "false",
-          "named": true
-        },
-        {
-          "type": "function_call",
-          "named": true
-        },
-        {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "math_expression",
-          "named": true
-        },
-        {
-          "type": "nil",
-          "named": true
-        },
-        {
-          "type": "nilptr",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "preproc_expression",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "table_constructor",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
-          "type": "unary_expression",
           "named": true
         }
       ]
@@ -835,18 +744,46 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
+          "type": "bracket_index_expression",
+          "named": true
+        },
+        {
+          "type": "dot_field",
+          "named": true
+        },
+        {
+          "type": "dot_variable",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "dot_function_declaration",
+    "type": "dot_variable",
     "named": true,
     "fields": {},
     "children": {
@@ -854,30 +791,27 @@
       "required": true,
       "types": [
         {
-          "type": "dot_field",
+          "type": "bracket_index_expression",
           "named": true
         },
         {
-          "type": "dot_method",
+          "type": "dot_variable",
+          "named": true
+        },
+        {
+          "type": "field",
           "named": true
         },
         {
           "type": "identifier",
           "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "dot_method",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
+        },
         {
-          "type": "identifier",
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         }
       ]
@@ -904,6 +838,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "defer_statement",
           "named": true
         },
@@ -924,11 +862,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "global_declaration",
+          "type": "function_definition",
           "named": true
         },
         {
@@ -945,10 +879,6 @@
         },
         {
           "type": "injection_statement",
-          "named": true
-        },
-        {
-          "type": "local_declaration",
           "named": true
         },
         {
@@ -983,11 +913,27 @@
       "required": true,
       "types": [
         {
+          "type": "anom_function",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
           "named": true
         },
         {
           "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -999,15 +945,15 @@
           "named": true
         },
         {
-          "type": "comparison_expression",
-          "named": true
-        },
-        {
-          "type": "concatenation_expression",
-          "named": true
-        },
-        {
           "type": "continue",
+          "named": true
+        },
+        {
+          "type": "curly_brace_expression",
+          "named": true
+        },
+        {
+          "type": "declaration",
           "named": true
         },
         {
@@ -1019,19 +965,15 @@
           "named": true
         },
         {
-          "type": "do_expression",
+          "type": "dot_field",
           "named": true
         },
         {
-          "type": "dot_expression",
+          "type": "dot_variable",
           "named": true
         },
         {
           "type": "fallthrough",
-          "named": true
-        },
-        {
-          "type": "false",
           "named": true
         },
         {
@@ -1043,11 +985,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "global_declaration",
+          "type": "function_definition",
           "named": true
         },
         {
@@ -1071,14 +1009,6 @@
           "named": true
         },
         {
-          "type": "local_declaration",
-          "named": true
-        },
-        {
-          "type": "math_expression",
-          "named": true
-        },
-        {
           "type": "nil",
           "named": true
         },
@@ -1088,6 +1018,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
           "named": true
         },
         {
@@ -1115,15 +1049,11 @@
           "named": true
         },
         {
-          "type": "table_constructor",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
           "named": true
         },
         {
@@ -1161,55 +1091,7 @@
       "required": true,
       "types": [
         {
-          "type": "at_type",
-          "named": true
-        },
-        {
-          "type": "cast_type",
-          "named": true
-        },
-        {
-          "type": "comparison_expression",
-          "named": true
-        },
-        {
-          "type": "concatenation_expression",
-          "named": true
-        },
-        {
-          "type": "do_expression",
-          "named": true
-        },
-        {
-          "type": "dot_expression",
-          "named": true
-        },
-        {
-          "type": "false",
-          "named": true
-        },
-        {
-          "type": "function_call",
-          "named": true
-        },
-        {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "math_expression",
-          "named": true
-        },
-        {
-          "type": "nil",
-          "named": true
-        },
-        {
-          "type": "nilptr",
           "named": true
         },
         {
@@ -1219,25 +1101,14 @@
         {
           "type": "preproc_expression",
           "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "table_constructor",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
-          "type": "unary_expression",
-          "named": true
         }
       ]
     }
+  },
+  {
+    "type": "exclusive_op",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "expression_list",
@@ -1248,7 +1119,23 @@
       "required": true,
       "types": [
         {
+          "type": "anom_function",
+          "named": true
+        },
+        {
           "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -1256,23 +1143,15 @@
           "named": true
         },
         {
-          "type": "comparison_expression",
+          "type": "curly_brace_expression",
           "named": true
         },
         {
-          "type": "concatenation_expression",
+          "type": "dot_field",
           "named": true
         },
         {
-          "type": "do_expression",
-          "named": true
-        },
-        {
-          "type": "dot_expression",
-          "named": true
-        },
-        {
-          "type": "false",
+          "type": "dot_variable",
           "named": true
         },
         {
@@ -1280,15 +1159,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "math_expression",
           "named": true
         },
         {
@@ -1304,6 +1175,10 @@
           "named": true
         },
         {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
           "type": "preproc_expression",
           "named": true
         },
@@ -1312,15 +1187,30 @@
           "named": true
         },
         {
-          "type": "table_constructor",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "field",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         }
       ]
@@ -1335,7 +1225,23 @@
       "required": true,
       "types": [
         {
+          "type": "anom_function",
+          "named": true
+        },
+        {
           "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -1343,23 +1249,15 @@
           "named": true
         },
         {
-          "type": "comparison_expression",
+          "type": "curly_brace_expression",
           "named": true
         },
         {
-          "type": "concatenation_expression",
+          "type": "dot_field",
           "named": true
         },
         {
-          "type": "do_expression",
-          "named": true
-        },
-        {
-          "type": "dot_expression",
-          "named": true
-        },
-        {
-          "type": "false",
+          "type": "dot_variable",
           "named": true
         },
         {
@@ -1367,15 +1265,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "math_expression",
           "named": true
         },
         {
@@ -1391,6 +1281,10 @@
           "named": true
         },
         {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
           "type": "preproc_expression",
           "named": true
         },
@@ -1399,19 +1293,15 @@
           "named": true
         },
         {
-          "type": "table_constructor",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
-          "type": "type",
-          "named": true
-        },
-        {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
+          "named": true
+        },
+        {
+          "type": "variable_list",
           "named": true
         }
       ]
@@ -1426,7 +1316,27 @@
       "required": true,
       "types": [
         {
+          "type": "annotation",
+          "named": true
+        },
+        {
+          "type": "anom_function",
+          "named": true
+        },
+        {
           "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -1434,23 +1344,19 @@
           "named": true
         },
         {
-          "type": "comparison_expression",
+          "type": "curly_brace_expression",
           "named": true
         },
         {
-          "type": "concatenation_expression",
+          "type": "dot_field",
           "named": true
         },
         {
-          "type": "do_expression",
+          "type": "dot_variable",
           "named": true
         },
         {
-          "type": "dot_expression",
-          "named": true
-        },
-        {
-          "type": "false",
+          "type": "exclusive_op",
           "named": true
         },
         {
@@ -1458,15 +1364,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "math_expression",
           "named": true
         },
         {
@@ -1482,6 +1380,10 @@
           "named": true
         },
         {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
           "type": "preproc_expression",
           "named": true
         },
@@ -1490,19 +1392,15 @@
           "named": true
         },
         {
-          "type": "table_constructor",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
           "type": "type",
           "named": true
         },
         {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
           "named": true
         }
       ]
@@ -1526,6 +1424,10 @@
         },
         {
           "type": "continue",
+          "named": true
+        },
+        {
+          "type": "declaration",
           "named": true
         },
         {
@@ -1557,11 +1459,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "global_declaration",
+          "type": "function_definition",
           "named": true
         },
         {
@@ -1578,10 +1476,6 @@
         },
         {
           "type": "injection_statement",
-          "named": true
-        },
-        {
-          "type": "local_declaration",
           "named": true
         },
         {
@@ -1628,6 +1522,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "defer_statement",
           "named": true
         },
@@ -1648,11 +1546,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "global_declaration",
+          "type": "function_definition",
           "named": true
         },
         {
@@ -1669,10 +1563,6 @@
         },
         {
           "type": "injection_statement",
-          "named": true
-        },
-        {
-          "type": "local_declaration",
           "named": true
         },
         {
@@ -1707,15 +1597,23 @@
       "required": true,
       "types": [
         {
-          "type": "argument",
+          "type": "bracket_index_expression",
           "named": true
         },
         {
-          "type": "arguments",
+          "type": "curly_brace_expression",
           "named": true
         },
         {
-          "type": "dot_expression",
+          "type": "dot_field",
+          "named": true
+        },
+        {
+          "type": "dot_variable",
+          "named": true
+        },
+        {
+          "type": "expression_list",
           "named": true
         },
         {
@@ -1725,24 +1623,40 @@
         {
           "type": "identifier",
           "named": true
+        },
+        {
+          "type": "method_field",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
         }
       ]
     }
   },
   {
-    "type": "function_declaration",
+    "type": "function_definition",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "annotation",
           "named": true
         },
         {
-          "type": "dot_function_declaration",
+          "type": "dot_variable",
           "named": true
         },
         {
@@ -1754,7 +1668,15 @@
           "named": true
         },
         {
-          "type": "parameters",
+          "type": "method_field",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -1762,30 +1684,30 @@
           "named": true
         },
         {
-          "type": "return_types",
+          "type": "type",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "global_declaration",
+    "type": "function_type",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": true,
+      "multiple": true,
+      "required": false,
       "types": [
         {
-          "type": "assignment_statement",
+          "type": "parameter",
           "named": true
         },
         {
-          "type": "function_declaration",
+          "type": "return_type",
           "named": true
         },
         {
-          "type": "variable_list",
+          "type": "type",
           "named": true
         }
       ]
@@ -1802,6 +1724,10 @@
         {
           "type": "identifier",
           "named": true
+        },
+        {
+          "type": "preproc_expression",
+          "named": true
         }
       ]
     }
@@ -1817,24 +1743,9 @@
         {
           "type": "identifier",
           "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "identifier",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "preproc_expression",
-          "named": true
         },
         {
-          "type": "varargs",
+          "type": "preproc_expression",
           "named": true
         }
       ]
@@ -1849,11 +1760,27 @@
       "required": true,
       "types": [
         {
+          "type": "anom_function",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
           "named": true
         },
         {
           "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -1865,15 +1792,15 @@
           "named": true
         },
         {
-          "type": "comparison_expression",
-          "named": true
-        },
-        {
-          "type": "concatenation_expression",
-          "named": true
-        },
-        {
           "type": "continue",
+          "named": true
+        },
+        {
+          "type": "curly_brace_expression",
+          "named": true
+        },
+        {
+          "type": "declaration",
           "named": true
         },
         {
@@ -1885,11 +1812,11 @@
           "named": true
         },
         {
-          "type": "do_expression",
+          "type": "dot_field",
           "named": true
         },
         {
-          "type": "dot_expression",
+          "type": "dot_variable",
           "named": true
         },
         {
@@ -1905,10 +1832,6 @@
           "named": true
         },
         {
-          "type": "false",
-          "named": true
-        },
-        {
           "type": "for_statement",
           "named": true
         },
@@ -1917,11 +1840,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "global_declaration",
+          "type": "function_definition",
           "named": true
         },
         {
@@ -1945,14 +1864,6 @@
           "named": true
         },
         {
-          "type": "local_declaration",
-          "named": true
-        },
-        {
-          "type": "math_expression",
-          "named": true
-        },
-        {
           "type": "nil",
           "named": true
         },
@@ -1962,6 +1873,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
           "named": true
         },
         {
@@ -1989,15 +1904,11 @@
           "named": true
         },
         {
-          "type": "table_constructor",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
           "named": true
         },
         {
@@ -2023,30 +1934,7 @@
     }
   },
   {
-    "type": "local_declaration",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "assignment_statement",
-          "named": true
-        },
-        {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "variable_list",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "math_expression",
+    "type": "method_field",
     "named": true,
     "fields": {},
     "children": {
@@ -2054,31 +1942,19 @@
       "required": true,
       "types": [
         {
-          "type": "at_type",
+          "type": "bracket_index_expression",
           "named": true
         },
         {
-          "type": "cast_type",
+          "type": "dot_field",
           "named": true
         },
         {
-          "type": "comparison_expression",
+          "type": "dot_variable",
           "named": true
         },
         {
-          "type": "concatenation_expression",
-          "named": true
-        },
-        {
-          "type": "do_expression",
-          "named": true
-        },
-        {
-          "type": "dot_expression",
-          "named": true
-        },
-        {
-          "type": "false",
+          "type": "field",
           "named": true
         },
         {
@@ -2086,15 +1962,98 @@
           "named": true
         },
         {
-          "type": "function_declaration",
+          "type": "identifier",
           "named": true
         },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "number",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "parameter",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
         {
           "type": "identifier",
           "named": true
         },
         {
-          "type": "math_expression",
+          "type": "preproc_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parenthesized_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "anom_function",
+          "named": true
+        },
+        {
+          "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
+          "named": true
+        },
+        {
+          "type": "cast_type",
+          "named": true
+        },
+        {
+          "type": "curly_brace_expression",
+          "named": true
+        },
+        {
+          "type": "do_block",
+          "named": true
+        },
+        {
+          "type": "dot_field",
+          "named": true
+        },
+        {
+          "type": "dot_variable",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         },
         {
@@ -2110,6 +2069,10 @@
           "named": true
         },
         {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
           "type": "preproc_expression",
           "named": true
         },
@@ -2118,34 +2081,11 @@
           "named": true
         },
         {
-          "type": "table_constructor",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
           "type": "unary_expression",
           "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "parameters",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
         },
         {
-          "type": "type",
+          "type": "vararg_expression",
           "named": true
         }
       ]
@@ -2219,6 +2159,10 @@
           "named": true
         },
         {
+          "type": "preproc_expression",
+          "named": true
+        },
+        {
           "type": "type",
           "named": true
         }
@@ -2234,11 +2178,27 @@
       "required": true,
       "types": [
         {
+          "type": "anom_function",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
           "named": true
         },
         {
           "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -2250,15 +2210,15 @@
           "named": true
         },
         {
-          "type": "comparison_expression",
-          "named": true
-        },
-        {
-          "type": "concatenation_expression",
-          "named": true
-        },
-        {
           "type": "continue",
+          "named": true
+        },
+        {
+          "type": "curly_brace_expression",
+          "named": true
+        },
+        {
+          "type": "declaration",
           "named": true
         },
         {
@@ -2270,19 +2230,15 @@
           "named": true
         },
         {
-          "type": "do_expression",
+          "type": "dot_field",
           "named": true
         },
         {
-          "type": "dot_expression",
+          "type": "dot_variable",
           "named": true
         },
         {
           "type": "fallthrough",
-          "named": true
-        },
-        {
-          "type": "false",
           "named": true
         },
         {
@@ -2294,11 +2250,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "global_declaration",
+          "type": "function_definition",
           "named": true
         },
         {
@@ -2322,14 +2274,6 @@
           "named": true
         },
         {
-          "type": "local_declaration",
-          "named": true
-        },
-        {
-          "type": "math_expression",
-          "named": true
-        },
-        {
           "type": "nil",
           "named": true
         },
@@ -2339,6 +2283,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
           "named": true
         },
         {
@@ -2366,15 +2314,11 @@
           "named": true
         },
         {
-          "type": "table_constructor",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
           "named": true
         },
         {
@@ -2390,7 +2334,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "expression_list",
@@ -2401,113 +2345,6 @@
   },
   {
     "type": "return_type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "at_type",
-          "named": true
-        },
-        {
-          "type": "cast_type",
-          "named": true
-        },
-        {
-          "type": "comparison_expression",
-          "named": true
-        },
-        {
-          "type": "concatenation_expression",
-          "named": true
-        },
-        {
-          "type": "do_expression",
-          "named": true
-        },
-        {
-          "type": "dot_expression",
-          "named": true
-        },
-        {
-          "type": "enum",
-          "named": true
-        },
-        {
-          "type": "false",
-          "named": true
-        },
-        {
-          "type": "function_call",
-          "named": true
-        },
-        {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "math_expression",
-          "named": true
-        },
-        {
-          "type": "nil",
-          "named": true
-        },
-        {
-          "type": "nilptr",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "parameters",
-          "named": true
-        },
-        {
-          "type": "preproc_expression",
-          "named": true
-        },
-        {
-          "type": "record",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "table_constructor",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
-          "type": "type",
-          "named": true
-        },
-        {
-          "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "union",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "return_types",
     "named": true,
     "fields": {},
     "children": {
@@ -2542,6 +2379,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "defer_statement",
           "named": true
         },
@@ -2562,11 +2403,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "global_declaration",
+          "type": "function_definition",
           "named": true
         },
         {
@@ -2578,7 +2415,7 @@
           "named": true
         },
         {
-          "type": "hash_bang_line",
+          "type": "hash_bang",
           "named": true
         },
         {
@@ -2587,10 +2424,6 @@
         },
         {
           "type": "injection_statement",
-          "named": true
-        },
-        {
-          "type": "local_declaration",
           "named": true
         },
         {
@@ -2652,6 +2485,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "defer_statement",
           "named": true
         },
@@ -2676,11 +2513,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "global_declaration",
+          "type": "function_definition",
           "named": true
         },
         {
@@ -2697,10 +2530,6 @@
         },
         {
           "type": "injection_statement",
-          "named": true
-        },
-        {
-          "type": "local_declaration",
           "named": true
         },
         {
@@ -2747,6 +2576,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "defer_statement",
           "named": true
         },
@@ -2767,11 +2600,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "global_declaration",
+          "type": "function_definition",
           "named": true
         },
         {
@@ -2788,10 +2617,6 @@
         },
         {
           "type": "injection_statement",
-          "named": true
-        },
-        {
-          "type": "local_declaration",
           "named": true
         },
         {
@@ -2826,30 +2651,7 @@
       "required": true,
       "types": [
         {
-          "type": "expression_list",
-          "named": true
-        },
-        {
-          "type": "switch_case",
-          "named": true
-        },
-        {
-          "type": "switch_else",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "table_constructor",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "assignment_statement",
+          "type": "anom_function",
           "named": true
         },
         {
@@ -2857,26 +2659,15 @@
           "named": true
         },
         {
-          "type": "expression_list",
+          "type": "binary_expression",
           "named": true
         },
         {
-          "type": "type",
+          "type": "boolean",
           "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
+        },
         {
-          "type": "at_type",
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -2884,27 +2675,15 @@
           "named": true
         },
         {
-          "type": "comparison_expression",
+          "type": "curly_brace_expression",
           "named": true
         },
         {
-          "type": "concatenation_expression",
+          "type": "dot_field",
           "named": true
         },
         {
-          "type": "do_expression",
-          "named": true
-        },
-        {
-          "type": "dot_expression",
-          "named": true
-        },
-        {
-          "type": "enum",
-          "named": true
-        },
-        {
-          "type": "false",
+          "type": "dot_variable",
           "named": true
         },
         {
@@ -2912,15 +2691,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "math_expression",
           "named": true
         },
         {
@@ -2936,7 +2707,114 @@
           "named": true
         },
         {
-          "type": "parameters",
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "switch_case",
+          "named": true
+        },
+        {
+          "type": "switch_else",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "anom_function",
+          "named": true
+        },
+        {
+          "type": "array_type",
+          "named": true
+        },
+        {
+          "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
+          "named": true
+        },
+        {
+          "type": "cast_type",
+          "named": true
+        },
+        {
+          "type": "curly_brace_expression",
+          "named": true
+        },
+        {
+          "type": "dot_field",
+          "named": true
+        },
+        {
+          "type": "dot_variable",
+          "named": true
+        },
+        {
+          "type": "enum",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "function_type",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
           "named": true
         },
         {
@@ -2952,14 +2830,6 @@
           "named": true
         },
         {
-          "type": "table_constructor",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
           "type": "type",
           "named": true
         },
@@ -2972,7 +2842,7 @@
           "named": true
         },
         {
-          "type": "varargs",
+          "type": "vararg_expression",
           "named": true
         }
       ]
@@ -2987,7 +2857,23 @@
       "required": true,
       "types": [
         {
+          "type": "anom_function",
+          "named": true
+        },
+        {
           "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -2995,23 +2881,15 @@
           "named": true
         },
         {
-          "type": "comparison_expression",
+          "type": "curly_brace_expression",
           "named": true
         },
         {
-          "type": "concatenation_expression",
+          "type": "dot_field",
           "named": true
         },
         {
-          "type": "do_expression",
-          "named": true
-        },
-        {
-          "type": "dot_expression",
-          "named": true
-        },
-        {
-          "type": "false",
+          "type": "dot_variable",
           "named": true
         },
         {
@@ -3019,15 +2897,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "math_expression",
           "named": true
         },
         {
@@ -3043,6 +2913,10 @@
           "named": true
         },
         {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
           "type": "preproc_expression",
           "named": true
         },
@@ -3051,15 +2925,11 @@
           "named": true
         },
         {
-          "type": "table_constructor",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
           "named": true
         }
       ]
@@ -3071,7 +2941,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "union_field",
@@ -3090,6 +2960,10 @@
       "types": [
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -3112,7 +2986,19 @@
           "named": true
         },
         {
+          "type": "bracket_index_expression",
+          "named": true
+        },
+        {
+          "type": "dot_variable",
+          "named": true
+        },
+        {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -3131,11 +3017,27 @@
       "required": true,
       "types": [
         {
+          "type": "anom_function",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
           "named": true
         },
         {
           "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -3147,15 +3049,15 @@
           "named": true
         },
         {
-          "type": "comparison_expression",
-          "named": true
-        },
-        {
-          "type": "concatenation_expression",
-          "named": true
-        },
-        {
           "type": "continue",
+          "named": true
+        },
+        {
+          "type": "curly_brace_expression",
+          "named": true
+        },
+        {
+          "type": "declaration",
           "named": true
         },
         {
@@ -3167,19 +3069,15 @@
           "named": true
         },
         {
-          "type": "do_expression",
+          "type": "dot_field",
           "named": true
         },
         {
-          "type": "dot_expression",
+          "type": "dot_variable",
           "named": true
         },
         {
           "type": "fallthrough",
-          "named": true
-        },
-        {
-          "type": "false",
           "named": true
         },
         {
@@ -3191,11 +3089,7 @@
           "named": true
         },
         {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "global_declaration",
+          "type": "function_definition",
           "named": true
         },
         {
@@ -3219,14 +3113,6 @@
           "named": true
         },
         {
-          "type": "local_declaration",
-          "named": true
-        },
-        {
-          "type": "math_expression",
-          "named": true
-        },
-        {
           "type": "nil",
           "named": true
         },
@@ -3236,6 +3122,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
           "named": true
         },
         {
@@ -3263,15 +3153,11 @@
           "named": true
         },
         {
-          "type": "table_constructor",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
           "named": true
         },
         {
@@ -3322,6 +3208,14 @@
     "named": false
   },
   {
+    "type": "%",
+    "named": false
+  },
+  {
+    "type": "%%%",
+    "named": false
+  },
+  {
     "type": "&",
     "named": false
   },
@@ -3331,10 +3225,6 @@
   },
   {
     "type": "(",
-    "named": false
-  },
-  {
-    "type": "()",
     "named": false
   },
   {
@@ -3407,6 +3297,10 @@
   },
   {
     "type": "<",
+    "named": false
+  },
+  {
+    "type": "<<",
     "named": false
   },
   {
@@ -3502,6 +3396,10 @@
     "named": false
   },
   {
+    "type": "comment_body",
+    "named": true
+  },
+  {
     "type": "continue",
     "named": true
   },
@@ -3539,7 +3437,7 @@
   },
   {
     "type": "false",
-    "named": true
+    "named": false
   },
   {
     "type": "for",
@@ -3558,7 +3456,11 @@
     "named": false
   },
   {
-    "type": "hash_bang_line",
+    "type": "hash_bang",
+    "named": true
+  },
+  {
+    "type": "identifier",
     "named": true
   },
   {
@@ -3586,10 +3488,6 @@
     "named": false
   },
   {
-    "type": "number",
-    "named": true
-  },
-  {
     "type": "or",
     "named": false
   },
@@ -3615,7 +3513,7 @@
   },
   {
     "type": "true",
-    "named": true
+    "named": false
   },
   {
     "type": "union",
@@ -3626,7 +3524,7 @@
     "named": false
   },
   {
-    "type": "varargs",
+    "type": "vararg_expression",
     "named": true
   },
   {

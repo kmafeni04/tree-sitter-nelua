@@ -1,0 +1,362 @@
+=========
+assignment statement
+=========
+
+x = 5
+
+---
+
+(source_file
+  (assignment_statement
+    (variable_list
+      (identifier))
+    (expression_list
+      (number))))
+
+=========
+dot_variable assignment
+=========
+
+x.y = 10
+
+---
+(source_file
+  (assignment_statement
+    (variable_list
+      (dot_variable
+        (identifier)
+        (field
+          (identifier))))
+    (expression_list
+      (number))))
+
+=========
+local assignment
+=========
+
+local x = 1
+
+---
+(source_file
+  (declaration
+    (assignment_statement
+      (variable_list
+        (identifier))
+      (expression_list
+        (number)))))
+
+=========
+local assignment with type
+=========
+
+local x: integer = 1
+
+---
+
+(source_file
+  (declaration
+    (assignment_statement
+      (variable_list
+        (identifier)
+        (type
+          (identifier)))
+      (expression_list
+        (number)))))
+
+=========
+local assignment with generic type
+=========
+
+local x: span(string)
+local y: hashmap(string, string)
+
+---
+
+(source_file
+  (declaration
+    (variable_list
+      (identifier)
+      (type
+        (identifier)
+        (type
+          (identifier)))))
+  (declaration
+    (variable_list
+      (identifier)
+      (type
+        (identifier)
+        (type
+          (identifier))
+        (type
+          (identifier))))))
+
+
+=========
+local assignments with type
+=========
+
+local x: integer, y: string = 1, "test"
+
+---
+
+(source_file
+  (declaration
+    (assignment_statement
+      (variable_list
+        (identifier)
+        (type
+          (identifier))
+        (identifier)
+        (type
+          (identifier)))
+      (expression_list
+        (number)
+        (string)))))
+
+=========
+local assignments with type and without
+=========
+
+local x: integer, y = 1, "test"
+
+---
+
+(source_file
+  (declaration
+    (assignment_statement
+      (variable_list
+        (identifier)
+        (type
+          (identifier))
+        (identifier))
+      (expression_list
+        (number)
+        (string)))))
+
+=========
+local dot_variable assignment
+=========
+
+local x.y = 10
+
+---
+
+(source_file
+  (declaration
+    (assignment_statement
+      (variable_list
+        (dot_variable
+          (identifier)
+          (field
+            (identifier))))
+      (expression_list
+        (number)))))
+
+=========
+local dot_variable assignment with type
+=========
+
+local x.y: integer = 10
+
+---
+
+(source_file
+  (declaration
+    (assignment_statement
+      (variable_list
+        (dot_variable
+          (identifier)
+          (field
+            (identifier)))
+        (type
+          (identifier)))
+      (expression_list
+        (number)))))
+
+=========
+local dot_variable assignment with dot_variable type
+=========
+
+local x.y: a.b = 10
+
+---
+
+(source_file
+  (declaration
+    (assignment_statement
+      (variable_list
+        (dot_variable
+          (identifier)
+          (field
+            (identifier)))
+        (type
+          (dot_variable
+            (identifier)
+            (field
+              (identifier)))))
+      (expression_list
+        (number)))))
+
+==========
+local array assignment
+==========
+
+local x: []integer = {1, 2, 3, 4}
+
+---
+
+(source_file
+  (declaration
+    (assignment_statement
+      (variable_list
+        (identifier)
+        (type
+          (array_type
+            (type
+              (identifier)))))
+      (expression_list
+        (curly_brace_expression
+          (number)
+          (number)
+          (number)
+          (number))))))
+
+=========
+local record
+=========
+
+local x = @record{}
+
+---
+
+(source_file
+  (declaration
+    (assignment_statement
+      (variable_list
+        (identifier))
+      (expression_list
+        (at_type
+          (type
+            (record)))))))
+
+=========
+record initialisation
+=========
+
+local X = @record{
+  name: string
+}
+
+local z: X = { name = "James" }
+
+---
+
+(source_file
+  (declaration
+    (assignment_statement
+      (variable_list
+        (identifier))
+      (expression_list
+        (at_type
+          (type
+            (record
+              (record_field
+                (identifier)
+                (type
+                  (identifier)))))))))
+  (declaration
+    (assignment_statement
+      (variable_list
+        (identifier)
+        (type
+          (identifier)))
+      (expression_list
+        (curly_brace_expression
+          (identifier)
+          (string))))))
+
+=========
+bracket_index assignment
+=========
+
+x["y"] = 12
+
+---
+
+(source_file
+  (assignment_statement
+    (variable_list
+      (bracket_index_expression
+        (identifier)
+        (string)))
+    (expression_list
+      (number))))
+
+=========
+record initialisation with multiple fields
+=========
+
+local X = @record{
+  name: string,
+  age: integer
+}
+
+local y: X = { name = "James", age = 20 }
+local z: X = { "James", 20 }
+
+---
+
+(source_file
+  (declaration
+    (assignment_statement
+      (variable_list
+        (identifier))
+      (expression_list
+        (at_type
+          (type
+            (record
+              (record_field
+                (identifier)
+                (type
+                  (identifier)))
+              (record_field
+                (identifier)
+                (type
+                  (identifier)))))))))
+  (declaration
+    (assignment_statement
+      (variable_list
+        (identifier)
+        (type
+          (identifier)))
+      (expression_list
+        (curly_brace_expression
+          (identifier)
+          (string)
+          (identifier)
+          (number)))))
+  (declaration
+    (assignment_statement
+      (variable_list
+        (identifier)
+        (type
+          (identifier)))
+      (expression_list
+        (curly_brace_expression
+          (string)
+          (number))))))
+
+=========
+unary_expression assignment
+=========
+
+$a = b
+
+---
+
+(source_file
+  (assignment_statement
+    (variable_list
+      (identifier))
+    (expression_list
+      (identifier))))

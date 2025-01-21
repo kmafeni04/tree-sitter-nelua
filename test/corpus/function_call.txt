@@ -1,0 +1,235 @@
+=========
+function call
+=========
+
+x()
+
+---
+
+(source_file
+  (function_call
+    (identifier)))
+
+=========
+function call without paren
+=========
+
+print "hello"
+print {1,2,3,4}
+
+---
+
+(source_file
+  (function_call
+    (identifier)
+    (string))
+  (function_call
+    (identifier)
+    (curly_brace_expression
+      (number)
+      (number)
+      (number)
+      (number))))
+
+=========
+function call with arguments
+========
+
+x(1, 2, "test", (@string)(name))
+
+---
+
+(source_file
+  (function_call
+    (identifier)
+    (expression_list
+      (number)
+      (number)
+      (string)
+      (cast_type
+        (at_type
+          (type
+            (identifier)))
+        (identifier)))))
+
+=========
+method call
+=========
+
+x:y()
+
+---
+
+(source_file
+  (function_call
+    (method_field
+      (identifier)
+      (field
+        (identifier)))))
+
+=========
+method call with parameters
+=========
+
+x:y(a, b, "hello", 1)
+
+---
+
+(source_file
+  (function_call
+    (method_field
+      (identifier)
+      (field
+        (identifier)))
+    (expression_list
+      (identifier)
+      (identifier)
+      (string)
+      (number))))
+
+=========
+chained method calls
+=========
+
+a:b(1):c("hello"):d(test):e(#[name]#)
+
+---
+
+(source_file
+  (function_call
+    (method_field
+      (function_call
+        (method_field
+          (function_call
+            (method_field
+              (function_call
+                (method_field
+                  (identifier)
+                  (field
+                    (identifier)))
+                (expression_list
+                  (number)))
+              (field
+                (identifier)))
+            (expression_list
+              (string)))
+          (field
+            (identifier)))
+        (expression_list
+          (identifier)))
+      (field
+        (identifier)))
+    (expression_list
+      (preproc_expression
+        (preproc_expression_content)))))
+
+
+=========
+dot_field call
+=========
+
+x.y()
+
+---
+
+(source_file
+  (function_call
+    (dot_variable
+      (identifier)
+      (field
+        (identifier)))))
+
+=========
+dot_field call with parameters
+=========
+
+x.y(a, b, "hello", 1)
+
+---
+
+(source_file
+  (function_call
+    (dot_variable
+      (identifier)
+      (field
+        (identifier)))
+    (expression_list
+      (identifier)
+      (identifier)
+      (string)
+      (number))))
+
+=========
+chained dot_field calls
+=========
+
+a.b(1).c("hello").d(test).e(#[name]#)
+
+---
+
+(source_file
+  (function_call
+    (dot_field
+      (function_call
+        (dot_field
+          (function_call
+            (dot_field
+              (function_call
+                (dot_variable
+                  (identifier)
+                  (field
+                    (identifier)))
+                (expression_list
+                  (number)))
+              (field
+                (identifier)))
+            (expression_list
+              (string)))
+          (field
+            (identifier)))
+        (expression_list
+          (identifier)))
+      (field
+        (identifier)))
+    (expression_list
+      (preproc_expression
+        (preproc_expression_content)))))
+
+=========
+chained dot_field and method_field
+=========
+
+x.y:z() 
+
+---
+
+(source_file
+  (function_call
+    (method_field
+      (dot_variable
+        (identifier)
+        (field
+          (identifier)))
+      (field
+        (identifier)))))
+
+
+=========
+chained method_field and dot_field
+=========
+
+x:y().z() 
+
+---
+
+(source_file
+  (function_call
+    (dot_field
+      (function_call
+        (method_field
+          (identifier)
+          (field
+            (identifier))))
+      (field
+        (identifier)))))
+
