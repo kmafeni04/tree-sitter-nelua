@@ -178,7 +178,8 @@ module.exports = grammar({
         ),
       ),
 
-    return_statement: ($) => seq("return", $.expression_list),
+    return_statement: ($) =>
+      prec.right(seq("return", optional($.expression_list))),
 
     function_definition: ($) =>
       prec(
@@ -216,7 +217,7 @@ module.exports = grammar({
           $.preproc_expression,
           $._identifier,
           $.string,
-          $.anom_function,
+          $.anon_function,
           $.number,
           $.nil,
           $.nilptr,
@@ -244,7 +245,7 @@ module.exports = grammar({
     parenthesized_expression: ($) =>
       choice(seq("(", choice($._expression, $.do_block), ")")),
 
-    anom_function: ($) =>
+    anon_function: ($) =>
       seq(
         "function",
         "(",

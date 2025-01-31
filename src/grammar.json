@@ -871,17 +871,29 @@
       }
     },
     "return_statement": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "return"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "expression_list"
-        }
-      ]
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "return"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "expression_list"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "function_definition": {
       "type": "PREC",
@@ -1206,7 +1218,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "anom_function"
+            "name": "anon_function"
           },
           {
             "type": "SYMBOL",
@@ -1357,7 +1369,7 @@
         }
       ]
     },
-    "anom_function": {
+    "anon_function": {
       "type": "SEQ",
       "members": [
         {
@@ -3167,15 +3179,15 @@
             },
             {
               "type": "PATTERN",
-              "value": "0b[01]+"
+              "value": "0[bB][01]+"
             },
             {
               "type": "PATTERN",
-              "value": "0x[0-9A-Fa-f]+"
+              "value": "0[xX][0-9A-Fa-f]+"
             },
             {
               "type": "PATTERN",
-              "value": "0x[0-9A-Fa-f]+\\.[0-9A-Fa-f]+p[+-]?\\d+"
+              "value": "0[xX][0-9A-Fa-f]+\\.[0-9A-Fa-f]+p[+-]?\\d+"
             },
             {
               "type": "PATTERN",
