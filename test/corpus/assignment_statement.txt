@@ -360,3 +360,19 @@ $a = b
       (identifier))
     (expression_list
       (identifier))))
+
+=========
+parenthesized unary_expression assignment
+=========
+
+$(a) = b
+
+---
+
+(source_file
+  (assignment_statement
+    (variable_list
+      (parenthesized_expression
+        (identifier)))
+    (expression_list
+      (identifier))))

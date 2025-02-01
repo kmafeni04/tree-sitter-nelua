@@ -172,7 +172,12 @@ module.exports = grammar({
         EXPR_PREC.VARIABLE,
         seq(
           optional(choice("$", "&")),
-          choice($._identifier, $.dot_variable, $.bracket_index_expression),
+          choice(
+            $._identifier,
+            $.dot_variable,
+            $.bracket_index_expression,
+            $.parenthesized_expression,
+          ),
           optional(seq(":", $.type)),
           optional($.annotation),
         ),
