@@ -101,3 +101,17 @@ local x = #[y]#(a,b,c)
             (identifier)
             (identifier)
             (identifier)))))))
+
+=========
+preproc function definition
+=========
+
+local function #[name]#()
+end
+---
+
+(source_file
+  (declaration
+    (function_definition
+      (preproc_expression
+        (preproc_expression_content)))))

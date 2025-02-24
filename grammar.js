@@ -219,7 +219,6 @@ module.exports = grammar({
       prec(
         EXPR_PREC.EXPR,
         choice(
-          $.preproc_expression,
           $._identifier,
           $.string,
           $.anon_function,
@@ -273,7 +272,7 @@ module.exports = grammar({
       prec(
         EXPR_PREC.FUNC_CALL,
         seq(
-          choice($._prefix_expression, $.method_field, $.preproc_expression),
+          choice($._prefix_expression, $.method_field),
           choice(
             seq("(", optional($.expression_list), ")"),
             $.string,

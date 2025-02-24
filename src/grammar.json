@@ -1210,10 +1210,6 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "preproc_expression"
-          },
-          {
-            "type": "SYMBOL",
             "name": "_identifier"
           },
           {
@@ -1556,10 +1552,6 @@
               {
                 "type": "SYMBOL",
                 "name": "method_field"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "preproc_expression"
               }
             ]
           },
