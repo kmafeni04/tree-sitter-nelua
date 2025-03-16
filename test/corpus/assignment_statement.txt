@@ -376,3 +376,25 @@ $(a) = b
         (identifier)))
     (expression_list
       (identifier))))
+
+=========
+cast_type array index
+=========
+
+local x = (@y)(z)[i]
+
+---
+
+(source_file
+    (declaration
+      (assignment_statement
+        (variable_list
+          (identifier))
+        (expression_list
+          (bracket_index_expression
+            (cast_type
+              (at_type
+                (type
+                  (identifier)))
+              (identifier))
+            (identifier))))))

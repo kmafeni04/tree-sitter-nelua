@@ -346,6 +346,7 @@ module.exports = grammar({
           $.dot_field,
           $.dot_variable,
           $.function_call,
+          $.cast_type,
         ),
       ),
     _prefix_no_call_expression: ($) =>
