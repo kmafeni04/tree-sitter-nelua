@@ -120,7 +120,7 @@ module.exports = grammar({
         seq(
           "switch",
           $._expression,
-          "do",
+          optional("do"),
           repeat($.switch_case),
           optional($.switch_else),
           "end",

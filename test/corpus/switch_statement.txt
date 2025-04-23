@@ -1,0 +1,44 @@
+=========
+switch with do statement
+=========
+
+switch x do
+  case y then
+  case z then
+  else
+end
+---
+
+(source_file
+      (switch_statement
+        (identifier)
+        (switch_case
+          (expression_list
+            (identifier)))
+        (switch_case
+          (expression_list
+            (identifier)))
+        (switch_else)))
+
+=========
+switch without do statement
+=========
+
+switch x
+  case y then
+  case z then
+  else
+end
+---
+
+(source_file
+      (switch_statement
+        (identifier)
+        (switch_case
+          (expression_list
+            (identifier)))
+        (switch_case
+          (expression_list
+            (identifier)))
+        (switch_else)))
+
