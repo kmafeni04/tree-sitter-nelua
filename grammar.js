@@ -176,6 +176,7 @@ module.exports = grammar({
             $._identifier,
             $.dot_variable,
             $.bracket_index_expression,
+            $.cast_type,
             $.parenthesized_expression,
           ),
           optional(seq(":", $.type)),

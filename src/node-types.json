@@ -3008,6 +3008,10 @@
           "named": true
         },
         {
+          "type": "cast_type",
+          "named": true
+        },
+        {
           "type": "dot_variable",
           "named": true
         },
