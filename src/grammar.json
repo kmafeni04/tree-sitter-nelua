@@ -843,6 +843,10 @@
               },
               {
                 "type": "SYMBOL",
+                "name": "cast_type"
+              },
+              {
+                "type": "SYMBOL",
                 "name": "parenthesized_expression"
               }
             ]
