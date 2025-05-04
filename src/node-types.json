@@ -456,17 +456,12 @@
     }
   },
   {
-    "type": "comment_body",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "curly_brace_expression",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "anon_function",
@@ -2144,11 +2139,6 @@
     }
   },
   {
-    "type": "preproc_statement_content",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "record",
     "named": true,
     "fields": {},
@@ -2470,16 +2460,37 @@
   {
     "type": "string",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "escape_sequence",
-          "named": true
-        }
-      ]
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "string_content",
+            "named": false
+          }
+        ]
+      },
+      "end": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string_end",
+            "named": false
+          }
+        ]
+      },
+      "start": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string_start",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -3194,31 +3205,11 @@
     }
   },
   {
-    "type": "\"",
-    "named": false
-  },
-  {
     "type": "#",
     "named": false
   },
   {
     "type": "##",
-    "named": false
-  },
-  {
-    "type": "##[===[",
-    "named": false
-  },
-  {
-    "type": "##[==[",
-    "named": false
-  },
-  {
-    "type": "##[=[",
-    "named": false
-  },
-  {
-    "type": "##[[",
     "named": false
   },
   {
@@ -3243,10 +3234,6 @@
   },
   {
     "type": "&",
-    "named": false
-  },
-  {
-    "type": "'",
     "named": false
   },
   {
@@ -3275,22 +3262,6 @@
   },
   {
     "type": "--",
-    "named": false
-  },
-  {
-    "type": "--[===[",
-    "named": false
-  },
-  {
-    "type": "--[==[",
-    "named": false
-  },
-  {
-    "type": "--[=[",
-    "named": false
-  },
-  {
-    "type": "--[[",
     "named": false
   },
   {
@@ -3366,43 +3337,11 @@
     "named": false
   },
   {
-    "type": "[===[",
-    "named": false
-  },
-  {
-    "type": "[==[",
-    "named": false
-  },
-  {
-    "type": "[=[",
-    "named": false
-  },
-  {
-    "type": "[[",
-    "named": false
-  },
-  {
     "type": "]",
     "named": false
   },
   {
     "type": "]#",
-    "named": false
-  },
-  {
-    "type": "]===]",
-    "named": false
-  },
-  {
-    "type": "]==]",
-    "named": false
-  },
-  {
-    "type": "]=]",
-    "named": false
-  },
-  {
-    "type": "]]",
     "named": false
   },
   {
@@ -3420,6 +3359,10 @@
   {
     "type": "case",
     "named": false
+  },
+  {
+    "type": "comment_body",
+    "named": true
   },
   {
     "type": "continue",
@@ -3448,10 +3391,6 @@
   {
     "type": "enum",
     "named": false
-  },
-  {
-    "type": "escape_sequence",
-    "named": true
   },
   {
     "type": "fallthrough",
@@ -3514,6 +3453,10 @@
     "named": false
   },
   {
+    "type": "preproc_statement_content",
+    "named": true
+  },
+  {
     "type": "record",
     "named": false
   },
@@ -3523,6 +3466,18 @@
   },
   {
     "type": "return",
+    "named": false
+  },
+  {
+    "type": "string_content",
+    "named": false
+  },
+  {
+    "type": "string_end",
+    "named": false
+  },
+  {
+    "type": "string_start",
     "named": false
   },
   {

@@ -39,6 +39,20 @@ const list_seq = (rule, separator, trailing_separator = false) =>
 module.exports = grammar({
   name: "nelua",
 
+  externals: ($) => [
+    $._block_comment_start,
+    $._block_comment_content,
+    $._block_comment_end,
+
+    $._string_start,
+    $._string_content,
+    $._string_end,
+
+    $._preproc_start,
+    $._preproc_content,
+    $._preproc_end,
+  ],
+
   extras: ($) => [/\s/, $.comment],
 
   conflicts: ($) => [
@@ -79,13 +93,10 @@ module.exports = grammar({
     preproc_statement: ($) =>
       choice(
         seq("##", alias(/.*/, $.preproc_statement_content)),
-        seq("##[[", alias(repeat(/./), $.preproc_statement_content), "]]"),
-        seq("##[=[", alias(repeat(/./), $.preproc_statement_content), "]=]"),
-        seq("##[==[", alias(repeat(/./), $.preproc_statement_content), "]==]"),
         seq(
-          "##[===[",
-          alias(repeat(/./), $.preproc_statement_content),
-          "]===]",
+          $._preproc_start,
+          optional(alias($._preproc_content, $.preproc_statement_content)),
+          $._preproc_end,
         ),
       ),
 
@@ -287,9 +298,11 @@ module.exports = grammar({
     curly_brace_expression: ($) =>
       seq(
         "{",
-        choice(
-          list_seq($._expression, ","),
-          list_seq(seq($._identifier, "=", $._expression), ","),
+        optional(
+          choice(
+            list_seq($._expression, ","),
+            list_seq(seq($._identifier, "=", $._expression), ","),
+          ),
         ),
         "}",
       ),
@@ -454,28 +467,11 @@ module.exports = grammar({
     enum_field: ($) =>
       prec.left(seq($._identifier, optional(seq("=", $.number)))),
 
-    string: ($) => choice($._singleline_string, $._multiline_string),
-
-    _singleline_string: ($) =>
-      choice(
-        seq(
-          '"',
-          repeat(choice(token.immediate(prec(1, /[^"\\]/)), $.escape_sequence)),
-          '"',
-        ),
-        seq(
-          "'",
-          repeat(choice(token.immediate(prec(1, /[^'\\]/)), $.escape_sequence)),
-          "'",
-        ),
-      ),
-
-    _multiline_string: ($) =>
-      choice(
-        seq("[[", repeat(choice(/[^\\]/, $.escape_sequence)), "]]"),
-        seq("[=[", repeat(choice(/[^\\]/, $.escape_sequence)), "]=]"),
-        seq("[==[", repeat(choice(/[^\\]/, $.escape_sequence)), "]==]"),
-        seq("[===[", repeat(choice(/[^\\]/, $.escape_sequence)), "]===]"),
+    string: ($) =>
+      seq(
+        field("start", alias($._string_start, "string_start")),
+        field("content", optional(alias($._string_content, "string_content"))),
+        field("end", alias($._string_end, "string_end")),
       ),
 
     nil: () => "nil",
@@ -518,10 +514,11 @@ module.exports = grammar({
     comment: ($) =>
       choice(
         seq("--", alias(/[^\r\n]*/, $.comment_body)),
-        seq("--[[", alias(repeat(/./), $.comment_body), "]]"),
-        seq("--[=[", alias(repeat(/./), $.comment_body), "]=]"),
-        seq("--[==[", alias(repeat(/./), $.comment_body), "]==]"),
-        seq("--[===[", alias(repeat(/./), $.comment_body), "]===]"),
+        seq(
+          $._block_comment_start,
+          optional($._block_comment_content),
+          $._block_comment_end,
+        ),
       ),
   },
 });
