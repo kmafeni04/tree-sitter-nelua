@@ -1503,12 +1503,26 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "_prefix_expression"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_prefix_expression"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "method_field"
+                  }
+                ]
               },
               {
-                "type": "SYMBOL",
-                "name": "method_field"
+                "type": "ALIAS",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[a-zA-Z_][\\w_]*!"
+                },
+                "named": true,
+                "value": "preproc_expression"
               }
             ]
           },

@@ -287,7 +287,10 @@ module.exports = grammar({
       prec(
         EXPR_PREC.FUNC_CALL,
         seq(
-          choice($._prefix_expression, $.method_field),
+          choice(
+            choice($._prefix_expression, $.method_field),
+            alias(/[a-zA-Z_][\w_]*!/, $.preproc_expression),
+          ),
           choice(
             seq("(", optional($.expression_list), ")"),
             $.string,

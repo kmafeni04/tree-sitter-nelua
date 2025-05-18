@@ -155,6 +155,9 @@
 (function_call
   (identifier) @function)
 
+(function_call
+  (preproc_expression) @function)
+
 (dot_field
     (identifier) @variable)
 
