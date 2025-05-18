@@ -2403,36 +2403,32 @@
                   "type": "SEQ",
                   "members": [
                     {
-                      "type": "ALIAS",
-                      "content": {
-                        "type": "CHOICE",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "_identifier"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "vararg_expression"
-                          }
-                        ]
-                      },
-                      "named": true,
-                      "value": "parameter"
-                    },
-                    {
                       "type": "CHOICE",
                       "members": [
                         {
                           "type": "SEQ",
                           "members": [
                             {
-                              "type": "STRING",
-                              "value": ":"
+                              "type": "ALIAS",
+                              "content": {
+                                "type": "CHOICE",
+                                "members": [
+                                  {
+                                    "type": "SYMBOL",
+                                    "name": "_identifier"
+                                  },
+                                  {
+                                    "type": "SYMBOL",
+                                    "name": "vararg_expression"
+                                  }
+                                ]
+                              },
+                              "named": true,
+                              "value": "parameter"
                             },
                             {
-                              "type": "SYMBOL",
-                              "name": "type"
+                              "type": "STRING",
+                              "value": ":"
                             }
                           ]
                         },
@@ -2440,6 +2436,10 @@
                           "type": "BLANK"
                         }
                       ]
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "type"
                     }
                   ]
                 },
@@ -2456,36 +2456,32 @@
                         "type": "SEQ",
                         "members": [
                           {
-                            "type": "ALIAS",
-                            "content": {
-                              "type": "CHOICE",
-                              "members": [
-                                {
-                                  "type": "SYMBOL",
-                                  "name": "_identifier"
-                                },
-                                {
-                                  "type": "SYMBOL",
-                                  "name": "vararg_expression"
-                                }
-                              ]
-                            },
-                            "named": true,
-                            "value": "parameter"
-                          },
-                          {
                             "type": "CHOICE",
                             "members": [
                               {
                                 "type": "SEQ",
                                 "members": [
                                   {
-                                    "type": "STRING",
-                                    "value": ":"
+                                    "type": "ALIAS",
+                                    "content": {
+                                      "type": "CHOICE",
+                                      "members": [
+                                        {
+                                          "type": "SYMBOL",
+                                          "name": "_identifier"
+                                        },
+                                        {
+                                          "type": "SYMBOL",
+                                          "name": "vararg_expression"
+                                        }
+                                      ]
+                                    },
+                                    "named": true,
+                                    "value": "parameter"
                                   },
                                   {
-                                    "type": "SYMBOL",
-                                    "name": "type"
+                                    "type": "STRING",
+                                    "value": ":"
                                   }
                                 ]
                               },
@@ -2493,6 +2489,10 @@
                                 "type": "BLANK"
                               }
                             ]
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "type"
                           }
                         ]
                       }
@@ -3328,6 +3328,10 @@
     [
       "type",
       "_prefix_expression"
+    ],
+    [
+      "anon_function",
+      "function_type"
     ]
   ],
   "precedences": [],

@@ -59,6 +59,7 @@ module.exports = grammar({
     [$.array_type, $.array_type],
     [$._variable, $._prefix_expression],
     [$.type, $._prefix_expression],
+    [$.anon_function, $.function_type],
   ],
 
   rules: {
@@ -443,8 +444,16 @@ module.exports = grammar({
         optional(
           list_seq(
             seq(
-              alias(choice($._identifier, $.vararg_expression), $.parameter),
-              optional(seq(":", $.type)),
+              optional(
+                seq(
+                  alias(
+                    choice($._identifier, $.vararg_expression),
+                    $.parameter,
+                  ),
+                  ":",
+                ),
+              ),
+              $.type,
             ),
             ",",
           ),
