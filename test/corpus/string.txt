@@ -1,0 +1,49 @@
+=========
+string with escape character
+=========
+
+local x = "hello\n"
+---
+
+(source_file
+      (declaration
+        (assignment_statement
+          (variable_list
+            (identifier))
+          (expression_list
+            (string
+              (escape_sequence))))))
+
+=========
+multiline escaped string
+=========
+
+local x = "hello\z
+hi"
+---
+
+(source_file
+      (declaration
+        (assignment_statement
+          (variable_list
+            (identifier))
+          (expression_list
+            (string
+              (escape_sequence))))))
+=========
+multiline string
+=========
+
+local x = [[
+  hello\nhi
+]]
+---
+
+(source_file
+      (declaration
+        (assignment_statement
+          (variable_list
+            (identifier))
+          (expression_list
+            (string
+              )))))

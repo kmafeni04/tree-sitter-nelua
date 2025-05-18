@@ -137,8 +137,6 @@
   "case"
 ] @keyword.control
 
-(escape_sequence) @constant.character.escape
-
 (function_definition
   (identifier) @function)
 
@@ -177,14 +175,9 @@
 
 (goto_location "::" @keyword.directive)
 
-(preproc_statement
-  ["##[[" "]]" "##"] @keyword.directive)
-(preproc_statement
-  ["##[=[" "]=]" "##"] @keyword.directive)
-(preproc_statement
-  ["##[==[" "]==]" "##"] @keyword.directive)
-(preproc_statement
-  ["##[===[" "]===]" "##"] @keyword.directive)
+(preproc_statement) @keyword.directive
 
 (preproc_expression
   ["#[" "]#" "#|" "|#"] @keyword.directive)
+
+(escape_sequence) @constant.character.escape

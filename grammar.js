@@ -39,6 +39,20 @@ const list_seq = (rule, separator, trailing_separator = false) =>
 module.exports = grammar({
   name: "nelua",
 
+  externals: ($) => [
+    $._block_comment_start,
+    $._block_comment_content,
+    $._block_comment_end,
+
+    $._block_string_start,
+    $._block_string_content,
+    $._block_string_end,
+
+    $._block_preproc_start,
+    $._block_preproc_content,
+    $._block_preproc_end,
+  ],
+
   extras: ($) => [/\s/, $.comment],
 
   conflicts: ($) => [
@@ -79,13 +93,13 @@ module.exports = grammar({
     preproc_statement: ($) =>
       choice(
         seq("##", alias(/.*/, $.preproc_statement_content)),
-        seq("##[[", alias(repeat(/./), $.preproc_statement_content), "]]"),
-        seq("##[=[", alias(repeat(/./), $.preproc_statement_content), "]=]"),
-        seq("##[==[", alias(repeat(/./), $.preproc_statement_content), "]==]"),
         seq(
-          "##[===[",
-          alias(repeat(/./), $.preproc_statement_content),
-          "]===]",
+          field("start", alias($._block_preproc_start, "[[")),
+          field(
+            "content",
+            alias($._block_preproc_content, $.preproc_statement_content),
+          ),
+          field("end", alias($._block_preproc_end, "]]")),
         ),
       ),
 
@@ -454,36 +468,34 @@ module.exports = grammar({
     enum_field: ($) =>
       prec.left(seq($._identifier, optional(seq("=", $.number)))),
 
-    string: ($) => choice($._singleline_string, $._multiline_string),
+    string: ($) => choice($._quote_string, $._block_string),
 
-    _singleline_string: ($) =>
+    _quote_string: ($) =>
       choice(
         seq(
-          '"',
-          repeat(choice(token.immediate(prec(1, /[^"\\]/)), $.escape_sequence)),
-          '"',
+          field("start", alias('"', '"')),
+          field("content", optional($._doublequote_string_content)),
+          field("end", alias('"', '"')),
         ),
         seq(
-          "'",
-          repeat(choice(token.immediate(prec(1, /[^'\\]/)), $.escape_sequence)),
-          "'",
+          field("start", alias("'", "'")),
+          field("content", optional($._singlequote_string_content)),
+          field("end", alias("'", "'")),
         ),
       ),
 
-    _multiline_string: ($) =>
-      choice(
-        seq("[[", repeat(choice(/[^\\]/, $.escape_sequence)), "]]"),
-        seq("[=[", repeat(choice(/[^\\]/, $.escape_sequence)), "]=]"),
-        seq("[==[", repeat(choice(/[^\\]/, $.escape_sequence)), "]==]"),
-        seq("[===[", repeat(choice(/[^\\]/, $.escape_sequence)), "]===]"),
+    _doublequote_string_content: ($) =>
+      repeat1(choice(token.immediate(prec(1, /[^"\\]+/)), $.escape_sequence)),
+
+    _singlequote_string_content: ($) =>
+      repeat1(choice(token.immediate(prec(1, /[^'\\]+/)), $.escape_sequence)),
+
+    _block_string: ($) =>
+      seq(
+        field("start", alias($._block_string_start, "[[")),
+        field("content", $._block_string_content),
+        field("end", alias($._block_string_end, "]]")),
       ),
-
-    nil: () => "nil",
-    nilptr: () => "nilptr",
-
-    boolean: ($) => choice($._false, $._true),
-    _true: () => "true",
-    _false: () => "false",
 
     escape_sequence: () =>
       token.immediate(
@@ -498,6 +510,13 @@ module.exports = grammar({
           ),
         ),
       ),
+
+    nil: () => "nil",
+    nilptr: () => "nilptr",
+
+    boolean: ($) => choice($._false, $._true),
+    _true: () => "true",
+    _false: () => "false",
 
     number: (_) =>
       seq(
