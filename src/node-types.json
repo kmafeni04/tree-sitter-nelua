@@ -2131,38 +2131,7 @@
   {
     "type": "preproc_statement",
     "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "preproc_statement_content",
-            "named": true
-          }
-        ]
-      },
-      "end": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "]]",
-            "named": false
-          }
-        ]
-      },
-      "start": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "[[",
-            "named": false
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": false,
       "required": false,
@@ -2173,6 +2142,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "preproc_statement_content",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "record",
@@ -2496,53 +2470,16 @@
   {
     "type": "string",
     "named": true,
-    "fields": {
-      "content": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "escape_sequence",
-            "named": true
-          }
-        ]
-      },
-      "end": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "\"",
-            "named": false
-          },
-          {
-            "type": "'",
-            "named": false
-          },
-          {
-            "type": "]]",
-            "named": false
-          }
-        ]
-      },
-      "start": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "\"",
-            "named": false
-          },
-          {
-            "type": "'",
-            "named": false
-          },
-          {
-            "type": "[[",
-            "named": false
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -3325,22 +3262,6 @@
     "named": false
   },
   {
-    "type": "--[===[",
-    "named": false
-  },
-  {
-    "type": "--[==[",
-    "named": false
-  },
-  {
-    "type": "--[=[",
-    "named": false
-  },
-  {
-    "type": "--[[",
-    "named": false
-  },
-  {
     "type": ".",
     "named": false
   },
@@ -3413,31 +3334,11 @@
     "named": false
   },
   {
-    "type": "[[",
-    "named": false
-  },
-  {
     "type": "]",
     "named": false
   },
   {
     "type": "]#",
-    "named": false
-  },
-  {
-    "type": "]===]",
-    "named": false
-  },
-  {
-    "type": "]==]",
-    "named": false
-  },
-  {
-    "type": "]=]",
-    "named": false
-  },
-  {
-    "type": "]]",
     "named": false
   },
   {
@@ -3547,10 +3448,6 @@
   {
     "type": "or",
     "named": false
-  },
-  {
-    "type": "preproc_statement_content",
-    "named": true
   },
   {
     "type": "record",

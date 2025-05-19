@@ -41,16 +41,16 @@ module.exports = grammar({
 
   externals: ($) => [
     $._block_comment_start,
-    $._block_comment_content,
+    $._block_comment_char,
     $._block_comment_end,
 
-    $._block_string_start,
-    $._block_string_content,
-    $._block_string_end,
+    $._block_preproc_stmt_start,
+    $._block_preproc_stmt_char,
+    $._block_preproc_stmt_end,
 
-    $._block_preproc_start,
-    $._block_preproc_content,
-    $._block_preproc_end,
+    $._block_string_start,
+    $._block_string_char,
+    $._block_string_end,
   ],
 
   extras: ($) => [/\s/, $.comment],
@@ -95,12 +95,14 @@ module.exports = grammar({
       choice(
         seq("##", alias(/.*/, $.preproc_statement_content)),
         seq(
-          field("start", alias($._block_preproc_start, "[[")),
-          field(
-            "content",
-            alias($._block_preproc_content, $.preproc_statement_content),
+          $._block_preproc_stmt_start,
+          optional(
+            alias(
+              repeat1($._block_preproc_stmt_char),
+              $.preproc_statement_content,
+            ),
           ),
-          field("end", alias($._block_preproc_end, "]]")),
+          $._block_preproc_stmt_end,
         ),
       ),
 
@@ -480,33 +482,26 @@ module.exports = grammar({
     enum_field: ($) =>
       prec.left(seq($._identifier, optional(seq("=", $.number)))),
 
-    string: ($) => choice($._quote_string, $._block_string),
+    string: ($) => choice($._qouted_string, $._block_string),
 
-    _quote_string: ($) =>
+    _qouted_string: ($) =>
       choice(
         seq(
-          field("start", alias('"', '"')),
-          field("content", optional($._doublequote_string_content)),
-          field("end", alias('"', '"')),
+          '"',
+          repeat(choice(token.immediate(prec(1, /[^"\\]/)), $.escape_sequence)),
+          '"',
         ),
         seq(
-          field("start", alias("'", "'")),
-          field("content", optional($._singlequote_string_content)),
-          field("end", alias("'", "'")),
+          "'",
+          repeat(choice(token.immediate(prec(1, /[^'\\]/)), $.escape_sequence)),
+          "'",
         ),
       ),
-
-    _doublequote_string_content: ($) =>
-      repeat1(choice(token.immediate(prec(1, /[^"\\]+/)), $.escape_sequence)),
-
-    _singlequote_string_content: ($) =>
-      repeat1(choice(token.immediate(prec(1, /[^'\\]+/)), $.escape_sequence)),
-
     _block_string: ($) =>
       seq(
-        field("start", alias($._block_string_start, "[[")),
-        field("content", $._block_string_content),
-        field("end", alias($._block_string_end, "]]")),
+        $._block_string_start,
+        optional(repeat1($._block_string_char)),
+        $._block_string_end,
       ),
 
     escape_sequence: () =>
@@ -549,10 +544,11 @@ module.exports = grammar({
     comment: ($) =>
       choice(
         seq("--", alias(/[^\r\n]*/, $.comment_body)),
-        seq("--[[", alias(repeat(/./), $.comment_body), "]]"),
-        seq("--[=[", alias(repeat(/./), $.comment_body), "]=]"),
-        seq("--[==[", alias(repeat(/./), $.comment_body), "]==]"),
-        seq("--[===[", alias(repeat(/./), $.comment_body), "]===]"),
+        seq(
+          $._block_comment_start,
+          optional(alias(repeat1($._block_comment_char), $.comment_body)),
+          $._block_comment_end,
+        ),
       ),
   },
 });

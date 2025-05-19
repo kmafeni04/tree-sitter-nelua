@@ -1,250 +1,207 @@
-#include <stdio.h>
-#include <tree_sitter/parser.h>
-#include <wctype.h>
+#include "tree_sitter/alloc.h"
+#include "tree_sitter/parser.h"
+#include <stdbool.h>
+#include <string.h>
+
+typedef enum { NOT_SET, STR, PREPROC, COMMENT } StateType;
+
+typedef struct {
+  uint32_t opening_eqs;
+  StateType state_type;
+  char opening_quote;
+} State;
+
+void *tree_sitter_nelua_external_scanner_create() {
+  return ts_calloc(1, sizeof(State));
+}
+void tree_sitter_nelua_external_scanner_destroy(void *payload) {
+  ts_free(payload);
+}
+
+static inline void consume(TSLexer *lexer) { lexer->advance(lexer, false); }
+static inline void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
 
 enum TokenType {
   BLOCK_COMMENT_START,
-  BLOCK_COMMENT_CONTENT,
+  BLOCK_COMMENT_CHAR,
   BLOCK_COMMENT_END,
 
-  BLOCK_STRING_START,
-  BLOCK_STRING_CONTENT,
-  BLOCK_STRING_END,
+  BLOCK_PREPROC_STMT_START,
+  BLOCK_PREPROC_STMT_CHAR,
+  BLOCK_PREPROC_STMT_END,
 
-  BLOCK_PREPROC_START,
-  BLOCK_PREPROC_CONTENT,
-  BLOCK_PREPROC_END,
+  BLOCK_STRING_START,
+  BLOCK_STRING_CHAR,
+  BLOCK_STRING_END,
 };
 
-static inline void consume(TSLexer *lexer) { lexer->advance(lexer, false); }
-
-static inline void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
-
-static inline bool consume_char(char c, TSLexer *lexer) {
-  if (lexer->lookahead != c) {
-    return false;
-  }
-
-  consume(lexer);
-  return true;
-}
-
-static inline uint8_t consume_and_count_char(char c, TSLexer *lexer) {
-  uint8_t count = 0;
-  while (lexer->lookahead == c) {
-    ++count;
+#define EXPECT(char)                                                           \
+  do {                                                                         \
+    if (lexer->lookahead != char) {                                            \
+      return false;                                                            \
+    }                                                                          \
+    consume(lexer);                                                            \
+  } while (0)
+static inline uint32_t consume_eqs(TSLexer *lexer) {
+  uint32_t result = 0;
+  while (!lexer->eof(lexer) && lexer->lookahead == '=') {
     consume(lexer);
+    result += 1;
   }
-  return count;
+  return result;
 }
 
-static inline void skip_whitespaces(TSLexer *lexer) {
-  while (iswspace(lexer->lookahead)) {
-    skip(lexer);
-  }
-}
-
-typedef struct {
-  char ending_char;
-  uint8_t level_count;
-} Scanner;
-
-static inline void reset_state(Scanner *scanner) {
-  scanner->ending_char = 0;
-  scanner->level_count = 0;
-}
-
-void *tree_sitter_nelua_external_scanner_create() {
-  Scanner *scanner = calloc(1, sizeof(Scanner));
-  return scanner;
-}
-
-void tree_sitter_nelua_external_scanner_destroy(void *payload) {
-  Scanner *scanner = (Scanner *)payload;
-  free(scanner);
-}
-
-unsigned tree_sitter_nelua_external_scanner_serialize(void *payload, char *buffer) {
-  Scanner *scanner = (Scanner *)payload;
-  buffer[0] = scanner->ending_char;
-  buffer[1] = (char)scanner->level_count;
-  return 2;
-}
-
-void tree_sitter_nelua_external_scanner_deserialize(void *payload, const char *buffer, unsigned length) {
-  Scanner *scanner = (Scanner *)payload;
-  if (length == 0) return;
-  scanner->ending_char = buffer[0];
-  if (length == 1) return;
-  scanner->level_count = buffer[1];
-}
-
-static bool scan_block_start(Scanner *scanner, TSLexer *lexer) {
-  if (consume_char('[', lexer)) {
-    uint8_t level = consume_and_count_char('=', lexer);
-
-    if (consume_char('[', lexer)) {
-      scanner->level_count = level;
-      return true;
-    }
-  }
-
-  return false;
-}
-
-static bool scan_block_end(Scanner *scanner, TSLexer *lexer) {
-  if (consume_char(']', lexer)) {
-    uint8_t level = consume_and_count_char('=', lexer);
-
-    if (scanner->level_count == level && consume_char(']', lexer)) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-static bool scan_block_content(Scanner *scanner, TSLexer *lexer) {
-  while (lexer->lookahead != 0) {
-    if (lexer->lookahead == ']') {
-      lexer->mark_end(lexer);
-
-      if (scan_block_end(scanner, lexer)) {
-        return true;
-      }
-    } else {
+static void consume_rest_of_line(TSLexer *lexer) {
+  while (!lexer->eof(lexer)) {
+    switch (lexer->lookahead) {
+    case '\n':
+    case '\r':
+      return;
+    default:
       consume(lexer);
     }
   }
-
-  return false;
 }
 
-static bool scan_comment_start(Scanner *scanner, TSLexer *lexer) {
-  if (consume_char('-', lexer) && consume_char('-', lexer)) {
-    lexer->mark_end(lexer);
-
-    if (scan_block_start(scanner, lexer)) {
-      lexer->mark_end(lexer);
-      lexer->result_symbol = BLOCK_COMMENT_START;
-      return true;
-    }
-  }
-
-  return false;
+static inline void reset_state(State *state) {
+  *state = (State){
+      .opening_eqs = 0,
+      .state_type = NOT_SET,
+      .opening_quote = 0,
+  };
 }
 
-static bool scan_comment_content(Scanner *scanner, TSLexer *lexer) {
-  if (scanner->ending_char == 0) { // block comment
-    if (scan_block_content(scanner, lexer)) {
-      lexer->result_symbol = BLOCK_COMMENT_CONTENT;
-      return true;
-    }
+unsigned tree_sitter_nelua_external_scanner_serialize(void *payload,
+                                                      char *buffer) {
+  memcpy(buffer, payload, sizeof(State));
+  return sizeof(State);
+}
 
-    return false;
-  }
+void tree_sitter_nelua_external_scanner_deserialize(void *payload,
+                                                    const char *buffer,
+                                                    unsigned length) {
+  if (length < sizeof(State))
+    return;
+  memcpy(payload, buffer, sizeof(State));
+}
 
-  while (lexer->lookahead != 0) {
-    if (lexer->lookahead == scanner->ending_char) {
-      reset_state(scanner);
-      lexer->result_symbol = BLOCK_COMMENT_CONTENT;
-      return true;
-    }
+static bool scan_block_end(State *state, TSLexer *lexer, enum TokenType ttype) {
+  EXPECT(']');
 
+  uint32_t eqs = consume_eqs(lexer);
+  if (state->opening_eqs == eqs && lexer->lookahead == ']') {
     consume(lexer);
+    lexer->result_symbol = ttype;
+    reset_state(state);
+    return true;
   }
-
   return false;
 }
 
-static bool scan_preproc_start(Scanner *scanner, TSLexer *lexer) {
-  if (consume_char('#', lexer) && consume_char('#', lexer)) {
-    lexer->mark_end(lexer);
-
-    if (scan_block_start(scanner, lexer)) {
-      lexer->mark_end(lexer);
-      lexer->result_symbol = BLOCK_PREPROC_START;
-      return true;
-    }
-  }
-
-  return false;
+static bool scan_preproc_stmt_start(State *state, TSLexer *lexer) {
+  EXPECT('#');
+  EXPECT('#');
+  EXPECT('[');
+  reset_state(state);
+  uint32_t eqs = consume_eqs(lexer);
+  EXPECT('[');
+  state->state_type = PREPROC;
+  lexer->result_symbol = BLOCK_PREPROC_STMT_START;
+  state->opening_eqs = eqs;
+  return true;
 }
 
-static bool scan_preproc_content(Scanner *scanner, TSLexer *lexer) {
-  if (scanner->ending_char == 0) { // block preproc
-    if (scan_block_content(scanner, lexer)) {
-      lexer->result_symbol = BLOCK_PREPROC_CONTENT;
-      return true;
-    }
+static bool scan_preproc_stmt_char(State *state, TSLexer *lexer) {
+  if (scan_block_end(state, lexer, BLOCK_PREPROC_STMT_END)) {
+    return true;
+  }
+  consume(lexer);
+  lexer->result_symbol = BLOCK_PREPROC_STMT_CHAR;
+  return true;
+}
 
+static bool scan_comment_start(State *state, TSLexer *lexer) {
+  EXPECT('-');
+  EXPECT('-');
+  EXPECT('[');
+  reset_state(state);
+  uint32_t eqs = consume_eqs(lexer);
+  EXPECT('[');
+  state->state_type = COMMENT;
+  lexer->result_symbol = BLOCK_COMMENT_START;
+  state->opening_eqs = eqs;
+  return true;
+}
+
+static bool scan_comment_char(State *state, TSLexer *lexer) {
+  if (scan_block_end(state, lexer, BLOCK_COMMENT_END)) {
+    return true;
+  }
+  consume(lexer);
+  lexer->result_symbol = BLOCK_COMMENT_CHAR;
+  return true;
+}
+
+static bool scan_multiline_string_start(State *state, TSLexer *lexer) {
+  EXPECT('[');
+  reset_state(state);
+  uint32_t eqs = consume_eqs(lexer);
+  EXPECT('[');
+  state->state_type = STR;
+  lexer->result_symbol = BLOCK_STRING_START;
+  state->opening_eqs = eqs;
+  return true;
+}
+
+static bool scan_multiline_string_char(State *state, TSLexer *lexer) {
+  if (scan_block_end(state, lexer, BLOCK_STRING_END)) {
+    return true;
+  }
+  consume(lexer);
+  lexer->result_symbol = BLOCK_STRING_CHAR;
+  return true;
+}
+
+static inline bool is_ascii_whitespace(uint32_t chr) {
+  switch (chr) {
+  default:
     return false;
+  case '\n':
+  case '\r':
+  case ' ':
+  case '\t':
+    return true;
   }
-
-  while (lexer->lookahead != 0) {
-    if (lexer->lookahead == scanner->ending_char) {
-      reset_state(scanner);
-      lexer->result_symbol = BLOCK_PREPROC_CONTENT;
-      return true;
-    }
-
-    consume(lexer);
-  }
-
-  return false;
 }
 
-bool tree_sitter_nelua_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
-  Scanner *scanner = (Scanner *)payload;
+bool tree_sitter_nelua_external_scanner_scan(void *payload, TSLexer *lexer,
+                                             const bool *valid_symbols) {
+  State *state = payload;
+  if (lexer->eof(lexer))
+    return false;
 
-  if (valid_symbols[BLOCK_STRING_END] && scan_block_end(scanner, lexer)) {
-    reset_state(scanner);
-    lexer->result_symbol = BLOCK_STRING_END;
+  if (state->state_type == STR) {
+    return scan_multiline_string_char(state, lexer);
+  }
+
+  if (state->state_type == PREPROC) {
+    return scan_preproc_stmt_char(state, lexer);
+  }
+
+  if (state->state_type == COMMENT) {
+    return scan_comment_char(state, lexer);
+  }
+
+  while (is_ascii_whitespace(lexer->lookahead))
+    skip(lexer);
+
+  if (valid_symbols[BLOCK_STRING_START] &&
+      scan_multiline_string_start(state, lexer))
     return true;
-  }
 
-  if (valid_symbols[BLOCK_STRING_CONTENT] && scan_block_content(scanner, lexer)) {
-    lexer->result_symbol = BLOCK_STRING_CONTENT;
+  if (valid_symbols[BLOCK_PREPROC_STMT_START] &&
+      scan_preproc_stmt_start(state, lexer))
     return true;
-  }
 
-  if (valid_symbols[BLOCK_PREPROC_END] && scanner->ending_char == 0 && scan_block_end(scanner, lexer)) {
-    reset_state(scanner);
-    lexer->result_symbol = BLOCK_PREPROC_END;
-    return true;
-  }
-
-  if (valid_symbols[BLOCK_COMMENT_END] && scanner->ending_char == 0 && scan_block_end(scanner, lexer)) {
-    reset_state(scanner);
-    lexer->result_symbol = BLOCK_COMMENT_END;
-    return true;
-  }
-
-  if (valid_symbols[BLOCK_COMMENT_CONTENT] && scan_comment_content(scanner, lexer)) {
-    return true;
-  }
-
-  if (valid_symbols[BLOCK_PREPROC_CONTENT] && scan_preproc_content(scanner, lexer)) {
-    return true;
-  }
-
-  skip_whitespaces(lexer);
-
-  if (valid_symbols[BLOCK_STRING_START] && scan_block_start(scanner, lexer)) {
-    lexer->result_symbol = BLOCK_STRING_START;
-    return true;
-  }
-
-  if (valid_symbols[BLOCK_COMMENT_START]) {
-    if (scan_comment_start(scanner, lexer)) {
-      return true;
-    }
-  }
-  if (valid_symbols[BLOCK_PREPROC_START]) {
-    if (scan_preproc_start(scanner, lexer)) {
-      return true;
-    }
-  }
-
-  return false;
+  return (valid_symbols[BLOCK_COMMENT_START] && scan_comment_start(state, lexer));
 }

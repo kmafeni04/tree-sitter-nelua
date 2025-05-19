@@ -61,24 +61,31 @@ preproc function call
 
 #[test]#(a,b,c)
 #|test|#(a,b,c)
+test!(a,b,c)
 
 ---
 
 (source_file
-  (function_call
-    (preproc_expression
-      (preproc_expression_content))
-    (expression_list
-      (identifier)
-      (identifier)
-      (identifier)))
-  (function_call
-    (preproc_expression
-      (preproc_expression_content))
-    (expression_list
-      (identifier)
-      (identifier)
-      (identifier))))
+    (function_call
+      (preproc_expression
+        (preproc_expression_content))
+      (expression_list
+        (identifier)
+        (identifier)
+        (identifier)))
+    (function_call
+      (preproc_expression
+        (preproc_expression_content))
+      (expression_list
+        (identifier)
+        (identifier)
+        (identifier)))
+    (function_call
+      (preproc_expression)
+      (expression_list
+        (identifier)
+        (identifier)
+        (identifier))))
 
 =========
 preproc function call assignment
