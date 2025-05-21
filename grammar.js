@@ -29,7 +29,7 @@ const EXPR_PREC = {
 
 /**
  * @param {RuleOrLiteral} rule
- * @param {string} separator
+ * @param {string | RuleOrLiteral} separator
  */
 const list_seq = (rule, separator, trailing_separator = false) =>
   trailing_separator
@@ -89,6 +89,7 @@ module.exports = grammar({
         $.fallthrough,
         $.break,
         $.injection_statement,
+        ";",
       ),
 
     preproc_statement: ($) =>
@@ -308,8 +309,8 @@ module.exports = grammar({
       seq(
         "{",
         choice(
-          list_seq($._expression, ","),
-          list_seq(seq($._identifier, "=", $._expression), ","),
+          list_seq($._expression, choice(",", ";")),
+          list_seq(seq($._identifier, "=", $._expression), choice(",", ";")),
         ),
         "}",
       ),
@@ -466,17 +467,27 @@ module.exports = grammar({
     array_type: ($) =>
       seq(repeat1(seq("[", optional($._expression), "]")), $.type),
     record: ($) =>
-      seq("record", "{", optional(list_seq($.record_field, ",", true)), "}"),
+      seq(
+        "record",
+        "{",
+        optional(list_seq($.record_field, choice(",", ";"), true)),
+        "}",
+      ),
     record_field: ($) => prec.left(seq($._identifier, ":", $.type)),
     union: ($) =>
-      seq("union", "{", optional(list_seq($.union_field, ",", true)), "}"),
+      seq(
+        "union",
+        "{",
+        optional(list_seq($.union_field, choice(",", ";"), true)),
+        "}",
+      ),
     union_field: ($) => prec.left(seq($._identifier, ":", $.type)),
     enum: ($) =>
       seq(
         "enum",
         optional(seq("(", $.type, ")")),
         "{",
-        list_seq($.enum_field, ",", true),
+        list_seq($.enum_field, choice(",", ";"), true),
         "}",
       ),
     enum_field: ($) =>
