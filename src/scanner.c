@@ -95,6 +95,7 @@ static bool scan_block_end(State *state, TSLexer *lexer, enum TokenType ttype) {
     reset_state(state);
     return true;
   }
+  lexer->mark_end(lexer);
   return false;
 }
 
@@ -203,5 +204,6 @@ bool tree_sitter_nelua_external_scanner_scan(void *payload, TSLexer *lexer,
       scan_preproc_stmt_start(state, lexer))
     return true;
 
-  return (valid_symbols[BLOCK_COMMENT_START] && scan_comment_start(state, lexer));
+  return (valid_symbols[BLOCK_COMMENT_START] &&
+          scan_comment_start(state, lexer));
 }

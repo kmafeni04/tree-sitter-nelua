@@ -47,3 +47,20 @@ local x = [[
           (expression_list
             (string
               )))))
+
+=========
+multiline string with equals
+=========
+
+local x = [=[[&<>"']]=]
+
+---
+
+(source_file
+      (declaration
+        (assignment_statement
+          (variable_list
+            (identifier))
+          (expression_list
+            (string
+              )))))
