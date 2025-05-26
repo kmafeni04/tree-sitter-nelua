@@ -48,6 +48,10 @@ module.exports = grammar({
     $._block_preproc_stmt_char,
     $._block_preproc_stmt_end,
 
+    $._short_string_start,
+    $._short_string_char,
+    $._short_string_end,
+
     $._block_string_start,
     $._block_string_char,
     $._block_string_end,
@@ -183,7 +187,11 @@ module.exports = grammar({
 
     assignment_statement: ($) => seq($.variable_list, "=", $.expression_list),
 
-    variable_list: ($) => list_seq(seq($._variable), ","),
+    variable_list: ($) =>
+      list_seq(
+        seq($._variable, optional(seq(":", $.type)), optional($.annotation)),
+        ",",
+      ),
 
     _variable: ($) =>
       prec.left(
@@ -197,8 +205,6 @@ module.exports = grammar({
             $.cast_type,
             $.parenthesized_expression,
           ),
-          optional(seq(":", $.type)),
-          optional($.annotation),
         ),
       ),
 
@@ -418,19 +424,16 @@ module.exports = grammar({
       ),
     at_type: ($) => seq("@", $.type),
     type: ($) =>
-      prec.left(
+      prec(
         EXPR_PREC.TYPE,
         choice(
           $._identifier,
           $.dot_variable,
-          prec(
-            3,
-            seq(
-              $._identifier,
-              "(",
-              list_seq(choice($.type, $._expression), ","),
-              ")",
-            ),
+          seq(
+            $._identifier,
+            "(",
+            list_seq(choice($.type, $._expression), ","),
+            ")",
           ),
           $.array_type,
           $.record,
@@ -496,22 +499,15 @@ module.exports = grammar({
     string: ($) => choice($._qouted_string, $._block_string),
 
     _qouted_string: ($) =>
-      choice(
-        seq(
-          '"',
-          repeat(choice(token.immediate(prec(1, /[^"\\]/)), $.escape_sequence)),
-          '"',
-        ),
-        seq(
-          "'",
-          repeat(choice(token.immediate(prec(1, /[^'\\]/)), $.escape_sequence)),
-          "'",
-        ),
+      seq(
+        $._short_string_start,
+        repeat(choice($._short_string_char, $.escape_sequence)),
+        $._short_string_end,
       ),
     _block_string: ($) =>
       seq(
         $._block_string_start,
-        optional(repeat1($._block_string_char)),
+        repeat($._block_string_char),
         $._block_string_end,
       ),
 

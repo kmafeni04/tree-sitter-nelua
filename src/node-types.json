@@ -1325,10 +1325,6 @@
       "required": true,
       "types": [
         {
-          "type": "annotation",
-          "named": true
-        },
-        {
           "type": "anon_function",
           "named": true
         },
@@ -1398,10 +1394,6 @@
         },
         {
           "type": "string",
-          "named": true
-        },
-        {
-          "type": "type",
           "named": true
         },
         {
@@ -3194,10 +3186,6 @@
     }
   },
   {
-    "type": "\"",
-    "named": false
-  },
-  {
     "type": "#",
     "named": false
   },
@@ -3227,10 +3215,6 @@
   },
   {
     "type": "&",
-    "named": false
-  },
-  {
-    "type": "'",
     "named": false
   },
   {

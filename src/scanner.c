@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-typedef enum { NOT_SET, STR, PREPROC, COMMENT } StateType;
+typedef enum { NOT_SET, BLOCK_STR, SHORT_STR, PREPROC, COMMENT } StateType;
 
 typedef struct {
   uint32_t opening_eqs;
@@ -29,6 +29,10 @@ enum TokenType {
   BLOCK_PREPROC_STMT_START,
   BLOCK_PREPROC_STMT_CHAR,
   BLOCK_PREPROC_STMT_END,
+
+  SHORT_STRING_START,
+  SHORT_STRING_CHAR,
+  SHORT_STRING_END,
 
   BLOCK_STRING_START,
   BLOCK_STRING_CHAR,
@@ -148,7 +152,7 @@ static bool scan_multiline_string_start(State *state, TSLexer *lexer) {
   reset_state(state);
   uint32_t eqs = consume_eqs(lexer);
   EXPECT('[');
-  state->state_type = STR;
+  state->state_type = BLOCK_STR;
   lexer->result_symbol = BLOCK_STRING_START;
   state->opening_eqs = eqs;
   return true;
@@ -161,6 +165,43 @@ static bool scan_multiline_string_char(State *state, TSLexer *lexer) {
   consume(lexer);
   lexer->result_symbol = BLOCK_STRING_CHAR;
   return true;
+}
+
+static bool scan_short_string_start(State *state, TSLexer *lexer) {
+  if ((lexer->lookahead == '"') || (lexer->lookahead == '\'')) {
+    state->opening_quote = (char)lexer->lookahead;
+    state->state_type = SHORT_STR;
+    consume(lexer);
+    lexer->result_symbol = SHORT_STRING_START;
+    return true;
+  }
+  return false;
+}
+
+static bool scan_short_string_end(State *state, TSLexer *lexer) {
+  if (state->state_type == SHORT_STR &&
+      lexer->lookahead == state->opening_quote) {
+    consume(lexer);
+    lexer->result_symbol = SHORT_STRING_END;
+    reset_state(state);
+    return true;
+  }
+  return false;
+}
+
+static bool scan_short_string_char(State *state, TSLexer *lexer) {
+  if (scan_short_string_end(state, lexer)) {
+    return true;
+  }
+  if (state->state_type == SHORT_STR && state->opening_quote > 0 &&
+      lexer->lookahead != state->opening_quote && lexer->lookahead != '\n' &&
+      lexer->lookahead != '\r' && lexer->lookahead != '\\') {
+    consume(lexer);
+    lexer->result_symbol = SHORT_STRING_CHAR;
+    return true;
+  }
+  lexer->mark_end(lexer);
+  return false;
 }
 
 static inline bool is_ascii_whitespace(uint32_t chr) {
@@ -178,11 +219,16 @@ static inline bool is_ascii_whitespace(uint32_t chr) {
 bool tree_sitter_nelua_external_scanner_scan(void *payload, TSLexer *lexer,
                                              const bool *valid_symbols) {
   State *state = payload;
+  // printf("State type %d\n",state->state_type);
   if (lexer->eof(lexer))
     return false;
 
-  if (state->state_type == STR) {
+  if (state->state_type == BLOCK_STR) {
     return scan_multiline_string_char(state, lexer);
+  }
+
+  if (state->state_type == SHORT_STR) {
+    return scan_short_string_char(state, lexer);
   }
 
   if (state->state_type == PREPROC) {
@@ -195,6 +241,10 @@ bool tree_sitter_nelua_external_scanner_scan(void *payload, TSLexer *lexer,
 
   while (is_ascii_whitespace(lexer->lookahead))
     skip(lexer);
+
+  if (valid_symbols[SHORT_STRING_START] &&
+      scan_short_string_start(state, lexer))
+    return true;
 
   if (valid_symbols[BLOCK_STRING_START] &&
       scan_multiline_string_start(state, lexer))
