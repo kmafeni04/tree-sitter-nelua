@@ -532,22 +532,23 @@ module.exports = grammar({
     _true: () => "true",
     _false: () => "false",
 
-    number: (_) =>
-      seq(
-        choice(
-          /\d/,
-          /\d+/,
-          /[+-]?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?/,
-          /\d\d*\.\d+/,
-          /0[bB][01]+/,
-          /0[xX][0-9A-Fa-f]+/,
-          /0[xX][0-9A-Fa-f]+\.[0-9A-Fa-f]+p[+-]?\d+/,
-          /\d+_\a+/,
-          /'[a-zA-z]'_\w+/,
+    number: ($) =>
+      choice(
+        seq(
+          choice(
+            /\d/,
+            /\d+/,
+            /[+-]?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?/,
+            /\d\d*\.\d+/,
+            /0[bB][01]+/,
+            /0[xX][0-9A-Fa-f]+/,
+            /0[xX][0-9A-Fa-f]+\.[0-9A-Fa-f]+p[+-]?\d+/,
+            /\d+_\a+/,
+          ),
+          optional(token.immediate(seq("_", /\w+/))),
         ),
-        optional(token.immediate(seq("_", /\w+/))),
+        seq(alias($._qouted_string, $.char), token.immediate(seq("_", /\w+/))),
       ),
-
     comment: ($) =>
       choice(
         seq("--", alias(/[^\r\n]*/, $.comment_body)),

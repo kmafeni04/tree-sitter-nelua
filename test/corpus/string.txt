@@ -15,6 +15,21 @@ local x = "hello\n"
               (escape_sequence))))))
 
 =========
+string with block inside
+=========
+
+local x = "--[[]]"
+---
+
+(source_file
+      (declaration
+        (assignment_statement
+          (variable_list
+            (identifier))
+          (expression_list
+            (string)))))
+
+=========
 multiline escaped string
 =========
 

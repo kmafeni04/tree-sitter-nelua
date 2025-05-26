@@ -82,6 +82,8 @@
 
 (string) @string
 
+(char) @string
+
 (number) @constant
 
 [(type) (return_type)] @type
