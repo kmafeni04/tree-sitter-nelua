@@ -1,0 +1,87 @@
+=========
+function type
+=========
+
+local x: function(x: integer, y: sequence(hashmap(string, string))): boolean
+---
+
+(source_file
+  (declaration
+    (variable_list
+      (identifier)
+      (type
+        (function_type
+          (parameter
+            (identifier))
+          (type
+            (identifier))
+          (parameter
+            (identifier))
+          (type
+            (identifier)
+            (type
+              (identifier)
+              (type
+                (identifier))
+              (type
+                (identifier))))
+          (return_type
+            (type
+              (identifier))))))))
+
+=========
+function type with no identifiers
+=========
+
+local x: function(integer, sequence(hashmap(string, string))): boolean
+---
+
+(source_file
+      (declaration
+        (variable_list
+          (identifier)
+          (type
+            (function_type
+              (type
+                (identifier))
+              (type
+                (identifier)
+                (type
+                  (identifier)
+                  (type
+                    (identifier))
+                  (type
+                    (identifier))))
+              (return_type
+                (type
+                  (identifier))))))))
+
+=========
+subtypes
+=========
+
+local x: sequence(sequence(string))
+local y: sequence(hashmap(string, string))
+---
+
+(source_file
+      (declaration
+        (variable_list
+          (identifier)
+          (type
+            (identifier)
+            (type
+              (identifier)
+              (type
+                (identifier))))))
+      (declaration
+        (variable_list
+          (identifier)
+          (type
+            (identifier)
+            (type
+              (identifier)
+              (type
+                (identifier))
+              (type
+                (identifier)))))))

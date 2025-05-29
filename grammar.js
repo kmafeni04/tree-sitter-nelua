@@ -23,6 +23,7 @@ const EXPR_PREC = {
   TYPE: 2,
   CAST_TYPE: 2,
   VARIABLE: 2,
+  SUB_TYPE: 3, // Allows subtypes to be recognized e.g sequence(hashmap(string, string))
   FUNC_DEF: 3,
   PREFIX_NO_CALL: 3,
 };
@@ -63,7 +64,6 @@ module.exports = grammar({
     [$.array_type, $.array_type],
     [$._variable, $._prefix_expression],
     [$.type, $._prefix_expression],
-    [$.anon_function, $.function_type],
   ],
 
   rules: {
@@ -365,7 +365,7 @@ module.exports = grammar({
       ),
 
     _prefix_expression: ($) =>
-      prec(
+      prec.right(
         EXPR_PREC.PREFIX,
         choice(
           $._identifier,
@@ -424,16 +424,19 @@ module.exports = grammar({
       ),
     at_type: ($) => seq("@", $.type),
     type: ($) =>
-      prec(
+      prec.right(
         EXPR_PREC.TYPE,
         choice(
           $._identifier,
           $.dot_variable,
-          seq(
-            $._identifier,
-            "(",
-            list_seq(choice($.type, $._expression), ","),
-            ")",
+          prec(
+            EXPR_PREC.SUB_TYPE,
+            seq(
+              $._identifier,
+              "(",
+              list_seq(choice($.type, $._expression), ","),
+              ")",
+            ),
           ),
           $.array_type,
           $.record,
@@ -449,14 +452,16 @@ module.exports = grammar({
         "(",
         optional(
           list_seq(
-            seq(
-              optional(
+            choice(
+              prec(
+                2, // Allows for this to be preferred over the second choice
                 seq(
                   alias(
                     choice($._identifier, $.vararg_expression),
                     $.parameter,
                   ),
                   ":",
+                  $.type,
                 ),
               ),
               $.type,
@@ -468,7 +473,10 @@ module.exports = grammar({
         optional(seq(":", $.return_type)),
       ),
     array_type: ($) =>
-      seq(repeat1(seq("[", optional($._expression), "]")), $.type),
+      seq(
+        repeat1(seq("[", optional(choice($._identifier, $.number)), "]")),
+        $.type,
+      ),
     record: ($) =>
       seq(
         "record",
