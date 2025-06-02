@@ -371,10 +371,11 @@ module.exports = grammar({
           $._identifier,
           $.bracket_index_expression,
           $.parenthesized_expression,
-          $.dot_field,
           $.dot_variable,
-          $.function_call,
           $.cast_type,
+          seq("(", $.at_type, ")"),
+          $.dot_field,
+          $.function_call,
         ),
       ),
     _prefix_no_call_expression: ($) =>
@@ -385,6 +386,8 @@ module.exports = grammar({
           $.bracket_index_expression,
           $.parenthesized_expression,
           $.dot_variable,
+          $.cast_type,
+          seq("(", $.at_type, ")"),
         ),
       ),
 

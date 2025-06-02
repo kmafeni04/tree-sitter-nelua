@@ -704,6 +704,10 @@
       "required": true,
       "types": [
         {
+          "type": "at_type",
+          "named": true
+        },
+        {
           "type": "bracket_index_expression",
           "named": true
         },
@@ -751,7 +755,15 @@
       "required": true,
       "types": [
         {
+          "type": "at_type",
+          "named": true
+        },
+        {
           "type": "bracket_index_expression",
+          "named": true
+        },
+        {
+          "type": "cast_type",
           "named": true
         },
         {
@@ -1549,6 +1561,10 @@
       "required": true,
       "types": [
         {
+          "type": "at_type",
+          "named": true
+        },
+        {
           "type": "bracket_index_expression",
           "named": true
         },
@@ -1897,6 +1913,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "at_type",
+          "named": true
+        },
         {
           "type": "bracket_index_expression",
           "named": true

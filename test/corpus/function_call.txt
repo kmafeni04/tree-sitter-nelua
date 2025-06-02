@@ -233,3 +233,20 @@ x:y().z()
       (field
         (identifier)))))
 
+=========
+at type function
+=========
+
+(@test).z() 
+
+---
+
+(source_file
+      (function_call
+        (dot_variable
+          (at_type
+            (type
+              (identifier)))
+          (field
+            (identifier)))))
+
