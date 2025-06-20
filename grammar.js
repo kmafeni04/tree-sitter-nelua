@@ -314,16 +314,17 @@ module.exports = grammar({
     curly_brace_expression: ($) =>
       seq(
         "{",
-        choice(
-          list_seq($._expression, choice(",", ";")),
-          list_seq(
+        list_seq(
+          choice(
+            $._expression,
+
             seq(
               choice($._identifier, seq("[", $._expression, "]")),
               "=",
               $._expression,
             ),
-            choice(",", ";"),
           ),
+          choice(",", ";"),
         ),
         "}",
       ),
