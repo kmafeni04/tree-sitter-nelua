@@ -1548,7 +1548,7 @@
                   "value": "[a-zA-Z_][\\w_]*!"
                 },
                 "named": true,
-                "value": "preproc_expression"
+                "value": "macro_function"
               }
             ]
           },

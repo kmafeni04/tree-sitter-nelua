@@ -299,7 +299,7 @@ module.exports = grammar({
         seq(
           choice(
             choice($._prefix_expression, $.method_field),
-            alias(/[a-zA-Z_][\w_]*!/, $.preproc_expression),
+            alias(/[a-zA-Z_][\w_]*!/, $.macro_function),
           ),
           choice(
             seq("(", optional($.expression_list), ")"),

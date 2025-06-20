@@ -187,3 +187,5 @@
   ["#[" "]#" "#|" "|#"] @keyword.directive)
 
 (escape_sequence) @constant.character.escape
+
+(macro_function) @function.macro

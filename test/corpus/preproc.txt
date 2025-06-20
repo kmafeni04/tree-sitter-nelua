@@ -81,7 +81,7 @@ test!(a,b,c)
         (identifier)
         (identifier)))
     (function_call
-      (preproc_expression)
+      (macro_function)
       (expression_list
         (identifier)
         (identifier)

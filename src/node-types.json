@@ -1597,6 +1597,10 @@
           "named": true
         },
         {
+          "type": "macro_function",
+          "named": true
+        },
+        {
           "type": "method_field",
           "named": true
         },
@@ -3401,6 +3405,10 @@
   {
     "type": "local",
     "named": false
+  },
+  {
+    "type": "macro_function",
+    "named": true
   },
   {
     "type": "nil",
