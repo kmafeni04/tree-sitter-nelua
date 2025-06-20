@@ -316,7 +316,14 @@ module.exports = grammar({
         "{",
         choice(
           list_seq($._expression, choice(",", ";")),
-          list_seq(seq($._identifier, "=", $._expression), choice(",", ";")),
+          list_seq(
+            seq(
+              choice($._identifier, seq("[", $._expression, "]")),
+              "=",
+              $._expression,
+            ),
+            choice(",", ";"),
+          ),
         ),
         "}",
       ),
