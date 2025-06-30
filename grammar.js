@@ -77,7 +77,6 @@ module.exports = grammar({
         $.assignment_statement,
         $.return_statement,
         $.function_definition,
-        $.function_call,
         $.declaration,
         $.do_block,
         $.if_statement,
@@ -93,6 +92,7 @@ module.exports = grammar({
         $.fallthrough,
         $.break,
         $.injection_statement,
+        $._expression,
         ";",
       ),
 
@@ -317,7 +317,6 @@ module.exports = grammar({
         list_seq(
           choice(
             $._expression,
-
             seq(
               choice($._identifier, seq("[", $._expression, "]")),
               "=",

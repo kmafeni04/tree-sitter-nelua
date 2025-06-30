@@ -51,10 +51,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "function_call"
-        },
-        {
-          "type": "SYMBOL",
           "name": "declaration"
         },
         {
@@ -112,6 +108,10 @@
         {
           "type": "SYMBOL",
           "name": "injection_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
         },
         {
           "type": "STRING",

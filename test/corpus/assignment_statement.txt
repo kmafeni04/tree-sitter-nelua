@@ -14,7 +14,7 @@ x = 5
       (number))))
 
 =========
-_ number assignment statement
+number assignment statement
 =========
 
 x = 'A'_u8

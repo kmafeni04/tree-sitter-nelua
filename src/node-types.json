@@ -530,7 +530,27 @@
       "required": false,
       "types": [
         {
+          "type": "anon_function",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -538,7 +558,15 @@
           "named": true
         },
         {
+          "type": "cast_type",
+          "named": true
+        },
+        {
           "type": "continue",
+          "named": true
+        },
+        {
+          "type": "curly_brace_expression",
           "named": true
         },
         {
@@ -551,6 +579,14 @@
         },
         {
           "type": "do_block",
+          "named": true
+        },
+        {
+          "type": "dot_field",
+          "named": true
+        },
+        {
+          "type": "dot_variable",
           "named": true
         },
         {
@@ -578,11 +614,35 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "if_statement",
           "named": true
         },
         {
           "type": "injection_statement",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -598,7 +658,19 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
           "named": true
         },
         {
@@ -617,7 +689,27 @@
       "required": false,
       "types": [
         {
+          "type": "anon_function",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -625,7 +717,15 @@
           "named": true
         },
         {
+          "type": "cast_type",
+          "named": true
+        },
+        {
           "type": "continue",
+          "named": true
+        },
+        {
+          "type": "curly_brace_expression",
           "named": true
         },
         {
@@ -638,6 +738,14 @@
         },
         {
           "type": "do_block",
+          "named": true
+        },
+        {
+          "type": "dot_field",
+          "named": true
+        },
+        {
+          "type": "dot_variable",
           "named": true
         },
         {
@@ -665,11 +773,35 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "if_statement",
           "named": true
         },
         {
           "type": "injection_statement",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -685,7 +817,19 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
           "named": true
         },
         {
@@ -798,7 +942,27 @@
       "required": false,
       "types": [
         {
+          "type": "anon_function",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -806,7 +970,15 @@
           "named": true
         },
         {
+          "type": "cast_type",
+          "named": true
+        },
+        {
           "type": "continue",
+          "named": true
+        },
+        {
+          "type": "curly_brace_expression",
           "named": true
         },
         {
@@ -819,6 +991,14 @@
         },
         {
           "type": "do_block",
+          "named": true
+        },
+        {
+          "type": "dot_field",
+          "named": true
+        },
+        {
+          "type": "dot_variable",
           "named": true
         },
         {
@@ -846,11 +1026,35 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "if_statement",
           "named": true
         },
         {
           "type": "injection_statement",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -866,7 +1070,19 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
           "named": true
         },
         {
@@ -1379,7 +1595,27 @@
       "required": true,
       "types": [
         {
+          "type": "anon_function",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -1387,7 +1623,15 @@
           "named": true
         },
         {
+          "type": "cast_type",
+          "named": true
+        },
+        {
           "type": "continue",
+          "named": true
+        },
+        {
+          "type": "curly_brace_expression",
           "named": true
         },
         {
@@ -1400,6 +1644,14 @@
         },
         {
           "type": "do_block",
+          "named": true
+        },
+        {
+          "type": "dot_field",
+          "named": true
+        },
+        {
+          "type": "dot_variable",
           "named": true
         },
         {
@@ -1435,11 +1687,35 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "if_statement",
           "named": true
         },
         {
           "type": "injection_statement",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -1455,7 +1731,19 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
           "named": true
         },
         {
@@ -1474,7 +1762,27 @@
       "required": false,
       "types": [
         {
+          "type": "anon_function",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -1482,7 +1790,15 @@
           "named": true
         },
         {
+          "type": "cast_type",
+          "named": true
+        },
+        {
           "type": "continue",
+          "named": true
+        },
+        {
+          "type": "curly_brace_expression",
           "named": true
         },
         {
@@ -1495,6 +1811,14 @@
         },
         {
           "type": "do_block",
+          "named": true
+        },
+        {
+          "type": "dot_field",
+          "named": true
+        },
+        {
+          "type": "dot_variable",
           "named": true
         },
         {
@@ -1522,11 +1846,35 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "if_statement",
           "named": true
         },
         {
           "type": "injection_statement",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -1542,7 +1890,19 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
           "named": true
         },
         {
@@ -2362,7 +2722,27 @@
       "required": false,
       "types": [
         {
+          "type": "anon_function",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -2370,7 +2750,15 @@
           "named": true
         },
         {
+          "type": "cast_type",
+          "named": true
+        },
+        {
           "type": "continue",
+          "named": true
+        },
+        {
+          "type": "curly_brace_expression",
           "named": true
         },
         {
@@ -2383,6 +2771,14 @@
         },
         {
           "type": "do_block",
+          "named": true
+        },
+        {
+          "type": "dot_field",
+          "named": true
+        },
+        {
+          "type": "dot_variable",
           "named": true
         },
         {
@@ -2414,11 +2810,35 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "if_statement",
           "named": true
         },
         {
           "type": "injection_statement",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -2434,7 +2854,19 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
           "named": true
         },
         {
@@ -2468,7 +2900,27 @@
       "required": true,
       "types": [
         {
+          "type": "anon_function",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -2476,7 +2928,15 @@
           "named": true
         },
         {
+          "type": "cast_type",
+          "named": true
+        },
+        {
           "type": "continue",
+          "named": true
+        },
+        {
+          "type": "curly_brace_expression",
           "named": true
         },
         {
@@ -2489,6 +2949,14 @@
         },
         {
           "type": "do_block",
+          "named": true
+        },
+        {
+          "type": "dot_field",
+          "named": true
+        },
+        {
+          "type": "dot_variable",
           "named": true
         },
         {
@@ -2520,11 +2988,35 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "if_statement",
           "named": true
         },
         {
           "type": "injection_statement",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -2540,7 +3032,19 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
           "named": true
         },
         {
@@ -2559,7 +3063,27 @@
       "required": false,
       "types": [
         {
+          "type": "anon_function",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "at_type",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "bracket_index_expression",
           "named": true
         },
         {
@@ -2567,7 +3091,15 @@
           "named": true
         },
         {
+          "type": "cast_type",
+          "named": true
+        },
+        {
           "type": "continue",
+          "named": true
+        },
+        {
+          "type": "curly_brace_expression",
           "named": true
         },
         {
@@ -2580,6 +3112,14 @@
         },
         {
           "type": "do_block",
+          "named": true
+        },
+        {
+          "type": "dot_field",
+          "named": true
+        },
+        {
+          "type": "dot_variable",
           "named": true
         },
         {
@@ -2607,11 +3147,35 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "if_statement",
           "named": true
         },
         {
           "type": "injection_statement",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "preproc_expression",
           "named": true
         },
         {
@@ -2627,7 +3191,19 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "vararg_expression",
           "named": true
         },
         {
