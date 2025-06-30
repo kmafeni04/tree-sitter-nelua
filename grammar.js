@@ -401,11 +401,23 @@ module.exports = grammar({
     bracket_index_expression: ($) =>
       seq($._prefix_expression, "[", $._expression, "]"),
     dot_field: ($) =>
-      seq($._prefix_expression, ".", alias($._identifier, $.field)),
+      seq(
+        $._prefix_expression,
+        ".",
+        alias(field("field", $._identifier), $.field),
+      ),
     dot_variable: ($) =>
-      seq($._prefix_no_call_expression, ".", alias($._identifier, $.field)),
+      seq(
+        $._prefix_no_call_expression,
+        ".",
+        alias(field("field", $._identifier), $.field),
+      ),
     method_field: ($) =>
-      seq($._prefix_expression, ":", alias($._identifier, $.field)),
+      seq(
+        $._prefix_expression,
+        ":",
+        alias(field("field", $._identifier), $.field),
+      ),
 
     // Not sure where `preproc_expression` should actually be so added it here
     _identifier: ($) =>

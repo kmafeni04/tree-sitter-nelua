@@ -842,9 +842,20 @@
   {
     "type": "dot_field",
     "named": true,
-    "fields": {},
+    "fields": {
+      "field": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "field",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
@@ -865,10 +876,6 @@
         },
         {
           "type": "dot_variable",
-          "named": true
-        },
-        {
-          "type": "field",
           "named": true
         },
         {
@@ -893,9 +900,20 @@
   {
     "type": "dot_variable",
     "named": true,
-    "fields": {},
+    "fields": {
+      "field": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "field",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
@@ -912,10 +930,6 @@
         },
         {
           "type": "dot_variable",
-          "named": true
-        },
-        {
-          "type": "field",
           "named": true
         },
         {
@@ -2272,9 +2286,20 @@
   {
     "type": "method_field",
     "named": true,
-    "fields": {},
+    "fields": {
+      "field": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "field",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
@@ -2295,10 +2320,6 @@
         },
         {
           "type": "dot_variable",
-          "named": true
-        },
-        {
-          "type": "field",
           "named": true
         },
         {

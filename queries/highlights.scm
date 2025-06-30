@@ -88,30 +88,31 @@
 
 [(type) (return_type)] @type
 
+(type (identifier) @type)
+
+["@"] @operator
+
+(parameter
+  ((identifier) @variable.parameter
+  (#eq? @variable.parameter "self")))
+
+(parameter (identifier) @variable.parameter
+  (#match? @variable.parameter "^[A-Z][A-Z_0-9]*$"))
+
+((identifier) @variable.builtin
+ (#eq? @variable.builtin "self"))
+
+((identifier) @constant
+ (#match? @constant "^[A-Z][A-Z_0-9]*$"))
+
+(variable_list
+  (identifier) @variable)
+
 (annotation
   ["<"">"] @punctuation.brakcet)
 
 (annotation
   (identifier) @attribute)
-
-["@"] @operator
-
-(variable_list
-  ((identifier) @constant
-  (#match? @constant "^[A-Z][A-Z_0-9]*$")))
-
-(variable_list
-  ((identifier) @variable.builtin
-  (#eq? @variable.builtin "self")))
-
-(variable_list
-  (identifier) @variable)
-
-((identifier) @constant
- (#match? @constant "^[A-Z][A-Z_0-9]*$"))
-
-((identifier) @variable.builtin
- (#eq? @variable.builtin "self"))
 
 (record
    (record_field
@@ -143,10 +144,7 @@
 (function_definition
   (identifier) @function)
 
-(parameter) @variable.parameter
-
-(parameter (identifier) @variable.parameter
-  (#match? @variable.parameter "^[A-Z][A-Z_0-9]*$"))
+(parameter (identifier) @variable.parameter)
 
 (function_call
   (identifier) @function.builtin
@@ -162,22 +160,13 @@
   (preproc_expression) @function)
 
 (dot_field
-    (identifier) @variable)
-
-(dot_field
-    (field) @variable.other.member)
+    field: (field (identifier) @variable.other.member))
 
 (dot_variable
-    (identifier) @variable)
-
-(dot_variable
-    (field) @variable.other.member)
+    field: (field (identifier) @variable.other.member))
 
 (method_field
-    (identifier) @variable)
-
-(method_field
-    (field) @function.method)
+    field: (field (identifier) @function.method))
 
 (goto_location "::" @keyword.directive)
 
@@ -189,3 +178,5 @@
 (escape_sequence) @constant.character.escape
 
 (macro_function) @function.macro
+
+(identifier) @variable
